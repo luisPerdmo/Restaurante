@@ -1,3 +1,4 @@
+from Model.ConexionBD import ConexionDB
 from tkinter import messagebox
 
 class Usuario():
@@ -8,16 +9,22 @@ class Usuario():
         self._password = None
 
     # Getter y Setter 
-    def get_nombre(self):
+    def getNombre(self):
         return self.__nombre
-    def set_nombre(self, nombre):
+    def setNombre(self, nombre):
         self.__nombre = nombre
-    def get_rol(self):
+    def getRol(self):
         return self.__rol
-    def set_rol(self, rol):
+    def setRol(self, rol):
         self.__rol = rol
-    def get_password(self):
+    def getPassword(self):
         return self._password
-    def set_password(self, password):
+    def setPassword(self, password):
         self._password = password
+
+    def iniciarSesion(self, nombre, password, loggin):
+        miConexion = ConexionDB()
+        miConexion.crearConexion()
+        conexion = miConexion.getConection()
+        cursor = conexion.cursor()
 
