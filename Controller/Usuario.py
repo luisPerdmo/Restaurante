@@ -1,12 +1,13 @@
 from Model.ConexionBD import ConexionDB
 from tkinter import messagebox
+from View.GestionRegistrador import GestionRegistrador
 
 class Usuario():
 
     def __init__(self):
         self.__nombre = None
-        self.__rol = None
         self._password = None
+        self.__rol = None
 
     # Getter y Setter 
     def getNombre(self):
@@ -27,16 +28,19 @@ class Usuario():
         miConexion.crearConexion()
         conexion = miConexion.getConection()
         cursor = conexion.cursor()
-        cursor.execute("select * from usuario")
+        cursor.execute("Select * from usuario")
         listaUsuario = cursor.fetchall()
         for usuario in listaUsuario:
-            if(usuario[1] == nombre and usuario[2] == password):
+            print(f"Usuario en DB: {usuario[1]}, Contraseña en DB: {usuario[7]}, {usuario[6]}")
+            if(usuario[1] == nombre and usuario[7] == password):
                 self.nombre = usuario[1]
-                self.password = usuario[2]
-                self.rol = usuario[3]
-                if(usuario[3] == "Registrador"):
+                self.password = usuario[7]
+                self.rol = usuario[6]
+                if(usuario[6] == "Registrador"):
                     messagebox.showinfo("informacion", "Acceso Correcto Registrador")
-
+                    menuRegistrador = GestionRegistrador(loggin, self)
+                    return        
+        messagebox.showwarning("Advertencia", "El nombre de usuario y/o Password no existe, verifique e intente nuevamente!")
 
     def crearRegistrador(self, nombreUsu, apellidoUsu, emailUsu, cedulaUsu, passworUsu, rolUsu):
         miConexion = ConexionDB()
@@ -47,13 +51,12 @@ class Usuario():
         conexion.commit()
         miConexion.cerrarConexion()
 
-    def existeUsuario(self, emailUsu, cedulaUsu):
+    def existeUsuario(self, cedulaUsu):
         miConexion = ConexionDB()
         miConexion.crearConexion()
         conexion = miConexion.getConection()
         cursor = conexion.cursor()
-        cursor.execute("SELECT * FROM jugadores WHERE nombre = ? WHERE cedula = ?", (emailUsu, cedulaUsu))
-        conexion.commit()
+        cursor.execute("SELECT * FROM usuario WHERE cedula = ?", (cedulaUsu,))
         resultado = cursor.fetchone()
         miConexion.cerrarConexion()
         return resultado is not None

@@ -8,16 +8,10 @@ class Loggin():
     def crearRegistrador(self, event):
         CrearRegistrador(Usuario())
 
-    def validarCampos(self, event):
-        if(len(self.txtUsuario.get()) >= 5 and len(self.txtPassword.get()) >= 5):
-            if(len(self.txtUsuario.get()) <= 25 and len(self.txtPassword.get()) <= 25):
-                self.btnIngresar.config(state="normal")
-            elif(len(self.txtUsuario.get()) <= 25 and len(self.txtPassword.get()) >= 25):
-                self.txtPassword.delete(len(self.txtPassword.get())-1, END)
-            elif(len(self.txtUsuario.get()) >= 25 and len(self.txtPassword.get()) <= 25):
-                self.txtUsuario.delete(len(self.txtUsuario.get())-1, END)
-        else:
-            self.btnIngresar.config(state="disabled")
+    def ingresar(self, event):
+        miRegistrador = Usuario()
+        miRegistrador.iniciarSesion(self.txtUsuario.get(), self.txtPassword.get(), self.ventana)
+
 
     def validarUsuario(self, event):
         caracter = event.keysym
@@ -67,20 +61,18 @@ class Loggin():
         #Campo de Texto
         self.txtUsuario = tk.Entry(self.ventana)
         self.txtUsuario.place(relx=0.50, rely=0.38, anchor="center")
-        self.txtUsuario.bind("<KeyRelease>", self.validarCampos)
         self.txtUsuario.bind("<Key>", self.validarUsuario)
         Tooltip(self.txtUsuario, text="Ingrese su nombre de usuario. Debe tener entre 5 y 25 caracteres.")
 
         self.txtPassword = tk.Entry(self.ventana, show="*")
         self.txtPassword.place(relx=0.50, rely=0.55, anchor="center")
-        self.txtUsuario.bind("<KeyRelease>", self.validarCampos)
         Tooltip(self.txtPassword, text="Ingrese su contraseña. Debe tener entre 5 y 25 caracteres.")
 
         #Botones
         self.btnIngresar = tk.Button(self.ventana, text="Ingresar", width=6)
         self.btnIngresar.place(relx=0.34, rely=0.7, anchor="center")
         Tooltip(self.btnIngresar, text="Haga clic para iniciar sesión.")
-        self.btnCrear.bind("<Button-1>" , self.crearRegistrador)
+        self.btnIngresar.bind("<Button-1>" , self.ingresar)
 
         self.btnSalir = tk.Button(self.ventana, text="Salir", width=8)
         self.btnSalir.place(relx=0.64, rely=0.7, anchor="center")

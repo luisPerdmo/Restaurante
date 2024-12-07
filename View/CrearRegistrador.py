@@ -7,8 +7,11 @@ class CrearRegistrador():
 
     def guardarRegistrador(self, event):
         rol = "Registrador"
+        if self.Usuario.existeUsuario(self.txtCedula.get()):  
+            messagebox.showerror("Error", f"La cédula '{self.txtCedula.get()}' ya está registrada.")
+            return
         self.Usuario.crearRegistrador(self.txtNombres.get(), self.txtApellido.get(), self.txtEmail.get(), self.txtCedula.get(), self.txtPassword.get(), rol)
-        messagebox.showinfo("Confirmacion", "Nuevo Registrador registrado con exito!!")
+        messagebox.showinfo("Confirmación", "Nuevo Registrador registrado con éxito.")
 
     def salir(self, event):
         self.ventana.destroy()
