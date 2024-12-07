@@ -3,7 +3,12 @@ from tkinter import *
 from tkinter import messagebox
 from Tooltip import Tooltip
 
-class CrearUsuario():
+class CrearRegistrador():
+
+    def guardarRegistrador(self, event):
+        rol = "Registrador"
+        self.Usuario.crearRegistrador(self.txtNombres.get(), self.txtApellido.get(), self.txtEmail.get(), self.txtCedula.get(), self.txtPassword.get(), rol)
+        messagebox.showinfo("Confirmacion", "Nuevo Registrador registrado con exito!!")
 
     def salir(self, event):
         self.ventana.destroy()
@@ -12,18 +17,19 @@ class CrearUsuario():
             mensaje = (
                 "Formulario de registro de usuarios:\n\n"
                 "- Complete todos los campos obligatorios marcados con *.\n"
-                "- En el campo 'Rol', ingrese uno de los siguientes valores: Registrador, Mesero o Chef.\n"
                 "- Pulse 'Registrar' para guardar los datos.\n"
                 "- Pulse 'Limpiar' para borrar los campos.\n"
                 "- Pulse 'Salir' para cerrar esta ventana."
             )
             messagebox.showinfo("Ayuda", mensaje)
 
-    def __init__(self):
+    def __init__(self, Usuario):
         self.ventana = tk.Toplevel()
         self.ventana.title("Registro de Usuarios")
         self.ventana.configure(width=320, height=390)
         self.ventana.resizable(0,0)
+
+        self.Usuario = Usuario
 
         #Iconos
         self.iconoRegistrar = tk.PhotoImage(file=r"Restaurante/Src/registrar.png")
@@ -39,14 +45,14 @@ class CrearUsuario():
         self.lblNombres = tk.Label(self.ventana, text="Nombres*:")
         self.lblNombres.place(relx=0.34, rely=0.19, anchor="center")
 
-        self.lblCedula = tk.Label(self.ventana, text="Cedula*:")
-        self.lblCedula.place(relx=0.32, rely=0.31, anchor="center")
+        self.lblApellido = tk.Label(self.ventana, text="Apellido*:")
+        self.lblApellido.place(relx=0.32, rely=0.31, anchor="center")
 
         self.lblEmail = tk.Label(self.ventana, text="Email*:")
         self.lblEmail.place(relx=0.30, rely=0.44, anchor="center")
 
-        self.lblRol = tk.Label(self.ventana, text="Rol*:")
-        self.lblRol.place(relx=0.29, rely=0.57, anchor="center")
+        self.lblCedula = tk.Label(self.ventana, text="Cedula*:")
+        self.lblCedula.place(relx=0.32, rely=0.57, anchor="center")
 
         self.lblPassword = tk.Label(self.ventana, text="Password*:")
         self.lblPassword.place(relx=0.35, rely=0.70, anchor="center")
@@ -54,19 +60,19 @@ class CrearUsuario():
         #Campos de textos
         self.txtNombres = tk.Entry(self.ventana)
         self.txtNombres.place(relx=0.50, rely=0.24, anchor="center")
-        Tooltip(self.txtNombres, "Ingrese su nombre completo.")
+        Tooltip(self.txtNombres, "Ingrese su nombre .")
 
-        self.txtCedula = tk.Entry(self.ventana)
-        self.txtCedula.place(relx=0.50, rely=0.37, anchor="center")
-        Tooltip(self.txtCedula, "Ingrese su número de cédula (solo números).")
+        self.txtApellido = tk.Entry(self.ventana)
+        self.txtApellido.place(relx=0.50, rely=0.37, anchor="center")
+        Tooltip(self.txtApellido, "Ingrese su Apellido.")
 
         self.txtEmail = tk.Entry(self.ventana)
         self.txtEmail.place(relx=0.50, rely=0.50, anchor="center")
         Tooltip(self.txtEmail, "Ingrese un correo electrónico válido.")
 
-        self.txtRol = tk.Entry(self.ventana)
-        self.txtRol.place(relx=0.50, rely=0.63, anchor="center")
-        Tooltip(self.txtRol, "Rol permitido: Registrador, Mesero o Chef")
+        self.txtCedula = tk.Entry(self.ventana)
+        self.txtCedula.place(relx=0.50, rely=0.63, anchor="center")
+        Tooltip(self.txtCedula, "Ingrese su cedula.")
 
         self.txtPassword = tk.Entry(self.ventana)
         self.txtPassword.place(relx=0.50, rely=0.76, anchor="center")
@@ -75,6 +81,7 @@ class CrearUsuario():
         #Botones
         self.btnRegistart = tk.Button(self.ventana, image=self.iconoRegistrar, text="Registrar", width=85, compound="left")
         self.btnRegistart.place(relx=0.34, rely=0.87, anchor="center")
+        self.btnRegistart.bind("<Button-1>", self.guardarRegistrador)
         Tooltip(self.btnRegistart, "Registrar un nuevo usuario")
 
         self.btnLimpiar = tk.Button(self.ventana, image=self.iconoLimpiar, text="Limpiar", width=85, compound="left")

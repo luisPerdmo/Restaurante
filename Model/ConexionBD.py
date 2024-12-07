@@ -5,9 +5,9 @@ class ConexionDB():
     def __init__(self):
         self.__host = "localhost"
         self.__user = "root"
-        self.__password = "31181030"
+        self.__password = "P31181030"
         self.__port = 3308
-        self.__database = ""
+        self.__database = "Restaurante"
         self.__conection = None
 
     def crearConexion(self):
@@ -22,7 +22,7 @@ class ConexionDB():
         except sql.OperationalError as e:
             messagebox.showwarning("Advertencia", "Error de conexion al servidor de base de datos\nVerifique su conexion e internet o contacte al administrador del sistema...")
 
-    def cerrarConexio(self):
+    def cerrarConexion(self):
         if self.__conection:
             self.__conection.close()
             self.__conection = None

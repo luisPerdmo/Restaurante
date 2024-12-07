@@ -1,12 +1,12 @@
 import tkinter as tk
 from tkinter import *
 from Tooltip import Tooltip
-from View.CrearUsuario import CrearUsuario
+from Controller.Usuario import Usuario
+from View.CrearRegistrador import CrearRegistrador
 
 class Loggin():
-
-    def crearUsuario(self, event):
-        CrearUsuario()
+    def crearRegistrador(self, event):
+        CrearRegistrador(Usuario())
 
     def validarCampos(self, event):
         if(len(self.txtUsuario.get()) >= 5 and len(self.txtPassword.get()) >= 5):
@@ -80,16 +80,17 @@ class Loggin():
         self.btnIngresar = tk.Button(self.ventana, text="Ingresar", width=6)
         self.btnIngresar.place(relx=0.34, rely=0.7, anchor="center")
         Tooltip(self.btnIngresar, text="Haga clic para iniciar sesión.")
+        self.btnCrear.bind("<Button-1>" , self.crearRegistrador)
 
         self.btnSalir = tk.Button(self.ventana, text="Salir", width=8)
         self.btnSalir.place(relx=0.64, rely=0.7, anchor="center")
         self.btnSalir.bind("<Button-1>", self.salir)
         Tooltip(self.btnSalir, text="Haga clic para salir del programa.")
 
-        self.btnCrear = tk.Button(self.ventana, text="Crear Usuario", width=18)
+        self.btnCrear = tk.Button(self.ventana, text="Crear Registrador", width=18)
         self.btnCrear.place(relx=0.50, rely=0.8, anchor="center")
         Tooltip(self.btnCrear, text="Haga clic para crear un nuevo usuario.")
-        self.btnCrear.bind("<Button-1>" , self.crearUsuario)
+        self.btnCrear.bind("<Button-1>" , self.crearRegistrador)
 
         self.btnVer = tk.Label(self.ventana, image=self.iconoVer)
         self.btnVer.place(relx=0.85, rely=0.55, anchor="center")
