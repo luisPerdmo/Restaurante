@@ -14,13 +14,13 @@ class GestionRegistrador():
             self.btnBarra.place(relx=0.78, rely=0.05, anchor="center")
             self.btnGestionChef.place_forget()
             self.btnGestionMesero.place_forget()
-            self.btnGestionMesa.place_forget()  # Ocultar botón de gestión de mesas
+            self.btnGestionMesa.place_forget()  
         else:
             self.barra.configure(width=120)
             self.barraExpandida = True
             self.btnGestionChef.place(relx=0.01, rely=0.2, anchor="w")
             self.btnGestionMesero.place(relx=0.01, rely=0.3, anchor="w")
-            self.btnGestionMesa.place(relx=0.01, rely=0.4, anchor="w")  # Mostrar botón de gestión de mesas
+            self.btnGestionMesa.place(relx=0.01, rely=0.4, anchor="w") 
             self.btnBarra.place(relx=0.85, rely=0.05, anchor="center")
     
     # Funciones chef
@@ -41,7 +41,7 @@ class GestionRegistrador():
             self.menuMesa.add_command(label="Registrar Mesa", command=self.agregarMesa)
             self.menuMesa.add_separator()
             self.menuMesa.add_command(label="Eliminar Mesa", command=self.eliminarMesa)
-            self.menuMesa.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 70)
+            self.menuMesa.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 110)
 
     def agregarMesa(self):
         CrearMesa(self.usuario)  
