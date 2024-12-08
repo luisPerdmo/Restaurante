@@ -3,6 +3,7 @@ from tkinter import *
 from tkinter import messagebox
 from View.RegistrarChef import RegistrarChef
 from View.CrearMesa import CrearMesa  
+from View.EliminarMesa import EliminarMesa
 
 class GestionRegistrador():
 
@@ -39,10 +40,14 @@ class GestionRegistrador():
             self.menuMesa = tk.Menu(self.ventana)
             self.menuMesa.add_command(label="Registrar Mesa", command=self.agregarMesa)
             self.menuMesa.add_separator()
+            self.menuMesa.add_command(label="Eliminar Mesa", command=self.eliminarMesa)
             self.menuMesa.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 70)
 
     def agregarMesa(self):
         CrearMesa(self.usuario)  
+
+    def eliminarMesa(self):
+        EliminarMesa(self.usuario)
 
     def __init__(self, loggin, usuario):
         self.ventana = tk.Toplevel(loggin)

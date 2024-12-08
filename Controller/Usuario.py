@@ -79,3 +79,22 @@ class Usuario():
         resultado = cursor.fetchone()
         miConexion.cerrarConexion()
         return resultado is not None
+
+    def eliminarMesa(self, id_mesa):
+        miConexion = ConexionDB()
+        miConexion.crearConexion()
+        conexion = miConexion.getConection()
+        cursor = conexion.cursor()
+        cursor.execute("DELETE FROM mesa WHERE id_mesa = ?", (id_mesa,))
+        conexion.commit()
+        miConexion.cerrarConexion()
+
+    def buscarMesa(self, id_mesa):
+        miConexion = ConexionDB()
+        miConexion.crearConexion()
+        conexion = miConexion.getConection()
+        cursor = conexion.cursor()
+        cursor.execute("Select * from mesa WHERE id_mesa = ?", (id_mesa,))
+        mesas = cursor.fetchone()  
+        miConexion.cerrarConexion()
+        return mesas  
