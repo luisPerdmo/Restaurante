@@ -2,6 +2,7 @@ import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
 from View.RegistrarChef import RegistrarChef
+from View.CrearMesa import CrearMesa  
 
 class GestionRegistrador():
 
@@ -12,14 +13,16 @@ class GestionRegistrador():
             self.btnBarra.place(relx=0.78, rely=0.05, anchor="center")
             self.btnGestionChef.place_forget()
             self.btnGestionMesero.place_forget()
+            self.btnGestionMesa.place_forget()  # Ocultar botón de gestión de mesas
         else:
             self.barra.configure(width=120)
             self.barraExpandida = True
             self.btnGestionChef.place(relx=0.01, rely=0.2, anchor="w")
             self.btnGestionMesero.place(relx=0.01, rely=0.3, anchor="w")
+            self.btnGestionMesa.place(relx=0.01, rely=0.4, anchor="w")  # Mostrar botón de gestión de mesas
             self.btnBarra.place(relx=0.85, rely=0.05, anchor="center")
     
-    #funciones chef
+    # Funciones chef
     def crearMenuChef(self, event):
         if self.barraExpandida:
             self.menuChef = tk.Menu(self.ventana)
@@ -30,22 +33,32 @@ class GestionRegistrador():
     def agregarChef(self):
         RegistrarChef(self.ventana)
 
-    
+    # Función para mesas
+    def crearMenuMesa(self, event):
+        if self.barraExpandida:
+            self.menuMesa = tk.Menu(self.ventana)
+            self.menuMesa.add_command(label="Registrar Mesa", command=self.agregarMesa)
+            self.menuMesa.add_separator()
+            self.menuMesa.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 70)
+
+    def agregarMesa(self):
+        CrearMesa(self.usuario)  
+
     def __init__(self, loggin, usuario):
         self.ventana = tk.Toplevel(loggin)
-        self.ventana.title("Gestion de Registador")
+        self.ventana.title("Gestion de Registrador")
         self.ventana.configure(width=600, height=350)
-        self.ventana.resizable(0,0)
+        self.ventana.resizable(0, 0)
 
         self.usuario = usuario
 
         # Variable para saber si la barra está expandida
         self.barraExpandida = False
 
-        #Iconos 
+        # Iconos
         self.iconoBarra = tk.PhotoImage(file=r"Restaurante/Src/barra.png")
 
-        #Barra lateral
+        # Barra lateral
         self.barra = tk.Frame(self.ventana, width=70, height=348, bg="#CCD1D1")
         self.barra.place(relx=0.00, rely=0.5, anchor="w")
 
@@ -63,7 +76,10 @@ class GestionRegistrador():
         self.btnGestionMesero.place(relx=0.01, rely=0.3, anchor="w")
         self.btnGestionMesero.place_forget()
         self.btnGestionMesero.bind("<Button-1>", self.crearMenuChef)
-       
 
+        self.btnGestionMesa = tk.Label(self.barra, text="Gestionar Mesa")
+        self.btnGestionMesa.place(relx=0.01, rely=0.4, anchor="w")
+        self.btnGestionMesa.place_forget()
+        self.btnGestionMesa.bind("<Button-1>", self.crearMenuMesa)
 
         self.ventana.mainloop()

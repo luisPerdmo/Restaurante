@@ -60,3 +60,22 @@ class Usuario():
         resultado = cursor.fetchone()
         miConexion.cerrarConexion()
         return resultado is not None
+    
+    def crearMesa(self, idMe, cantidadCo, estadoMe):
+        miConexion = ConexionDB()
+        miConexion.crearConexion()
+        conexion = miConexion.getConection()
+        cursor = conexion.cursor()
+        cursor.execute("INSERT INTO mesa (id_mesa, cantidad_comensales, estado) VALUES (?, ?, ?)", (idMe, cantidadCo, estadoMe))
+        conexion.commit()
+        miConexion.cerrarConexion()
+
+    def existeMesa(self, idMesa):
+        miConexion = ConexionDB()
+        miConexion.crearConexion()
+        conexion = miConexion.getConection()
+        cursor = conexion.cursor()
+        cursor.execute("SELECT * FROM mesa WHERE id_mesa = ?", (idMesa,))
+        resultado = cursor.fetchone()
+        miConexion.cerrarConexion()
+        return resultado is not None
