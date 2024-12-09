@@ -19,10 +19,10 @@ class AgregarPlato():
             )
 
     def guardarPlato(self, event):
-        if not self.txtId.get() or not self.txtNombre.get() or not self.txt.Precio.get() or not self.txtCantidad.get() or not self.txtDescripcion.get():
+        if not self.txtId.get() or not self.txtNombre.get() or not self.txtPrecio.get() or not self.txtCantidad.get() or not self.txtDescripcion.get("1.0", tk.END).strip():
             messagebox.showerror("Error", "Por favor ingrese todos los valores en los campos obligatorios.")
             return 
-        for campo, nombreCampo in [(self.txtNombre.get(), "Nombre"), (self.txtDescripcion.get(), "Descripcion")]:
+        for campo, nombreCampo in [(self.txtNombre.get(), "Nombre")]:
             if not campo.replace(" ", "").isalpha():
                 messagebox.showerror("Error", f"El campo '{nombreCampo}' solo puede contener letras.")
                 return
@@ -39,7 +39,7 @@ class AgregarPlato():
             if self.usuario.existePlato(self.txtId.get()):
                 messagebox.showerror("Error", f"La ID '{self.txtId.get()}' ya está registrada.")
                 return
-            self.usuario.crearPlato(self.txtId.get(), self.txtNombre.get(), self.txtPrecio.get(), self.txtCantidad.get(), self.txtDescripcion.get())
+            self.usuario.crearPlato(self.txtId.get(), self.txtNombre.get(), self.txtPrecio.get(), self.txtCantidad.get(), self.txtDescripcion.get("1.0", tk.END).strip())
             messagebox.showinfo("Confirmación", "Mesa registrada con éxito.")
         except Exception as e:
             messagebox.showerror("Error", f"No se pudo registrar la mesa. Detalles: {e}")
@@ -70,7 +70,7 @@ class AgregarPlato():
                 self.txtCantidad.config(bg="#F8D7DA", fg="#000000")
         else:
             if event.widget == self.txtId:
-                self.txtid.config(bg="#ffffff", fg="#000000")
+                self.txtId.config(bg="#ffffff", fg="#000000")
             elif event.widget == self.txtPrecio:
                 self.txtPrecio.config(bg="#ffffff", fg="#000000")
             elif event.widget == self.txtCantidad:
@@ -93,7 +93,7 @@ class AgregarPlato():
         self.usuario = usuario
 
         #Iconos
-        self.iconoPlato = tk.PhotoImage(file=r"Restaurante/Src/palto.png")
+        self.iconoPlato = tk.PhotoImage(file=r"Restaurante/Src/plato.png")
         self.iconoLimpiar = tk.PhotoImage(file=r"Restaurante/Src/limpiar.png")
         self.iconoSalir = tk.PhotoImage(file=r"Restaurante/Src/salir.png")
         self.iconoAyuda = tk.PhotoImage(file=r"Restaurante/Src/ayuda.png")

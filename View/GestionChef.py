@@ -3,6 +3,7 @@ from tkinter import *
 from tkinter import messagebox
 from Tooltip import Tooltip
 
+from View.AgregarPlato import AgregarPlato
 from View.CambiarEstadoComanda import EnviarComanda
 
 class GestionChef():
@@ -28,8 +29,11 @@ class GestionChef():
     def crearMenuPlato(self, event):
         if self.barraExpandida:
             self.menuPlato = tk.Menu(self.ventana)
-            self.menuPlato.add_command(label="Agregar plato")
+            self.menuPlato.add_command(label="Agregar plato", command=self.agregarPlato)
             self.menuPlato.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 80)
+    
+    def agregarPlato(self):
+        AgregarPlato(self.usuario)
             
     def crearMenuComanda(self, event):
         if self.barraExpandida:
@@ -72,7 +76,7 @@ class GestionChef():
         self.btnGestionPlatos = tk.Label(self.barra, text="Gestionar Platos", bg="#ECFDEC")
         self.btnGestionPlatos.place(relx=0.01, rely=0.1, anchor="w")
         self.btnGestionPlatos.place_forget()
-        #self.btnGestionPlatos.bind("<Button-1>", self.crearMenuChef)
+        self.btnGestionPlatos.bind("<Button-1>", self.crearMenuPlato)
         Tooltip(self.btnGestionPlatos, "Registrar o eliminar un chef")
 
         self.btnGestionComanda = tk.Label(self.barra, text="Gestionar Comandas", bg="#ECFDEC")

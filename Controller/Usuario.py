@@ -172,16 +172,16 @@ class Usuario():
         miConexion.crearConexion()
         conexion = miConexion.getConection()
         cursor = conexion.cursor()
-        cursor.execute("INSERT INTO plato (id_plato, nombre, precio, cantidad disponible, descripcion) VALUES (?, ?, ?, ?, ?)", (id_plato, nombrePla, precioPla, cantidadPla, descripcionPla))
+        cursor.execute("INSERT INTO plato (id_plato, nombre, precio, cantidad_disponible, descripcion) VALUES (?, ?, ?, ?, ?)", (id_plato, nombrePla, precioPla, cantidadPla, descripcionPla))
         conexion.commit()
         miConexion.cerrarConexion()
 
-    def existeMesa(self, id):
+    def existePlato(self, id_plato):
         miConexion = ConexionDB()
         miConexion.crearConexion()
         conexion = miConexion.getConection()
         cursor = conexion.cursor()
-        cursor.execute("SELECT * FROM mesa WHERE id = ?", (id,))
+        cursor.execute("SELECT * FROM plato WHERE id_plato = ?", (id_plato,))
         resultado = cursor.fetchone()
         miConexion.cerrarConexion()
         return resultado is not None
