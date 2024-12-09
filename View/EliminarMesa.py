@@ -21,6 +21,7 @@ class EliminarMesa:
     def limpiarCampos(self, event):
         self.txtIdMesa.delete(0, tk.END)
         self.txtCantidadComensales.delete(0, tk.END)
+        self.txtEstado.delete(0, tk.END)
         self.txtCantidadComensales.config(bg="#ffffff")
         self.txtEstado.config(bg="#ffffff")
         self.txtEstado.config(state="disabled")

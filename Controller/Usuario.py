@@ -51,6 +51,15 @@ class Usuario():
         conexion.commit()
         miConexion.cerrarConexion()
 
+    def crearChef(self, nombreUsu, apellidoUsu, emailUsu, telefonoUsu, cedulaUsu, rolUsu):
+        miConexion = ConexionDB()
+        miConexion.crearConexion()
+        conexion = miConexion.getConection()
+        cursor = conexion.cursor()
+        cursor.execute("INSERT INTO usuario (nombre, apellido, email, telefono, cedula, rol) VALUES (?, ?, ?, ?, ?, ?)", (nombreUsu, apellidoUsu, emailUsu, telefonoUsu, cedulaUsu, rolUsu))
+        conexion.commit()
+        miConexion.cerrarConexion()
+
     def existeUsuario(self, cedulaUsu):
         miConexion = ConexionDB()
         miConexion.crearConexion()

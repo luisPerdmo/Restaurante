@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import *
 from tkinter import messagebox
-from View.RegistrarChef import RegistrarChef
+from View.CrearChef import CrearChef
 from View.CrearMesa import CrearMesa  
 from View.EliminarMesa import EliminarMesa
 
@@ -32,7 +32,8 @@ class GestionRegistrador():
             self.menuChef.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 40)
 
     def agregarChef(self):
-        RegistrarChef(self.ventana)
+        from Controller.Usuario import Usuario  
+        CrearChef(Usuario())
 
     # Función para mesas
     def crearMenuMesa(self, event):

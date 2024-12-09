@@ -5,7 +5,7 @@ from Tooltip import Tooltip
 
 class CrearRegistrador():
 
-    def limpiarCampos(self, event=None):
+    def limpiarCampos(self, event):
         self.txtNombres.delete(0, tk.END)
         self.txtApellido.delete(0, tk.END)
         self.txtEmail.delete(0, tk.END)
