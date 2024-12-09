@@ -87,7 +87,6 @@ class EliminarChef():
         except Exception as e:
             messagebox.showerror("Error", f"No se pudo eliminar el chef. Detalles: {e}")
 
-
     def salir(self, event):
         self.ventana.destroy()
 
@@ -174,7 +173,7 @@ class EliminarChef():
 
         self.btnSalir = tk.Button(self.ventana, image=self.iconoSalir, text="Salir", width=185, compound="left")
         self.btnSalir.place(relx=0.49, rely=0.93, anchor="center")
-        #self.btnSalir.bind("<Button-1>", self.salir)
+        self.btnSalir.bind("<Button-1>", self.salir)
         Tooltip(self.btnSalir, "Cerrar la ventana de registro")
 
         self.ventana.mainloop()
