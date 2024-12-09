@@ -58,13 +58,13 @@ class GestionRegistrador():
     def eliminarMesa(self):
         EliminarMesa(self.usuario)
 
-    def crearMenuChef(self, event):
+    def crearMenuMesero(self, event):
         if self.barraExpandida:
             self.menuChef = tk.Menu(self.ventana)
             self.menuChef.add_command(label="Registrar Mesero", command=self.agregarMesero)
             self.menuChef.add_separator()
             self.menuChef.add_command(label="Eliminar Mesero", command=self.eliminarMesero)
-            self.menuChef.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 40)
+            self.menuChef.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 80)
 
     def agregarMesero(self): 
         CrearMesero(self.usuario)
@@ -103,7 +103,7 @@ class GestionRegistrador():
         self.btnGestionMesero = tk.Label(self.barra, text="Gestionar Mesero")
         self.btnGestionMesero.place(relx=0.01, rely=0.3, anchor="w")
         self.btnGestionMesero.place_forget()
-        self.btnGestionMesero.bind("<Button-1>", self.crearMenuChef)
+        self.btnGestionMesero.bind("<Button-1>", self.crearMenuMesero)
 
         self.btnGestionMesa = tk.Label(self.barra, text="Gestionar Mesa")
         self.btnGestionMesa.place(relx=0.01, rely=0.4, anchor="w")
