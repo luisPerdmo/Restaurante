@@ -3,6 +3,8 @@ from tkinter import *
 from tkinter import messagebox
 from Tooltip import Tooltip
 
+from View.CambiarEstadoComanda import EnviarComanda
+
 class GestionChef():
     def toggleBarra(self, event):
         if self.barraExpandida:
@@ -22,6 +24,15 @@ class GestionChef():
             self.btnBarra.place(relx=0.89, rely=0.05, anchor="center")
             self.lblMenu = tk.Label(self.barra, text="Menu", bg="#ECFDEC", font=("Times", 20, "bold"))
             self.lblMenu.place(relx=0.43, rely=0.05, anchor="center")
+
+    def crearMenuComanda(self, event):
+        if self.barraExpandida:
+            self.menuComanda = tk.Menu(self.ventana)
+            self.menuComanda.add_command(label="Cambiar estado comanda", command=self.cambiarEstado)
+            self.menuComanda.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 80)
+
+    def cambiarEstado(self): 
+        EnviarComanda(self.usuario)
 
     def __init__(self, loggin, usuario):
         self.ventana = tk.Toplevel(loggin)
@@ -61,7 +72,7 @@ class GestionChef():
         self.btnGestionComanda = tk.Label(self.barra, text="Gestionar Comandas", bg="#ECFDEC")
         self.btnGestionComanda.place(relx=0.01, rely=0.3, anchor="w")
         self.btnGestionComanda.place_forget()
-        #self.btnGestionComanda.bind("<Button-1>", self.crearMenuMesero)
+        self.btnGestionComanda.bind("<Button-1>", self.crearMenuComanda)
         Tooltip(self.btnGestionComanda, "Registrar o eliminar un mesero")
 
         self.btnSalir = tk.Label(self.barra, text="Salir", bg="#ECFDEC")
