@@ -51,6 +51,7 @@ class Usuario():
         conexion.commit()
         miConexion.cerrarConexion()
 
+    #chef
     def crearChef(self, nombreUsu, apellidoUsu, emailUsu, telefonoUsu, cedulaUsu, rolUsu):
         miConexion = ConexionDB()
         miConexion.crearConexion()
@@ -59,6 +60,25 @@ class Usuario():
         cursor.execute("INSERT INTO usuario (nombre, apellido, email, telefono, cedula, rol) VALUES (?, ?, ?, ?, ?, ?)", (nombreUsu, apellidoUsu, emailUsu, telefonoUsu, cedulaUsu, rolUsu))
         conexion.commit()
         miConexion.cerrarConexion()
+
+    def eliminarChef(self, cedulaUsu):
+        miConexion = ConexionDB()
+        miConexion.crearConexion()
+        conexion = miConexion.getConection()
+        cursor = conexion.cursor()
+        cursor.execute("DELETE FROM usuario WHERE cedula = ?", (cedulaUsu,))
+        conexion.commit()
+        miConexion.cerrarConexion()
+
+    def buscarChef(self, cedulaUsu):
+        miConexion = ConexionDB()
+        miConexion.crearConexion()
+        conexion = miConexion.getConection()
+        cursor = conexion.cursor()
+        cursor.execute("Select * from usuario WHERE cedula = ?", (cedulaUsu,))
+        chef = cursor.fetchone()  
+        miConexion.cerrarConexion()
+        return chef  
 
     def existeUsuario(self, cedulaUsu):
         miConexion = ConexionDB()
@@ -70,6 +90,7 @@ class Usuario():
         miConexion.cerrarConexion()
         return resultado is not None
     
+    #Mesa
     def crearMesa(self, idMe, cantidadCo, estadoMe):
         miConexion = ConexionDB()
         miConexion.crearConexion()
