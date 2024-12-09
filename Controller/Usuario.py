@@ -1,12 +1,14 @@
 from Model.ConexionBD import ConexionDB
 from tkinter import messagebox
 from View.GestionRegistrador import GestionRegistrador
+from View.GestionChef import GestionChef
 
 class Usuario():
 
     def __init__(self):
         self.__nombre = None
-        self._password = None
+        self.__password = None
+        self.__cedula = None
         self.__rol = None
 
     # Getter y Setter 
@@ -19,9 +21,13 @@ class Usuario():
     def setRol(self, rol):
         self.__rol = rol
     def getPassword(self):
-        return self._password
+        return self.__password
     def setPassword(self, password):
-        self._password = password
+        self.__password = password
+    def getCedula(self):
+        return self.__cedula
+    def setCedula(self, cedula):
+        self.__cedula = cedula
 
     def iniciarSesion(self, nombre, password, loggin):
         miConexion = ConexionDB()
@@ -31,7 +37,6 @@ class Usuario():
         cursor.execute("Select * from usuario")
         listaUsuario = cursor.fetchall()
         for usuario in listaUsuario:
-            print(f"Usuario en DB: {usuario[1]}, Contraseña en DB: {usuario[7]}, {usuario[6]}")
             if(usuario[1] == nombre and usuario[7] == password):
                 self.nombre = usuario[1]
                 self.password = usuario[7]
@@ -39,7 +44,15 @@ class Usuario():
                 if(usuario[6] == "Registrador"):
                     messagebox.showinfo("informacion", "Acceso Correcto Registrador")
                     menuRegistrador = GestionRegistrador(loggin, self)
-                    return        
+                    return   
+            elif(usuario[1] == nombre and usuario[5] == password):
+                self.nombre = usuario[1]
+                self.password = usuario[7]
+                self.rol = usuario[6]
+                if(usuario[6] == "Chef"):
+                    messagebox.showinfo("informacion", "Acceso correcto Chef")
+                    menuChef = GestionChef(loggin, self)
+                    return
         messagebox.showwarning("Advertencia", "El nombre de usuario y/o Password no existe, verifique e intente nuevamente!")
 
     def crearRegistrador(self, nombreUsu, apellidoUsu, emailUsu, cedulaUsu, passworUsu, rolUsu):
