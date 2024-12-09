@@ -8,7 +8,6 @@ class Usuario():
     def __init__(self):
         self.__nombre = None
         self.__password = None
-        self.__cedula = None
         self.__rol = None
 
     # Getter y Setter 
@@ -24,10 +23,6 @@ class Usuario():
         return self.__password
     def setPassword(self, password):
         self.__password = password
-    def getCedula(self):
-        return self.__cedula
-    def setCedula(self, cedula):
-        self.__cedula = cedula
 
     def iniciarSesion(self, nombre, password, loggin):
         miConexion = ConexionDB()
@@ -170,4 +165,24 @@ class Usuario():
         mesero = cursor.fetchone()  
         miConexion.cerrarConexion()
         return mesero
+    
+    #Plato
+    def crearPlato(self, id_plato, nombrePla, precioPla, cantidadPla, descripcionPla):
+        miConexion = ConexionDB()
+        miConexion.crearConexion()
+        conexion = miConexion.getConection()
+        cursor = conexion.cursor()
+        cursor.execute("INSERT INTO plato (id_plato, nombre, precio, cantidad disponible, descripcion) VALUES (?, ?, ?, ?, ?)", (id_plato, nombrePla, precioPla, cantidadPla, descripcionPla))
+        conexion.commit()
+        miConexion.cerrarConexion()
+
+    def existeMesa(self, id):
+        miConexion = ConexionDB()
+        miConexion.crearConexion()
+        conexion = miConexion.getConection()
+        cursor = conexion.cursor()
+        cursor.execute("SELECT * FROM mesa WHERE id = ?", (id,))
+        resultado = cursor.fetchone()
+        miConexion.cerrarConexion()
+        return resultado is not None
     
