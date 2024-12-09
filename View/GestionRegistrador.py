@@ -5,6 +5,8 @@ from View.CrearChef import CrearChef
 from View.EliminarChef import EliminarChef
 from View.CrearMesa import CrearMesa  
 from View.EliminarMesa import EliminarMesa
+from View.CrearMesero import CrearMesero
+from View.EliminarMesero import EliminarMesero
 
 class GestionRegistrador():
 
@@ -55,6 +57,20 @@ class GestionRegistrador():
 
     def eliminarMesa(self):
         EliminarMesa(self.usuario)
+
+    def crearMenuChef(self, event):
+        if self.barraExpandida:
+            self.menuChef = tk.Menu(self.ventana)
+            self.menuChef.add_command(label="Registrar Mesero", command=self.agregarMesero)
+            self.menuChef.add_separator()
+            self.menuChef.add_command(label="Eliminar Mesero", command=self.eliminarMesero)
+            self.menuChef.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 40)
+
+    def agregarMesero(self): 
+        CrearMesero(self.usuario)
+
+    def eliminarMesero(self): 
+        EliminarMesero(self.usuario)
 
     def __init__(self, loggin, usuario):
         self.ventana = tk.Toplevel(loggin)

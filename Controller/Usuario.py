@@ -128,3 +128,32 @@ class Usuario():
         mesas = cursor.fetchone()  
         miConexion.cerrarConexion()
         return mesas  
+    
+    #Mesero
+    def crearMesero(self, nombreUsu, apellidoUsu, emailUsu, telefonoUsu, cedulaUsu, rolUsu):
+        miConexion = ConexionDB()
+        miConexion.crearConexion()
+        conexion = miConexion.getConection()
+        cursor = conexion.cursor()
+        cursor.execute("INSERT INTO usuario (nombre, apellido, email, telefono, cedula, rol) VALUES (?, ?, ?, ?, ?, ?)", (nombreUsu, apellidoUsu, emailUsu, telefonoUsu, cedulaUsu, rolUsu))
+        conexion.commit()
+        miConexion.cerrarConexion()
+
+    def eliminarMesero(self, cedulaUsu):
+        miConexion = ConexionDB()
+        miConexion.crearConexion()
+        conexion = miConexion.getConection()
+        cursor = conexion.cursor()
+        cursor.execute("DELETE FROM usuario WHERE cedula = ?", (cedulaUsu,))
+        conexion.commit()
+        miConexion.cerrarConexion()
+
+    def buscarMesero(self, cedulaUsu):
+        miConexion = ConexionDB()
+        miConexion.crearConexion()
+        conexion = miConexion.getConection()
+        cursor = conexion.cursor()
+        cursor.execute("Select * from usuario WHERE cedula = ?", (cedulaUsu,))
+        mesero = cursor.fetchone()  
+        miConexion.cerrarConexion()
+        return mesero
