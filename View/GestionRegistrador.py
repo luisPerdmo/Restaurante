@@ -7,6 +7,7 @@ from View.CrearMesa import CrearMesa
 from View.EliminarMesa import EliminarMesa
 from View.CrearMesero import CrearMesero
 from View.EliminarMesero import EliminarMesero
+from View.InformeDiario import InformeDiario
 
 class GestionRegistrador():
 
@@ -18,12 +19,14 @@ class GestionRegistrador():
             self.btnGestionChef.place_forget()
             self.btnGestionMesero.place_forget()
             self.btnGestionMesa.place_forget()  
+            self.btnGestionComanda.place_forget()
         else:
             self.barra.configure(width=120)
             self.barraExpandida = True
             self.btnGestionChef.place(relx=0.01, rely=0.2, anchor="w")
             self.btnGestionMesero.place(relx=0.01, rely=0.3, anchor="w")
-            self.btnGestionMesa.place(relx=0.01, rely=0.4, anchor="w") 
+            self.btnGestionMesa.place(relx=0.01, rely=0.4, anchor="w")
+            self.btnGestionComanda.place(relx=0.01, rely=0.5, anchor="w")
             self.btnBarra.place(relx=0.85, rely=0.05, anchor="center")
     
     # Funciones chef
@@ -58,17 +61,29 @@ class GestionRegistrador():
 
     def crearMenuMesero(self, event):
         if self.barraExpandida:
-            self.menuChef = tk.Menu(self.ventana)
-            self.menuChef.add_command(label="Registrar Mesero", command=self.agregarMesero)
-            self.menuChef.add_separator()
-            self.menuChef.add_command(label="Eliminar Mesero", command=self.eliminarMesero)
-            self.menuChef.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 80)
+            self.menuMesero = tk.Menu(self.ventana)
+            self.menuMesero.add_command(label="Registrar Mesero", command=self.agregarMesero)
+            self.menuMesero.add_separator()
+            self.menuMesero.add_command(label="Eliminar Mesero", command=self.eliminarMesero)
+            self.menuMesero.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 80)
 
     def agregarMesero(self): 
         CrearMesero(self.usuario)
 
     def eliminarMesero(self): 
         EliminarMesero(self.usuario)
+
+    def crearMenuComada(self, event):
+        if self.barraExpandida:
+            self.menuComada = tk.Menu(self.ventana, tearoff=0)
+            self.menuComada.add_command(label="Crear informe diario", command=self.informeDiario)
+            self.menuComada.add_separator()
+            self.menuComada.add_command(label="Calcular precio total")
+            self.menuComada.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 160)
+
+         
+    def informeDiario(self):
+        InformeDiario(self.usuario)
 
     def __init__(self, loggin, usuario):
         self.ventana = tk.Toplevel(loggin)
@@ -107,5 +122,10 @@ class GestionRegistrador():
         self.btnGestionMesa.place(relx=0.01, rely=0.4, anchor="w")
         self.btnGestionMesa.place_forget()
         self.btnGestionMesa.bind("<Button-1>", self.crearMenuMesa)
+
+        self.btnGestionComanda = tk.Label(self.barra, text="Gestionar Comandas")
+        self.btnGestionComanda.place(relx=0.01, rely=0.5, anchor="w")
+        self.btnGestionComanda.place_forget()
+        self.btnGestionComanda.bind("<Button-1>", self.crearMenuComada)
 
         self.ventana.mainloop()
