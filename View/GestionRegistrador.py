@@ -35,13 +35,11 @@ class GestionRegistrador():
             self.menuChef.add_command(label="Eliminar Chef", command=self.eliminarChef)
             self.menuChef.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 40)
 
-    def agregarChef(self):
-        from Controller.Usuario import Usuario  
-        CrearChef(Usuario())
+    def agregarChef(self):  
+        CrearChef(self.usuario)
 
-    def eliminarChef(self):
-        from Controller.Usuario import Usuario  
-        EliminarChef(Usuario())
+    def eliminarChef(self):  
+        EliminarChef(self.usuario)
 
     # Función para mesas
     def crearMenuMesa(self, event):
