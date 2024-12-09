@@ -6,6 +6,11 @@ from Tooltip import Tooltip
 class EliminarChef():
 
     def limpiarCampos(self, event):
+        self.txtCedula.config(state="normal")
+        self.txtNombre.config(state="normal")
+        self.txtApellido.config(state="normal")
+        self.txtTelefono.config(state="normal")
+        self.txtEmail.config(state="normal")
         self.txtCedula.delete(0, tk.END)
         self.txtNombre.delete(0, tk.END)
         self.txtApellido.delete(0, tk.END)
@@ -16,6 +21,10 @@ class EliminarChef():
         self.txtApellido.config(bg="#ffffff")
         self.txtTelefono.config(bg="#ffffff")
         self.txtEmail.config(bg="#ffffff")
+        self.txtNombre.config(state="disabled")
+        self.txtApellido.config(state="disabled")
+        self.txtTelefono.config(state="disabled")
+        self.txtEmail.config(state="disabled")
 
     def buscarChef(self, event):
         if not self.txtCedula.get():
@@ -93,7 +102,7 @@ class EliminarChef():
 
     def __init__(self, Usuario):
         self.ventana = tk.Toplevel()
-        self.ventana.title("Gestion de Registador")
+        self.ventana.title("Eliminar Chef")
         self.ventana.configure(width=320, height=390)
         self.ventana.resizable(0,0)
 
@@ -107,7 +116,7 @@ class EliminarChef():
         self.iconoBuscar = tk.PhotoImage(file=r"Restaurante/Src/buscar.png")
 
         #Titulo
-        self.lblTitulo = tk.Label(self.ventana, text="Registrar Chef", font=("Times", 20, "bold"))
+        self.lblTitulo = tk.Label(self.ventana, text="Eliminar Chef", font=("Times", 20, "bold"))
         self.lblTitulo.place(relx=0.5, rely=0.08, anchor="center")
 
         #Textos

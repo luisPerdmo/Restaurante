@@ -19,12 +19,15 @@ class EliminarMesa:
         messagebox.showinfo("Ayuda - Eliminar Mesa", mensaje)
 
     def limpiarCampos(self, event):
+        self.txtEstado.config(state="normal")
+        self.txtCantidadComensales.config(state="normal")
         self.txtIdMesa.delete(0, tk.END)
         self.txtCantidadComensales.delete(0, tk.END)
         self.txtEstado.delete(0, tk.END)
         self.txtCantidadComensales.config(bg="#ffffff")
         self.txtEstado.config(bg="#ffffff")
         self.txtEstado.config(state="disabled")
+        self.txtCantidadComensales.config(state="disabled")
 
     def buscarMesa(self, event):
         if not self.txtIdMesa.get():
