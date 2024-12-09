@@ -25,6 +25,12 @@ class GestionChef():
             self.lblMenu = tk.Label(self.barra, text="Menu", bg="#ECFDEC", font=("Times", 20, "bold"))
             self.lblMenu.place(relx=0.43, rely=0.05, anchor="center")
 
+    def crearMenuPlato(self, event):
+        if self.barraExpandida:
+            self.menuPlato = tk.Menu(self.ventana)
+            self.menuPlato.add_command(label="Agregar plato")
+            self.menuPlato.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 80)
+            
     def crearMenuComanda(self, event):
         if self.barraExpandida:
             self.menuComanda = tk.Menu(self.ventana)
