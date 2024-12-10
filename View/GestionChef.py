@@ -5,7 +5,7 @@ from Tooltip import Tooltip
 
 from View.AgregarPlato import AgregarPlato
 from View.EliminarPlato import EliminarPlato
-from View.CambiarEstadoComanda import EnviarComanda
+from View.CambiarEstadoComanda import CambiarEstadoComanda
 
 class GestionChef():
     def toggleBarra(self, event):
@@ -48,7 +48,7 @@ class GestionChef():
             self.menuComanda.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 80)
 
     def cambiarEstado(self): 
-        EnviarComanda(self.usuario)
+        CambiarEstadoComanda(self.usuario)
 
     def __init__(self, loggin, usuario):
         self.ventana = tk.Toplevel(loggin)
