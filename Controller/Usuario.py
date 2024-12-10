@@ -205,3 +205,22 @@ class Usuario():
         miConexion.cerrarConexion()
         return mesero
     
+    def buscarComanda(self, id_comanda):
+        miConexion = ConexionDB()
+        miConexion.crearConexion()
+        conexion = miConexion.getConection()
+        cursor = conexion.cursor()
+        cursor.execute("Select * from comanda WHERE id_comanda = ?", (id_comanda,))
+        comanda = cursor.fetchone()  
+        miConexion.cerrarConexion()
+        return comanda 
+    
+    def cambiarComanda(self, id_comanda, nuevo_estado):
+        miConexion = ConexionDB()
+        miConexion.crearConexion()
+        conexion = miConexion.getConection()
+        cursor = conexion.cursor()
+        cursor.execute("Update comanda SET estado = ? WHERE id_comanda = ?", (nuevo_estado, id_comanda))
+        miConexion.cerrarConexion()
+
+    
