@@ -163,6 +163,7 @@ class EliminarMesero:
 
         self.btnSalir = tk.Button(self.ventana, image=self.iconoSalir, text="Salir", width=185, compound="left")
         self.btnSalir.place(relx=0.49, rely=0.93, anchor="center")
+        self.btnSalir.bind("<Button-1>", self.salir)
         Tooltip(self.btnSalir, "Cerrar la ventana de gestión")
 
         self.ventana.mainloop()
