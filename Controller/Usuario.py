@@ -205,6 +205,7 @@ class Usuario():
         miConexion.cerrarConexion()
         return mesero
     
+    #Comanda
     def buscarComanda(self, id_comanda):
         miConexion = ConexionDB()
         miConexion.crearConexion()

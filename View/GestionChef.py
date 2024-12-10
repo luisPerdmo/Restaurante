@@ -8,6 +8,29 @@ from View.EliminarPlato import EliminarPlato
 from View.CambiarEstadoComanda import CambiarEstadoComanda
 
 class GestionChef():
+
+    def mostrarAyuda(self, event):
+        ayudaTexto = (
+            "Instrucciones para usar la ventana de Gestión Chef:\n\n"
+            "- Barra lateral:\n"
+            "  * Haz clic en el icono de la barra para expandir o contraer el menú lateral.\n\n"
+            "- Gestión de Platos:\n"
+            "  * Haz clic en 'Gestionar Platos' para desplegar las opciones:\n"
+            "    - Agregar plato: Permite registrar un nuevo plato en el sistema.\n"
+            "    - Eliminar plato: Permite eliminar un plato existente del sistema.\n\n"
+            "- Gestión de Comandas:\n"
+            "  * Haz clic en 'Gestionar Comandas' para desplegar las opciones:\n"
+            "    - Cambiar estado comanda: Permite actualizar el estado de una comanda.\n\n"
+            "- Salir:\n"
+            "  * Haz clic en 'Salir' para cerrar la ventana de Gestión Chef.\n\n"
+            "Iconos adicionales:\n"
+            "- Ayuda: Haz clic en el icono de ayuda (esquina superior derecha) para consultar estas instrucciones.\n\n"
+            "Navegación:\n"
+            "- Usa el menú expandible en la barra lateral para acceder a las funcionalidades principales.\n\n"
+            "¡Gracias por usar la ventana de Gestión Chef!"
+        )
+        messagebox.showinfo("Ayuda - Gestión Chef", ayudaTexto)
+
     def toggleBarra(self, event):
         if self.barraExpandida:
             self.barra.configure(width=50)
@@ -27,6 +50,7 @@ class GestionChef():
             self.lblMenu = tk.Label(self.barra, text="Menu", bg="#D1EBFF", font=("Times", 20, "bold"))
             self.lblMenu.place(relx=0.43, rely=0.05, anchor="center")
 
+    #Plato
     def crearMenuPlato(self, event):
         if self.barraExpandida:
             self.menuPlato = tk.Menu(self.ventana)
@@ -40,7 +64,8 @@ class GestionChef():
 
     def eliminarPlato(self):
         EliminarPlato(self.usuario)
-            
+
+    #Comanda    
     def crearMenuComanda(self, event):
         if self.barraExpandida:
             self.menuComanda = tk.Menu(self.ventana)
@@ -49,6 +74,17 @@ class GestionChef():
 
     def cambiarEstado(self): 
         CambiarEstadoComanda(self.usuario)
+
+    #SAlir
+    def crearMenuSalir(self, event):
+        if self.barraExpandida:
+            self.menuSalir = tk.Menu(self.ventana, tearoff=0)
+            self.menuSalir.add_command(label="Salir", command=self.salir)
+            self.menuSalir.add_separator()
+            self.menuSalir.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 133)
+
+    def salir(self):
+        self.ventana.destroy()
 
     def __init__(self, loggin, usuario):
         self.ventana = tk.Toplevel(loggin)
@@ -83,23 +119,23 @@ class GestionChef():
         self.btnGestionPlatos.place(relx=0.01, rely=0.1, anchor="w")
         self.btnGestionPlatos.place_forget()
         self.btnGestionPlatos.bind("<Button-1>", self.crearMenuPlato)
-        Tooltip(self.btnGestionPlatos, "Registrar o eliminar un chef")
+        Tooltip(self.btnGestionPlatos, "Haz clic para gestionar los platos: agregar o eliminar platos.")
 
         self.btnGestionComanda = tk.Label(self.barra, text="Gestionar Comandas", bg="#D1EBFF")
         self.btnGestionComanda.place(relx=0.01, rely=0.3, anchor="w")
         self.btnGestionComanda.place_forget()
         self.btnGestionComanda.bind("<Button-1>", self.crearMenuComanda)
-        Tooltip(self.btnGestionComanda, "Registrar o eliminar un mesero")
+        Tooltip(self.btnGestionComanda, "Haz clic para gestionar las comandas: cambiar el estado de una comanda.")
 
         self.btnSalir = tk.Label(self.barra, text="Salir", bg="#D1EBFF")
         self.btnSalir.place(relx=0.01, rely=0.4, anchor="w")
         self.btnSalir.place_forget()
-        #self.btnSalir.bind("<Button-1>", self.crearMenuSalir)
+        self.btnSalir.bind("<Button-1>", self.crearMenuSalir)
         Tooltip(self.btnSalir, "Presione para salir de la ventana")
 
         self.btnAyuda = tk.Label(self.ventana, image=self.iconoAyuda)
         self.btnAyuda.place(relx=0.95, rely=0.05, anchor="center")
-        #self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
+        self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
         Tooltip(self.btnAyuda, "Obtener ayuda sobre la ventana")
 
 
