@@ -5,6 +5,22 @@ from Tooltip import Tooltip
 
 class EliminarPlato():
 
+    def mostrarAyuda(self, event=None):
+        ayuda = """
+        Bienvenido a la ventana de eliminación de platos.\n
+        Aquí puede buscar y eliminar platos registrados en el sistema:\n
+        1. Ingrese el ID del plato en el campo 'Id' y haga clic en 'Buscar' para obtener los detalles.n\
+        2. Revise los datos del plato en los campos no editables.n\n
+        3. Si desea eliminar el plato, haga clic en el botón 'Eliminar'.\n
+        4. Puede limpiar los campos haciendo clic en el botón 'Limpiar'.\n
+        Nota:\n
+        - El campo 'Id' es obligatorio y solo acepta números.\n
+        - Si el Id no existe, se mostrará un mensaje indicando que el plato no fue encontrado.\n
+        Para cerrar esta ventana, haga clic en el botón 'Salir'.\n
+        Si tiene dudas, no dude en contactar al administrador del sistema.\n
+        """
+        messagebox.showinfo("Ayuda", ayuda)
+
     def limpiarCampos(self, event):
         self.txtNombre.config(state="normal")
         self.txtPrecio.config(state="normal")
@@ -175,7 +191,7 @@ class EliminarPlato():
 
         self.btnAyuda = tk.Label(self.ventana, image=self.iconoAyuda)
         self.btnAyuda.place(relx=0.90, rely=0.07, anchor="center")
-        #self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
+        self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
         Tooltip(self.btnAyuda, "Obtener ayuda sobre el formulario")
         
         
