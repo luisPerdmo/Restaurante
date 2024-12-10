@@ -4,6 +4,7 @@ from tkinter import messagebox
 from Tooltip import Tooltip
 
 from View.AgregarPlato import AgregarPlato
+from View.EliminarPlato import EliminarPlato
 from View.CambiarEstadoComanda import EnviarComanda
 
 class GestionChef():
@@ -23,17 +24,22 @@ class GestionChef():
             self.btnGestionComanda.place(relx=0.01, rely=0.3, anchor="w")
             self.btnSalir.place(relx=0.01, rely=0.4, anchor="w")
             self.btnBarra.place(relx=0.89, rely=0.05, anchor="center")
-            self.lblMenu = tk.Label(self.barra, text="Menu", bg="#ECFDEC", font=("Times", 20, "bold"))
+            self.lblMenu = tk.Label(self.barra, text="Menu", bg="#9AD4FF", font=("Times", 20, "bold"))
             self.lblMenu.place(relx=0.43, rely=0.05, anchor="center")
 
     def crearMenuPlato(self, event):
         if self.barraExpandida:
             self.menuPlato = tk.Menu(self.ventana)
             self.menuPlato.add_command(label="Agregar plato", command=self.agregarPlato)
-            self.menuPlato.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 80)
+            self.menuPlato.add_separator()
+            self.menuPlato.add_command(label="Eliminar plato", command=self.eliminarPlato)
+            self.menuPlato.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 40)
     
     def agregarPlato(self):
         AgregarPlato(self.usuario)
+
+    def eliminarPlato(self):
+        EliminarPlato(self.usuario)
             
     def crearMenuComanda(self, event):
         if self.barraExpandida:
@@ -64,7 +70,7 @@ class GestionChef():
         self.iconoAyuda = tk.PhotoImage(file=r"Restaurante/Src/ayuda.png")
 
         # Barra lateral
-        self.barra = tk.Frame(self.ventana, width=50, height=348, bg="#ECFDEC")
+        self.barra = tk.Frame(self.ventana, width=50, height=348, bg="#9AD4FF")
         self.barra.place(relx=0.00, rely=0.5, anchor="w")
 
         # Botones
@@ -73,19 +79,19 @@ class GestionChef():
         self.btnBarra.bind("<Button-1>", self.toggleBarra)
         Tooltip(self.btnBarra, "Expandir o contraer el menú")
 
-        self.btnGestionPlatos = tk.Label(self.barra, text="Gestionar Platos", bg="#ECFDEC")
+        self.btnGestionPlatos = tk.Label(self.barra, text="Gestionar Platos", bg="#9AD4FF")
         self.btnGestionPlatos.place(relx=0.01, rely=0.1, anchor="w")
         self.btnGestionPlatos.place_forget()
         self.btnGestionPlatos.bind("<Button-1>", self.crearMenuPlato)
         Tooltip(self.btnGestionPlatos, "Registrar o eliminar un chef")
 
-        self.btnGestionComanda = tk.Label(self.barra, text="Gestionar Comandas", bg="#ECFDEC")
+        self.btnGestionComanda = tk.Label(self.barra, text="Gestionar Comandas", bg="#9AD4FF")
         self.btnGestionComanda.place(relx=0.01, rely=0.3, anchor="w")
         self.btnGestionComanda.place_forget()
         self.btnGestionComanda.bind("<Button-1>", self.crearMenuComanda)
         Tooltip(self.btnGestionComanda, "Registrar o eliminar un mesero")
 
-        self.btnSalir = tk.Label(self.barra, text="Salir", bg="#ECFDEC")
+        self.btnSalir = tk.Label(self.barra, text="Salir", bg="#9AD4FF")
         self.btnSalir.place(relx=0.01, rely=0.4, anchor="w")
         self.btnSalir.place_forget()
         #self.btnSalir.bind("<Button-1>", self.crearMenuSalir)

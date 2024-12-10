@@ -40,7 +40,7 @@ class AgregarPlato():
                 messagebox.showerror("Error", f"La ID '{self.txtId.get()}' ya está registrada.")
                 return
             self.usuario.crearPlato(self.txtId.get(), self.txtNombre.get(), self.txtPrecio.get(), self.txtCantidad.get(), self.txtDescripcion.get("1.0", tk.END).strip())
-            messagebox.showinfo("Confirmación", "Mesa registrada con éxito.")
+            messagebox.showinfo("Confirmación", "Plato registrada con éxito.")
         except Exception as e:
             messagebox.showerror("Error", f"No se pudo registrar la mesa. Detalles: {e}")
     

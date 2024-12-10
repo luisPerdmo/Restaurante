@@ -186,3 +186,22 @@ class Usuario():
         miConexion.cerrarConexion()
         return resultado is not None
     
+    def eliminarPlato(self, id_plato):
+        miConexion = ConexionDB()
+        miConexion.crearConexion()
+        conexion = miConexion.getConection()
+        cursor = conexion.cursor()
+        cursor.execute("DELETE FROM plato WHERE id_plato = ?", (id_plato,))
+        conexion.commit()
+        miConexion.cerrarConexion()
+
+    def buscarPlato(self, id_plato):
+        miConexion = ConexionDB()
+        miConexion.crearConexion()
+        conexion = miConexion.getConection()
+        cursor = conexion.cursor()
+        cursor.execute("Select * from plato WHERE id_plato = ?", (id_plato,))
+        mesero = cursor.fetchone()  
+        miConexion.cerrarConexion()
+        return mesero
+    
