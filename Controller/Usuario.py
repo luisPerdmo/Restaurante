@@ -129,7 +129,7 @@ class Usuario():
         miConexion.crearConexion()
         conexion = miConexion.getConection()
         cursor = conexion.cursor()
-        cursor.execute("DELETE FROM mesa WHERE id_mesa = ?", (id_mesa,))
+        cursor.execute("DELETE FROM mesa WHERE id_mesa = ? AND estado = 'Disponible'", (id_mesa,))
         conexion.commit()
         miConexion.cerrarConexion()
 

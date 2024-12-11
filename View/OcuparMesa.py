@@ -45,7 +45,7 @@ class OcuparMesa():
                 
                 self.estado_var.set(mesa[2])
                 self.btnOcupar.config(state="normal")
-                self.txtCantidadComensales.config(state="disabled")
+                self.txtCantidadComensales.config(state="normal")
                 self.cmbEstado.config(state="disabled")
                 messagebox.showinfo("Información", f"Mesa con ID {id_mesa} encontrada.")
                 self.cmbEstado.config(state="normal")

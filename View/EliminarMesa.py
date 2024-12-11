@@ -74,7 +74,7 @@ class EliminarMesa:
         try:
             mesa = self.obtenerMesa(id_mesa)
             if mesa:
-                if mesa[2] == "Ocupado": 
+                if mesa[2] == "Ocupada": 
                     messagebox.showwarning("Advertencia", "No se puede eliminar la mesa porque está ocupada.")
                 else:
                     self.usuario.eliminarMesa(id_mesa)
