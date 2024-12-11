@@ -109,7 +109,7 @@ class LiberarMesa():
         self.iconoLimpiar = tk.PhotoImage(file=r"Restaurante/Src/limpiar.png")
         self.iconoSalir = tk.PhotoImage(file=r"Restaurante/Src/salir.png")
         self.iconoAyuda = tk.PhotoImage(file=r"Restaurante/Src/ayuda.png")
-        self.iconoOcupar = tk.PhotoImage(file=r"Restaurante\Src\cambiar.png")
+        self.iconoLiberar = tk.PhotoImage(file=r"Restaurante/Src/mesa.png")
 
         # Título
         self.lblTitulo = tk.Label(self.ventana, text="Liberar Mesa", font=("Times", 20, "bold"))
@@ -138,7 +138,7 @@ class LiberarMesa():
 
         self.estado_var = tk.StringVar()
         self.cmbEstado = ttk.Combobox(self.ventana, textvariable=self.estado_var, values=["Disponible"])
-        self.cmbEstado.place(relx=0.50, rely=0.58, anchor="center")
+        self.cmbEstado.place(relx=0.50, rely=0.59, anchor="center")
         Tooltip(self.lblEstado, "Estado de la mesa: solo 'Disponible' para liberar.")
 
         # Botones
@@ -147,10 +147,10 @@ class LiberarMesa():
         self.btnBuscar.bind("<Button-1>", self.buscarMesa)
         Tooltip(self.btnBuscar, "Buscar mesa por ID")
 
-        self.btnOcupar = tk.Button(self.ventana, text="Ocupar", image=self.iconoOcupar, width=85, state="disabled", compound="left")
-        self.btnOcupar.place(relx=0.66, rely=0.74, anchor="center")
-        self.btnOcupar.bind("<Button-1>", self.cambiarEstado)
-        Tooltip(self.btnOcupar, "liberar Mesa")
+        self.btnLiberar = tk.Button(self.ventana, text="Liberar", image=self.iconoLiberar, width=85, state="disabled", compound="left")
+        self.btnLiberar.place(relx=0.66, rely=0.74, anchor="center")
+        self.btnLiberar.bind("<Button-1>", self.cambiarEstado)
+        Tooltip(self.btnLiberar, "liberar Mesa")
 
         self.btnLimpiar = tk.Button(self.ventana, text="Limpiar", image=self.iconoLimpiar, width=185, compound="left")
         self.btnLimpiar.place(relx=0.5, rely=0.81, anchor="center")

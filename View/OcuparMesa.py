@@ -138,7 +138,7 @@ class OcuparMesa():
 
         self.estado_var = tk.StringVar()
         self.cmbEstado = ttk.Combobox(self.ventana, textvariable=self.estado_var, values=["Ocupada"])
-        self.cmbEstado.place(relx=0.50, rely=0.58, anchor="center")
+        self.cmbEstado.place(relx=0.50, rely=0.59, anchor="center")
         Tooltip(self.lblEstado, "Seleccione el estado de la mesa.")
 
         # Botones
