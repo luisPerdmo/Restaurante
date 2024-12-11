@@ -6,6 +6,26 @@ from Tooltip import Tooltip
 
 class CrearCliente():
 
+    def guardarCliente(self, event):
+        if not self.txtCedula.get() or not self.txtNombre.get() or not self.txtApellido.get() or not self.txtTelefono.get() or not self.txtEmail.get():
+            messagebox.showerror("Error", "Por favor ingrese todos los valores en los campos obligatorios.")
+            return 
+        for campo, nombreCampo in [(self.txtNombre.get(), "Nombres"), (self.txtApellido.get(), "Apellido")] :
+            if not campo.replace(" ", "").isalpha():
+                messagebox.showerror("Error", f"El campo '{nombreCampo}' solo puede contener letras.")
+                return
+        if not self.txtCedula.get().isdigit():
+            messagebox.showerror("Error", "El campo 'Cédula' solo puede contener números.")
+            return
+        if not self.txtTelefono.get().isdigit():
+            messagebox.showerror("Error", "El campo 'Teléfono' solo puede contener números.")
+            return
+        if self.Usuario.existeUsuario(self.txtCedula.get()):  
+            messagebox.showerror("Error", f"La cédula '{self.txtCedula.get()}' ya está registrada.")
+            return
+        self.Usuario.crearCliente(self.txtCedula.get(),self.txtNombre.get(), self.txtApellido.get(), self.txtTelefono.get(), self.txtEmail.get())
+        messagebox.showinfo("Confirmación", "Nuevo Cliente registrado con éxito.")
+
     def mostrarAyuda(self, event):
         ayuda = """
         Formulario de Registro de Cliente:
@@ -124,7 +144,7 @@ class CrearCliente():
         #Botones
         self.btnRegistrar = tk.Button(self.ventana, image=self.iconoRegistrar, text="Registrar", width=85, compound="left")
         self.btnRegistrar.place(relx=0.34, rely=0.87, anchor="center")
-        #self.btnRegistrar.bind("<Button-1>", self.guardarMesero)
+        self.btnRegistrar.bind("<Button-1>", self.guardarCliente)
         Tooltip(self.btnRegistrar, "Registrar un nuevo cliente")
 
         self.btnLimpiar = tk.Button(self.ventana, image=self.iconoLimpiar, text="Limpiar", width=85, compound="left")

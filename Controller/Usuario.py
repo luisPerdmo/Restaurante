@@ -230,4 +230,31 @@ class Usuario():
         cursor.execute("Update comanda SET estado = ? WHERE id_comanda = ?", (nuevo_estado, id_comanda))
         miConexion.cerrarConexion()
 
+    #Cliente
+    def crearCliente(self, cedulaCli, nombreCli, apellidoCli, telefonoCli, emailCli):
+        miConexion = ConexionDB()
+        miConexion.crearConexion()
+        conexion = miConexion.getConection()
+        cursor = conexion.cursor()
+        cursor.execute("INSERT INTO cliente (cedula, nombre, apellido, telefono, email) VALUES (?, ?, ?, ?, ?)", (cedulaCli, nombreCli, apellidoCli, telefonoCli, emailCli))
+        conexion.commit()
+        miConexion.cerrarConexion()
+
+    def buscarCliente(self, cedulaUsu):
+        miConexion = ConexionDB()
+        miConexion.crearConexion()
+        conexion = miConexion.getConection()
+        cursor = conexion.cursor()
+        cursor.execute("Select * from cliente WHERE cedula = ?", (cedulaUsu,))
+        cliente = cursor.fetchone()  
+        miConexion.cerrarConexion()
+        return cliente
     
+    def eliminarCliente(self, cedulaUsu):
+        miConexion = ConexionDB()
+        miConexion.crearConexion()
+        conexion = miConexion.getConection()
+        cursor = conexion.cursor()
+        cursor.execute("DELETE FROM cliente WHERE cedula = ?", (cedulaUsu,))
+        conexion.commit()
+        miConexion.cerrarConexion()

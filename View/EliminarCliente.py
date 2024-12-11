@@ -29,6 +29,63 @@ class EliminarCliente():
         self.txtTelefono.config(bg="#ffffff")
         self.txtEmail.config(bg="#ffffff")
 
+    def buscarCliente(self, event):
+        if not self.txtCedula.get():
+            messagebox.showerror("Error", "Por favor ingrese la cédula.")
+            return
+        if not self.txtCedula.get().isdigit():
+            messagebox.showerror("Error", "El campo 'Cédula' solo puede contener números.")
+            return
+        cedula = int(self.txtCedula.get())
+        try:
+            cliente = self.obtenerCliente(cedula)
+            if cliente:
+                self.txtNombre.config(state="normal")
+                self.txtApellido.config(state="normal")
+                self.txtTelefono.config(state="normal")
+                self.txtEmail.config(state="normal")
+                self.txtNombre.delete(0, tk.END)
+                self.txtNombre.insert(0, cliente[1])  # Nombre
+                self.txtApellido.delete(0, tk.END)
+                self.txtApellido.insert(0, cliente[2])  # Apellido
+                self.txtTelefono.delete(0, tk.END)
+                self.txtTelefono.insert(0, cliente[3])  # Teléfono
+                self.txtEmail.delete(0, tk.END)
+                self.txtEmail.insert(0, cliente[4])  # Email
+                self.txtNombre.config(state="disabled")
+                self.txtApellido.config(state="disabled")
+                self.txtTelefono.config(state="disabled")
+                self.txtEmail.config(state="disabled") 
+                messagebox.showinfo("Información", f"Cliente con cédula {cedula} encontrado.")
+                self.btnEliminar.config(state="normal")
+            else:
+                messagebox.showinfo("Información", f"Cliente con cédula {cedula} no encontrado.")
+                self.btnEliminar.config(state="disabled")
+        except Exception as e:
+            messagebox.showerror("Error", f"Ocurrió un error al buscar el cliente. Detalles: {e}")
+
+    def obtenerCliente(self, cedula):
+        return self.Usuario.buscarCliente(cedula)
+
+    def eliminarCliente(self, event):
+        if not self.txtCedula.get():
+            messagebox.showerror("Error", "Por favor ingrese la cédula.")
+            return
+        if not self.txtCedula.get().isdigit():
+            messagebox.showerror("Error", "El campo 'Cédula' solo puede contener números.")
+            return
+        cedula = int(self.txtCedula.get())
+        cliente = self.obtenerCliente(cedula)
+        if not cliente:
+            messagebox.showinfo("Información", f"Cédula {cedula} no encontrada.")
+            return
+        try:
+            self.Usuario.eliminarCliente(cedula)
+            messagebox.showinfo("Confirmación", f"Cédula {cedula} eliminada con éxito.")
+            self.limpiarCampos(event)
+        except Exception as e:
+            messagebox.showerror("Error", f"No se pudo eliminar el cliente. Detalles: {e}")
+
     def salir(self, event):
         self.ventana.destroy()
 
@@ -85,32 +142,32 @@ class EliminarCliente():
         self.txtNombre = tk.Entry(self.ventana)
         self.txtNombre.place(relx=0.50, rely=0.37, anchor="center")
         self.txtNombre.config(state="disabled")
-        Tooltip(self.txtNombre, "Ingrese su nombre. Solo se permiten letras.")
+        Tooltip(self.txtNombre, "Nombre del cliente.")
 
         self.txtApellido = tk.Entry(self.ventana)
         self.txtApellido.place(relx=0.50, rely=0.50, anchor="center")
         self.txtApellido.config(state="disabled")
-        Tooltip(self.txtApellido, "Ingrese su apellido. Solo se permiten letras.")
+        Tooltip(self.txtApellido, "Apellido del cliente.")
 
         self.txtTelefono = tk.Entry(self.ventana)
         self.txtTelefono.place(relx=0.50, rely=0.63, anchor="center")
         self.txtTelefono.config(state="disabled")
-        Tooltip(self.txtTelefono, "Ingrese su número de teléfono. Solo se permiten números.")
+        Tooltip(self.txtTelefono, "Teléfono del cliente.")
 
         self.txtEmail = tk.Entry(self.ventana)
         self.txtEmail.place(relx=0.50, rely=0.76, anchor="center")
         self.txtEmail.config(state="disabled")
-        Tooltip(self.txtEmail, "Ingrese un correo electrónico válido en formato usuario@dominio.com.")
+        Tooltip(self.txtEmail, "Email del cliente.")
 
         # Botones
         self.btnBuscar = tk.Button(self.ventana, image=self.iconoBuscar, text="Buscar", width=85, compound="left")
         self.btnBuscar.place(relx=0.34, rely=0.87, anchor="center")
-        #self.btnBuscar.bind("<Button-1>", self.buscarMesero)
+        self.btnBuscar.bind("<Button-1>", self.buscarCliente)
         Tooltip(self.btnBuscar, "Buscar un cliente para eliminar")
 
         self.btnEliminar = tk.Button(self.ventana, image=self.iconoEliminar, text="Eliminar", width=85, compound="left")
         self.btnEliminar.place(relx=0.65, rely=0.87, anchor="center")
-        #self.btnEliminar.bind("<Button-1>", self.eliminarMesero)
+        self.btnEliminar.bind("<Button-1>", self.eliminarCliente)
         Tooltip(self.btnEliminar, "Eliminar al cliente seleccionado")
 
         self.btnSalir = tk.Button(self.ventana, image=self.iconoSalir, text="Salir", width=185, compound="left")
