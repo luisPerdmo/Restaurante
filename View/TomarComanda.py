@@ -79,8 +79,8 @@ class TomarComanda():
         self.txtPrecioTo.place(relx=0.50, rely=0.68, anchor="center")
 
         # Combobox para el estado
-        self.estado_var = tk.StringVar()
-        self.cmbEstado = ttk.Combobox(self.ventana, textvariable=self.estado_var, values=["en preparación", "servido"])
+        self.estado_var = tk.StringVar(value="Pendiente")
+        self.cmbEstado = ttk.Combobox(self.ventana, textvariable=self.estado_var, values=["Pendiente"])
         self.cmbEstado.place(relx=0.50, rely=0.79, anchor="center")
 
         # Botones
