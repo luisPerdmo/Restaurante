@@ -89,18 +89,13 @@ class ConsultarMesa():
         #self.btnBuscar.bind("<Button-1>", self.buscarMesa)
         Tooltip(self.btnBuscar, "Buscar mesa por ID")
 
-        self.btnEliminar = tk.Button(self.ventana, text="Eliminar", image=self.iconoEliminar, width=85, state="disabled", compound="left")
-        self.btnEliminar.place(relx=0.66, rely=0.74, anchor="center")
-       # self.btnEliminar.bind("<Button-1>", self.eliminarMesa)
-        Tooltip(self.btnEliminar, "Eliminar mesa")
-
-        self.btnLimpiar = tk.Button(self.ventana, text="Limpiar", image=self.iconoLimpiar, width=185, compound="left")
-        self.btnLimpiar.place(relx=0.5, rely=0.81, anchor="center")
+        self.btnLimpiar = tk.Button(self.ventana, text="Limpiar", image=self.iconoLimpiar, width=85, compound="left")
+        self.btnLimpiar.place(relx=0.66, rely=0.74, anchor="center")
         self.btnLimpiar.bind("<Button-1>", self.limpiarCampos)
         Tooltip(self.btnLimpiar, "Limpiar los campos del formulario")
 
         self.btnSalir = tk.Button(self.ventana, text="Salir", image=self.iconoSalir, width=185, compound="left")
-        self.btnSalir.place(relx=0.5, rely=0.88, anchor="center")
+        self.btnSalir.place(relx=0.5, rely=0.81, anchor="center")
         self.btnSalir.bind("<Button-1>", self.salir)
         Tooltip(self.btnSalir, "Cerrar la ventana de eliminación de mesas")
 

@@ -10,6 +10,7 @@ from View.OcuparMesa import OcuparMesa
 from View.LiberarMesa import LiberarMesa
 from View.AgregrarPlatoComanda import AgregarPlatoComanda
 from View.TomarComanda import TomarComanda
+from View.EliminarPlatoComando import EliminarPlatoComanda
 
 class GestionMesero():
 
@@ -75,9 +76,9 @@ class GestionMesero():
             self.menuComanda = tk.Menu(self.ventana)
             self.menuComanda.add_command(label="Tomar Comanda", command=self.tomarComanda)
             self.menuComanda.add_separator()
-            self.menuComanda.add_command(label="Agregar Comanda", command=self.agregarComanda)
+            self.menuComanda.add_command(label="Agregar plato Comanda", command=self.agregarComanda)
             self.menuComanda.add_separator()
-            #self.menuComanda.add_command(label="Liberar Mesa", command=self.liberarMesa)
+            self.menuComanda.add_command(label="Eliminar plato Comanda", command=self.eliminarPlatoCo)
             self.menuComanda.post(self.barra.winfo_rootx() + 85, self.barra.winfo_rooty() + 110)
 
     def tomarComanda(self):  
@@ -85,6 +86,9 @@ class GestionMesero():
 
     def agregarComanda(self):  
         AgregarPlatoComanda(self.usuario)
+
+    def eliminarPlatoCo(self):
+        EliminarPlatoComanda(self.usuario)
 
 
     #Salir
