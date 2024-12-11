@@ -11,6 +11,7 @@ from View.LiberarMesa import LiberarMesa
 from View.AgregrarPlatoComanda import AgregarPlatoComanda
 from View.TomarComanda import TomarComanda
 from View.EliminarPlatoComando import EliminarPlatoComanda
+from View.EnviarComanda import EnviarComanda
 
 class GestionMesero():
 
@@ -79,6 +80,8 @@ class GestionMesero():
             self.menuComanda.add_command(label="Agregar plato Comanda", command=self.agregarComanda)
             self.menuComanda.add_separator()
             self.menuComanda.add_command(label="Eliminar plato Comanda", command=self.eliminarPlatoCo)
+            self.menuComanda.add_separator()
+            self.menuComanda.add_command(label="Enviar Comanda", command=self.enviarComanda)
             self.menuComanda.post(self.barra.winfo_rootx() + 85, self.barra.winfo_rooty() + 110)
 
     def tomarComanda(self):  
@@ -90,6 +93,8 @@ class GestionMesero():
     def eliminarPlatoCo(self):
         EliminarPlatoComanda(self.usuario)
 
+    def enviarComanda(self):
+        EnviarComanda(self.usuario)
 
     #Salir
     def crearMenuSalir(self, event):
