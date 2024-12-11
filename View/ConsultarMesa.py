@@ -1,7 +1,3 @@
-
-
-
-
 import tkinter as tk
 from tkinter import messagebox
 from Tooltip import Tooltip
@@ -27,17 +23,12 @@ class ConsultarMesa():
                 self.txtEstado.insert(0, mesa[2])  
                 self.txtCantidadComensales.config(state="disabled")
                 self.txtEstado.config(state="disabled")
-                messagebox.showinfo("Información", f"Mesa {id_mesa} encontrada. Estado: {mesa[2]}")
-                if mesa[2] == "Disponible":  
-                    self.btnEliminar.config(state="normal")
-                else:
-                    self.btnEliminar.config(state="disabled") 
+                if mesa[2] == "Disponible":
+                    messagebox.showinfo("Información", f"Mesa {id_mesa} encontrada. Estado: {mesa[2]}")
             else:
                 messagebox.showinfo("Información", f"Mesa {id_mesa} no encontrada.")
-                self.btnEliminar.config(state="disabled")
         except Exception as e:
             messagebox.showerror("Error", f"No se pudo buscar la mesa. Detalles: {e}")
-            self.btnEliminar.config(state="disabled")
 
     def obtenerMesa(self, id_mesa):
         return self.usuario.buscarMesa(id_mesa)

@@ -9,18 +9,15 @@ class LiberarMesa():
         if not self.txtIdMesa.get():
             messagebox.showerror("Error", "Por favor ingrese el ID de la mesa.")
             return
-
         if not self.txtIdMesa.get().isdigit():
             messagebox.showerror("Error", "El campo 'ID de Mesa' solo puede contener números.")
             return
-
         id_mesa = int(self.txtIdMesa.get())
         nuevo_estado = self.estado_var.get()
 
         if not nuevo_estado:
             messagebox.showerror("Error", "Por favor seleccione un estado para la mesa.")
             return
-
         self.cambiarestadocomanda(id_mesa, nuevo_estado)
         messagebox.showinfo("Información", f"Se cambió el estado de la mesa a {nuevo_estado}")
 
@@ -47,7 +44,7 @@ class LiberarMesa():
                 self.cmbEstado.insert(0, "Disponible")  
                 
                 self.estado_var.set(mesa[2]) 
-                self.btnOcupar.config(state="normal")
+                self.btnLiberar.config(state="normal")
                 self.txtCantidadComensales.config(state="disabled")
                 self.cmbEstado.config(state="normal")
                 messagebox.showinfo("Información", f"Mesa con ID {id_mesa} encontrada.")
