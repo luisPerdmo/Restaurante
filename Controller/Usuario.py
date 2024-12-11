@@ -143,6 +143,14 @@ class Usuario():
         miConexion.cerrarConexion()
         return mesas  
     
+    def cambiarMesaEstado(self, id_mesa, nuevo_estado):
+        miConexion = ConexionDB()
+        miConexion.crearConexion()
+        conexion = miConexion.getConection()
+        cursor = conexion.cursor()
+        cursor.execute("Update mesa SET estado = ? WHERE id_mesa = ?", (nuevo_estado, id_mesa))
+        miConexion.cerrarConexion()
+    
     #Mesero
     def crearMesero(self, nombreUsu, apellidoUsu, emailUsu, telefonoUsu, cedulaUsu, rolUsu):
         miConexion = ConexionDB()

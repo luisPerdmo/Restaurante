@@ -1,8 +1,46 @@
+
+
+
+
 import tkinter as tk
 from tkinter import messagebox
 from Tooltip import Tooltip
 
 class ConsultarMesa():
+
+    def buscarMesa(self, event):
+        if not self.txtIdMesa.get():
+            messagebox.showerror("Error", "Por favor ingrese el ID de la mesa.")
+            return
+        if not self.txtIdMesa.get().isdigit():
+            messagebox.showerror("Error", "El campo 'ID de Mesa' solo puede contener números.")
+            return
+        id_mesa = int(self.txtIdMesa.get())
+        try:
+            mesa = self.obtenerMesa(id_mesa)
+            if mesa: 
+                self.txtCantidadComensales.config(state="normal")
+                self.txtEstado.config(state="normal")
+                self.txtCantidadComensales.delete(0, tk.END)
+                self.txtCantidadComensales.insert(0, mesa[1]) 
+                self.txtEstado.delete(0, tk.END)
+                self.txtEstado.insert(0, mesa[2])  
+                self.txtCantidadComensales.config(state="disabled")
+                self.txtEstado.config(state="disabled")
+                messagebox.showinfo("Información", f"Mesa {id_mesa} encontrada. Estado: {mesa[2]}")
+                if mesa[2] == "Disponible":  
+                    self.btnEliminar.config(state="normal")
+                else:
+                    self.btnEliminar.config(state="disabled") 
+            else:
+                messagebox.showinfo("Información", f"Mesa {id_mesa} no encontrada.")
+                self.btnEliminar.config(state="disabled")
+        except Exception as e:
+            messagebox.showerror("Error", f"No se pudo buscar la mesa. Detalles: {e}")
+            self.btnEliminar.config(state="disabled")
+
+    def obtenerMesa(self, id_mesa):
+        return self.usuario.buscarMesa(id_mesa)
 
     def mostrarAyuda(self, event):
         ayuda = """
@@ -86,16 +124,21 @@ class ConsultarMesa():
         # Botones
         self.btnBuscar = tk.Button(self.ventana, text="Buscar", image=self.iconoBuscar, width=85, compound="left")
         self.btnBuscar.place(relx=0.34, rely=0.74, anchor="center")
-        #self.btnBuscar.bind("<Button-1>", self.buscarMesa)
+        self.btnBuscar.bind("<Button-1>", self.buscarMesa)
         Tooltip(self.btnBuscar, "Buscar mesa por ID")
 
-        self.btnLimpiar = tk.Button(self.ventana, text="Limpiar", image=self.iconoLimpiar, width=85, compound="left")
-        self.btnLimpiar.place(relx=0.66, rely=0.74, anchor="center")
+        self.btnEliminar = tk.Button(self.ventana, text="Eliminar", image=self.iconoEliminar, width=85, state="disabled", compound="left")
+        self.btnEliminar.place(relx=0.66, rely=0.74, anchor="center")
+        #self.btnEliminar.bind("<Button-1>", self.eliminarMesa)
+        Tooltip(self.btnEliminar, "Eliminar mesa")
+
+        self.btnLimpiar = tk.Button(self.ventana, text="Limpiar", image=self.iconoLimpiar, width=185, compound="left")
+        self.btnLimpiar.place(relx=0.5, rely=0.81, anchor="center")
         self.btnLimpiar.bind("<Button-1>", self.limpiarCampos)
         Tooltip(self.btnLimpiar, "Limpiar los campos del formulario")
 
         self.btnSalir = tk.Button(self.ventana, text="Salir", image=self.iconoSalir, width=185, compound="left")
-        self.btnSalir.place(relx=0.5, rely=0.81, anchor="center")
+        self.btnSalir.place(relx=0.5, rely=0.88, anchor="center")
         self.btnSalir.bind("<Button-1>", self.salir)
         Tooltip(self.btnSalir, "Cerrar la ventana de eliminación de mesas")
 

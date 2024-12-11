@@ -1,8 +1,78 @@
 import tkinter as tk
+from tkinter import ttk
 from tkinter import messagebox
 from Tooltip import Tooltip
 
 class OcuparMesa():
+    
+    def cambiarEstado(self, event):
+        if not self.txtIdMesa.get():
+            messagebox.showerror("Error", "Por favor ingrese el ID de la mesa.")
+            return
+
+        if not self.txtIdMesa.get().isdigit():
+            messagebox.showerror("Error", "El campo 'ID de Mesa' solo puede contener números.")
+            return
+
+        id_mesa = int(self.txtIdMesa.get())
+        nuevo_estado = self.estado_var.get()
+
+        if not nuevo_estado:
+            messagebox.showerror("Error", "Por favor seleccione un estado para la mesa.")
+            return
+
+        self.cambiarestadocomanda(id_mesa, nuevo_estado)
+        messagebox.showinfo("Información", f"Se cambió el estado de la mesa a {nuevo_estado}")
+
+    def buscarMesa(self, event):
+        if not self.txtIdMesa.get():
+            messagebox.showerror("Error", "Por favor ingrese el ID de la mesa.")
+            return
+        
+        if not self.txtIdMesa.get().isdigit():
+            messagebox.showerror("Error", "El campo 'ID' solo puede contener números.")
+            return
+
+        id_mesa = int(self.txtIdMesa.get())
+        
+        try:
+            mesa = self.obtenerMesa(id_mesa)
+            if mesa:
+                self.txtCantidadComensales.config(state="normal")
+                self.txtCantidadComensales.delete(0, tk.END)
+                self.txtCantidadComensales.insert(0, mesa[1])  
+                
+                self.cmbEstado.config(state="normal")
+                self.cmbEstado.delete(0, tk.END)
+                self.cmbEstado.insert(0, mesa[2])  
+                
+                self.estado_var.set(mesa[2])
+                self.btnOcupar.config(state="normal")
+                self.txtCantidadComensales.config(state="disabled")
+                self.cmbEstado.config(state="disabled")
+                messagebox.showinfo("Información", f"Mesa con ID {id_mesa} encontrada.")
+                self.cmbEstado.config(state="normal")
+            else:
+                messagebox.showinfo("Información", f"Mesa con ID {id_mesa} no encontrada.")
+        except Exception as e:
+            messagebox.showerror("Error", f"Ocurrió un error al buscar la mesa. Detalles: {e}")
+
+    def obtenerMesa(self, id_mesa):
+        return self.Usuario.buscarMesa(id_mesa)
+    
+    def cambiarestadocomanda(self, id_mesa, nuevo_estado):
+        return self.Usuario.cambiarMesaEstado(id_mesa, nuevo_estado)
+
+    def limpiarCampos(self, event):
+        self.cmbEstado.config(state="normal")
+        self.txtCantidadComensales.config(state="normal")
+        self.txtIdMesa.delete(0, tk.END)
+        self.txtCantidadComensales.delete(0, tk.END)
+        self.cmbEstado.delete(0, tk.END)
+        self.txtCantidadComensales.config(bg="#ffffff")
+        self.cmbEstado.config(bg="#ffffff")
+        self.cmbEstado.config(state="disabled")
+        self.txtCantidadComensales.config(state="disabled")
 
     def mostrarAyuda(self, event):
         mensaje_ayuda = (
@@ -17,17 +87,6 @@ class OcuparMesa():
         )
         messagebox.showinfo("Ayuda", mensaje_ayuda)
 
-    def limpiarCampos(self, event):
-        self.txtEstado.config(state="normal")
-        self.txtCantidadComensales.config(state="normal")
-        self.txtIdMesa.delete(0, tk.END)
-        self.txtCantidadComensales.delete(0, tk.END)
-        self.txtEstado.delete(0, tk.END)
-        self.txtCantidadComensales.config(bg="#ffffff")
-        self.txtEstado.config(bg="#ffffff")
-        self.txtEstado.config(state="disabled")
-        self.txtCantidadComensales.config(state="disabled")
-
     def salir(self, event):
         self.ventana.destroy()
 
@@ -37,14 +96,13 @@ class OcuparMesa():
             event.widget.config(bg="#F8D7DA", fg="#000000")
         else:
             event.widget.config(bg="#ffffff", fg="#000000")
-
-    def __init__(self, usuario):
+    def __init__(self, Usuario):
         self.ventana = tk.Toplevel()
         self.ventana.title("Ocupar Mesa")
         self.ventana.configure(width=320, height=350)
         self.ventana.resizable(0, 0)
 
-        self.usuario = usuario
+        self.Usuario = Usuario
 
         #iconos
         self.iconoBuscar = tk.PhotoImage(file=r"Restaurante/Src/buscar.png")
@@ -78,20 +136,20 @@ class OcuparMesa():
         self.txtCantidadComensales.config(state="disabled")
         Tooltip(self.txtCantidadComensales, "La cantidad de comensales se muestra tras buscar la mesa.")
 
-        self.txtEstado = tk.Entry(self.ventana)
-        self.txtEstado.place(relx=0.50, rely=0.59, anchor="center")
-        self.txtEstado.config(state="disabled")
-        Tooltip(self.txtEstado, "El estado de la mesa se muestra tras buscarla.")
+        self.estado_var = tk.StringVar()
+        self.cmbEstado = ttk.Combobox(self.ventana, textvariable=self.estado_var, values=["Ocupada"])
+        self.cmbEstado.place(relx=0.50, rely=0.58, anchor="center")
+        Tooltip(self.lblEstado, "Seleccione el estado de la mesa.")
 
         # Botones
         self.btnBuscar = tk.Button(self.ventana, text="Buscar", image=self.iconoBuscar, width=85, compound="left")
         self.btnBuscar.place(relx=0.34, rely=0.74, anchor="center")
-        #self.btnBuscar.bind("<Button-1>", self.buscarMesa)
+        self.btnBuscar.bind("<Button-1>", self.buscarMesa)
         Tooltip(self.btnBuscar, "Buscar mesa por ID")
 
         self.btnOcupar = tk.Button(self.ventana, text="Ocupar", image=self.iconoOcupar, width=85, state="disabled", compound="left")
         self.btnOcupar.place(relx=0.66, rely=0.74, anchor="center")
-       # self.btnEliminar.bind("<Button-1>", self.eliminarMesa)
+        self.btnOcupar.bind("<Button-1>", self.cambiarEstado)
         Tooltip(self.btnOcupar, "Eliminar mesa")
 
         self.btnLimpiar = tk.Button(self.ventana, text="Limpiar", image=self.iconoLimpiar, width=185, compound="left")
