@@ -3,7 +3,7 @@ from tkinter import ttk
 from tkinter import messagebox
 from Tooltip import Tooltip
 
-class CambiarEstadoComanda:
+class CambiarEstadoComanda():
 
     def cambiarEstado(self, event):
         if not self.txtId.get():

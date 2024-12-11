@@ -7,6 +7,9 @@ from View.CrearCliente import CrearCliente
 from View.EliminarCliente import EliminarCliente
 from View.ConsultarMesa import ConsultarMesa
 from View.OcuparMesa import OcuparMesa
+from View.LiberarMesa import LiberarMesa
+from View.AgregrarPlatoComanda import AgregarPlatoComanda
+from View.TomarComanda import TomarComanda
 
 class GestionMesero():
 
@@ -46,13 +49,15 @@ class GestionMesero():
     def eliminarCliente(self):  
         EliminarCliente(self.usuario)
 
-    # Funciones cliente
+    # Funciones Mesa
     def crearMenuMesa(self, event):
         if self.barraExpandida:
             self.menuMesa = tk.Menu(self.ventana)
-            self.menuMesa.add_command(label="Registrar Cliente", command=self.consultarMesa)
+            self.menuMesa.add_command(label="Consultar Mesa", command=self.consultarMesa)
             self.menuMesa.add_separator()
-            self.menuMesa.add_command(label="Eliminar Cliente", command=self.ocuparMesa)
+            self.menuMesa.add_command(label="Ocupar Mesa", command=self.ocuparMesa)
+            self.menuMesa.add_separator()
+            self.menuMesa.add_command(label="Liberar Mesa", command=self.liberarMesa)
             self.menuMesa.post(self.barra.winfo_rootx() + 85, self.barra.winfo_rooty() + 80)
 
     def consultarMesa(self):  
@@ -61,7 +66,27 @@ class GestionMesero():
     def ocuparMesa(self):  
         OcuparMesa(self.usuario)
 
-    
+    def liberarMesa(self):  
+        LiberarMesa(self.usuario)
+
+     # Funciones comanda
+    def crearMenuComanda(self, event):
+        if self.barraExpandida:
+            self.menuComanda = tk.Menu(self.ventana)
+            self.menuComanda.add_command(label="Tomar Comanda", command=self.tomarComanda)
+            self.menuComanda.add_separator()
+            self.menuComanda.add_command(label="Agregar Comanda", command=self.agregarComanda)
+            self.menuComanda.add_separator()
+            #self.menuComanda.add_command(label="Liberar Mesa", command=self.liberarMesa)
+            self.menuComanda.post(self.barra.winfo_rootx() + 85, self.barra.winfo_rooty() + 110)
+
+    def tomarComanda(self):  
+        TomarComanda(self.usuario)
+
+    def agregarComanda(self):  
+        AgregarPlatoComanda(self.usuario)
+
+
     #Salir
     def crearMenuSalir(self, event):
         if self.barraExpandida:
@@ -111,10 +136,10 @@ class GestionMesero():
         self.btnGestionMesas.place_forget()
         self.btnGestionMesas.bind("<Button-1>", self.crearMenuMesa)
 
-        self.btnGestionComandas = tk.Label(self.barra, text="Gestionar Mesa", bg="#B0B0B0")
+        self.btnGestionComandas = tk.Label(self.barra, text="Gestionar Comanda", bg="#B0B0B0")
         self.btnGestionComandas.place(relx=0.01, rely=0.4, anchor="w")
         self.btnGestionComandas.place_forget()
-        #self.btnGestionComandas.bind("<Button-1>", self.crearMenuMesa)
+        self.btnGestionComandas.bind("<Button-1>", self.crearMenuComanda)
 
         self.btnSalir = tk.Label(self.barra, text="Salir", bg="#B0B0B0")
         self.btnSalir.place(relx=0.01, rely=0.5, anchor="w")
