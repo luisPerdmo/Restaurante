@@ -53,7 +53,7 @@ class GestionMesero():
             self.menuMesa.add_command(label="Registrar Cliente", command=self.consultarMesa)
             self.menuMesa.add_separator()
             self.menuMesa.add_command(label="Eliminar Cliente", command=self.ocuparMesa)
-            self.menuMesa.post(self.barra.winfo_rootx() + 85, self.barra.winfo_rooty() + 110)
+            self.menuMesa.post(self.barra.winfo_rootx() + 85, self.barra.winfo_rooty() + 80)
 
     def consultarMesa(self):  
         ConsultarMesa(self.usuario)
