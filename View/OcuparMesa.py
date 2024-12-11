@@ -27,14 +27,11 @@ class OcuparMesa():
     def buscarMesa(self, event):
         if not self.txtIdMesa.get():
             messagebox.showerror("Error", "Por favor ingrese el ID de la mesa.")
-            return
-        
+            return 
         if not self.txtIdMesa.get().isdigit():
             messagebox.showerror("Error", "El campo 'ID' solo puede contener números.")
             return
-
         id_mesa = int(self.txtIdMesa.get())
-        
         try:
             mesa = self.obtenerMesa(id_mesa)
             if mesa:

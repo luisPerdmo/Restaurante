@@ -144,12 +144,16 @@ class Usuario():
         return mesas  
     
     def cambiarMesaEstado(self, id_mesa, nuevo_estado):
-        miConexion = ConexionDB()
-        miConexion.crearConexion()
-        conexion = miConexion.getConection()
-        cursor = conexion.cursor()
-        cursor.execute("Update mesa SET estado = ? WHERE id_mesa = ?", (nuevo_estado, id_mesa))
-        miConexion.cerrarConexion()
+        try:
+            miConexion = ConexionDB()
+            miConexion.crearConexion()
+            conexion = miConexion.getConection()
+            cursor = conexion.cursor()
+            cursor.execute("UPDATE mesa SET estado = ? WHERE id_mesa = ?", (nuevo_estado, id_mesa))
+            conexion.commit() 
+        except Exception as e:
+            print(f"Error al intentar cambiar el estado: {e}")  
+            miConexion.cerrarConexion()
     
     #Mesero
     def crearMesero(self, nombreUsu, apellidoUsu, emailUsu, telefonoUsu, cedulaUsu, rolUsu):
