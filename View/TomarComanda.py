@@ -5,6 +5,116 @@ from Tooltip import Tooltip
 
 class TomarComanda():
 
+    def validar_cliente_mesa(self, event):
+        cedula = self.txtCedulaCli.get().strip()
+        mesa = self.txtMesa.get().strip()
+
+        if not cedula:
+            messagebox.showerror("Error", "La cédula del cliente es obligatoria.")
+            return
+
+        if not mesa.isdigit():
+            messagebox.showerror("Error", "El número de mesa debe ser numérico.")
+            return
+
+        no_mesa = int(mesa)
+
+        # Validar existencia del cliente y disponibilidad de la mesa usando la clase Usuario
+        cliente = self.Usuario.buscarCliente(cedula)
+        if not cliente:
+            messagebox.showerror("Error", "El cliente con esta cédula no existe.")
+            return
+
+        mesa_existente = self.Usuario.buscarMesa(no_mesa)
+        if not mesa_existente:
+            messagebox.showerror("Error", "La mesa especificada no existe.")
+            return
+
+        estado_mesa = mesa_existente[2].lower()  # Asumiendo que el estado está en la tercera columna
+        if estado_mesa != "ocupada":  # Aquí verificamos que la mesa esté ocupada
+            messagebox.showerror("Error", "La mesa especificada no está ocupada.")
+            return
+
+        # Si todo es válido, desbloquear el campo de platos
+        self.txtPlatos.config(state='normal')  # Desbloquea el campo de platos
+        self.txtCedulaCli.config(state='normal')  # Desbloquea el campo de cédula
+        self.txtMesa.config(state='normal')  # Desbloquea el campo de mesa
+        messagebox.showinfo("Validación exitosa", "Cliente y mesa válidos. Ahora puede ingresar los platos.")
+
+    def calcular_precio_total(self, event=None):
+        platos_str = self.txtPlatos.get().strip()
+        if not platos_str:
+            messagebox.showwarning("Advertencia", "Debe ingresar al menos un plato para calcular el precio total.")
+            return
+
+        try:
+            lista_platos = [int(id_plato) for id_plato in platos_str.split('-')]
+        except ValueError:
+            messagebox.showerror("Error", "Los platos deben ser una lista de números separados por guiones (ej. 1-2-3).")
+            return
+
+        # Verificar existencia de cada plato
+        for id_plato in lista_platos:
+            if not self.Usuario.existePlato(id_plato):
+                messagebox.showerror("Error", f"El plato con ID {id_plato} no existe.")
+                return
+        id_comanda = self.txtId.get().strip()
+        # Calcular el precio total usando la clase Usuario
+        precio_total = self.Usuario.tomarComanda(id_comanda, self.txtCedulaCli.get(), self.txtMesa.get(), lista_platos)
+
+        # Mostrar el precio total en el campo correspondiente
+        self.txtPrecioTo.config(state='normal')
+        self.txtPrecioTo.delete(0, tk.END)
+        self.txtPrecioTo.insert(0, f"{precio_total:.2f}")
+        self.txtPrecioTo.config(state='disabled')
+
+    def guardar_comanda(self):
+        id_comanda = self.txtId.get().strip()
+        cedula_cliente = self.txtCedulaCli.get().strip()
+        mesa = self.txtMesa.get().strip()
+        platos_str = self.txtPlatos.get().strip()
+        precio_total = self.txtPrecioTo.get().strip()
+
+        # Validaciones básicas
+        if not id_comanda:
+            messagebox.showerror("Error", "El ID de la comanda es obligatorio.")
+            return
+        if not id_comanda.isdigit():
+            messagebox.showerror("Error", "El ID de la comanda debe ser numérico.")
+            return
+        if not cedula_cliente:
+            messagebox.showerror("Error", "La cédula del cliente es obligatoria.")
+            return
+        if not mesa:
+            messagebox.showerror("Error", "El número de mesa es obligatorio.")
+            return
+        if not platos_str:
+            messagebox.showerror("Error", "Debe ingresar al menos un plato.")
+            return
+        if not precio_total:
+            messagebox.showerror("Error", "Debe calcular el precio total.")
+            return
+
+        id_comanda = int(id_comanda)
+        no_mesa = int(mesa)
+        lista_platos = [int(id_plato) for id_plato in platos_str.split('-')]
+
+        # Llamar al método tomarComanda de la clase Usuario para guardar la comanda
+        self.Usuario.tomarComanda(id_comanda, cedula_cliente, no_mesa, lista_platos)
+
+        # Resetear los campos después de guardar
+        self.limpiarcampos()
+
+    def limpiarcampos(self):
+        self.txtId.delete(0, tk.END)
+        self.txtCedulaCli.delete(0, tk.END)
+        self.txtMesa.delete(0, tk.END)
+        self.txtPlatos.config(state='disabled')  # Bloquea el campo de platos
+        self.txtPlatos.delete(0, tk.END)
+        self.txtPrecioTo.config(state='normal')
+        self.txtPrecioTo.delete(0, tk.END)
+        self.txtPrecioTo.config(state='disabled')
+
     def mostrarAyuda(self, event):
         mensaje_ayuda = (
             "Ayuda - Tomar Comanda:\n\n"
@@ -66,10 +176,10 @@ class TomarComanda():
         self.txtId.place(relx=0.50, rely=0.23, anchor="center")
         Tooltip(self.lblId, "Ingrese el ID de la comanda. Solo se permiten números.")
 
-        self.txtCedulaCli = tk.Entry(self.ventana, state='disabled')  
+        self.txtCedulaCli = tk.Entry(self.ventana)  
         self.txtCedulaCli.place(relx=0.50, rely=0.34, anchor="center")
 
-        self.txtMesa = tk.Entry(self.ventana, state='disabled') 
+        self.txtMesa = tk.Entry(self.ventana) 
         self.txtMesa.place(relx=0.50, rely=0.45, anchor="center")
 
         self.txtPlatos = tk.Entry(self.ventana, state='disabled')  
@@ -88,12 +198,12 @@ class TomarComanda():
         # Botones
         self.btnBuscar = tk.Button(self.ventana, image=self.iconoBuscar, text="Buscar", width=85, compound="left")
         self.btnBuscar.place(relx=0.34, rely=0.89, anchor="center")
-        #self.btnBuscar.bind("<Button-1>", self.buscarComanda)
+        self.btnBuscar.bind("<Button-1>", self.calcular_precio_total)
         Tooltip(self.btnBuscar, "Haga clic para buscar una comanda existente.")
 
         self.btnGuardar = tk.Button(self.ventana, image=self.iconoGuardar, text="Guardar", width=85, compound="left")
         self.btnGuardar.place(relx=0.65, rely=0.89, anchor="center")
-        #self.btnGuardar.bind("<Button-1>", self.cambiarEstado)
+        self.btnGuardar.bind("<Button-1>", self.validar_cliente_mesa)
         Tooltip(self.btnGuardar, "Haga clic para guardar la información de la comanda.")
 
         self.btnSalir = tk.Button(self.ventana, image=self.iconoSalir, text="Salir", width=185, compound="left")

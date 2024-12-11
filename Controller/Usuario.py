@@ -238,6 +238,32 @@ class Usuario():
         cursor.execute("Update comanda SET estado = ? WHERE id_comanda = ?", (nuevo_estado, id_comanda))
         miConexion.cerrarConexion()
 
+    def tomarComanda(self, id_comanda, cedula_cliente, no_mesa, lista_platos):
+        if not lista_platos:
+            messagebox.showwarning("Advertencia", "Debe seleccionar al menos un plato para crear la comanda.")
+            return
+
+        miConexion = ConexionDB()
+        miConexion.crearConexion()
+        conexion = miConexion.getConection()
+        cursor = conexion.cursor()
+
+        # Calcular precio total
+        query_precio = "SELECT SUM(precio) FROM plato WHERE id_plato IN (%s)" % ", ".join("?" for _ in lista_platos)
+        cursor.execute(query_precio, lista_platos)
+        precio_total = cursor.fetchone()[0] or 0.0
+
+        # Insertar comanda
+        query_comanda = """
+            INSERT INTO comanda (id_comanda, cedula_cliente, no_mesa, platos, precio_total, estado)
+            VALUES (?, ?, ?, ?, ?, ?)"""
+        platos_str = "-".join(map(str, lista_platos))
+        cursor.execute(query_comanda, (id_comanda, cedula_cliente, no_mesa, platos_str, precio_total, "Pendiente"))
+
+        conexion.commit()
+        miConexion.cerrarConexion()
+        messagebox.showinfo("Información", "Comanda creada correctamente.")
+
     #Cliente
     def crearCliente(self, cedulaCli, nombreCli, apellidoCli, telefonoCli, emailCli):
         miConexion = ConexionDB()
