@@ -33,6 +33,7 @@ class TomarComanda():
         self.Usuario = Usuario
 
         # Iconos
+        self.iconoBuscar = tk.PhotoImage(file=r"Restaurante/Src/buscar.png")
         self.iconoGuardar = tk.PhotoImage(file=r"Restaurante/Src/guardar.png")
         self.iconoSalir = tk.PhotoImage(file=r"Restaurante/Src/salir.png")
         self.iconoAyuda = tk.PhotoImage(file=r"Restaurante/Src/ayuda.png")
@@ -83,13 +84,20 @@ class TomarComanda():
         self.cmbEstado.place(relx=0.50, rely=0.79, anchor="center")
 
         # Botones
-        self.btnGuardar = tk.Button(self.ventana, image=self.iconoGuardar, text="Gardar", width=85, compound="left")
-        self.btnGuardar.place(relx=0.34, rely=0.89, anchor="center")
+
+        # Botones
+        self.btnBuscar = tk.Button(self.ventana, image=self.iconoBuscar, text="Buscar", width=85, compound="left")
+        self.btnBuscar.place(relx=0.34, rely=0.89, anchor="center")
+        #self.btnBuscar.bind("<Button-1>", self.buscarComanda)
+        Tooltip(self.btnBuscar, "Haga clic para buscar una comanda existente.")
+
+        self.btnGuardar = tk.Button(self.ventana, image=self.iconoGuardar, text="Guardar", width=85, compound="left")
+        self.btnGuardar.place(relx=0.65, rely=0.89, anchor="center")
         #self.btnGuardar.bind("<Button-1>", self.cambiarEstado)
         Tooltip(self.btnGuardar, "Haga clic para guardar la información de la comanda.")
 
-        self.btnSalir = tk.Button(self.ventana, image=self.iconoSalir, text="Salir", width=85, compound="left")
-        self.btnSalir.place(relx=0.65, rely=0.89, anchor="center")
+        self.btnSalir = tk.Button(self.ventana, image=self.iconoSalir, text="Salir", width=185, compound="left")
+        self.btnSalir.place(relx=0.49, rely=0.95, anchor="center")
         self.btnSalir.bind("<Button-1>", self.salir)
         Tooltip(self.btnSalir, "Haga clic para salir de la ventana.")
 
