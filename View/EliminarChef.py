@@ -5,6 +5,17 @@ from Tooltip import Tooltip
 
 class EliminarChef():
 
+    def mostrarAyuda(self, event):
+        ayudaTexto = """
+        Este formulario permite buscar y eliminar chefs del sistema:
+        
+        - Cédula: Ingrese el número de cédula del chef a buscar.
+        - Los campos de Nombre, Apellido, Teléfono y Email se rellenan automáticamente al encontrar un chef.
+        - Si el usuario encontrado no es un chef, se mostrará un mensaje de error.
+        - Puede limpiar los campos o salir utilizando los botones correspondientes.
+        """
+        messagebox.showinfo("Ayuda" "Eliminar Chef", ayudaTexto)
+
     def limpiarCampos(self, event):
         self.txtCedula.config(state="normal")
         self.txtNombre.config(state="normal")
@@ -175,5 +186,10 @@ class EliminarChef():
         self.btnSalir.place(relx=0.49, rely=0.93, anchor="center")
         self.btnSalir.bind("<Button-1>", self.salir)
         Tooltip(self.btnSalir, "Cerrar la ventana de registro")
+
+        self.btnAyuda = tk.Label(self.ventana, image=self.iconoAyuda)
+        self.btnAyuda.place(relx=0.90, rely=0.07, anchor="center")
+        self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
+        Tooltip(self.btnAyuda, "Obtener ayuda sobre el formulario")
 
         self.ventana.mainloop()

@@ -126,7 +126,6 @@ class GestionRegistrador():
 
         # Variable para saber si la barra está expandida
         self.barraExpandida = False
-        self.bandera = True
 
         # Iconos
         self.iconoBarra = tk.PhotoImage(file=r"Restaurante/Src/barra.png")

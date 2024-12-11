@@ -3,20 +3,19 @@ from tkinter import *
 from tkinter import messagebox
 from Tooltip import Tooltip
 
-class EliminarMesero:
+class EliminarCliente():
 
     def mostrarAyuda(self, event):
-        mensaje_ayuda = (
-            "Instrucciones para eliminar un mesero:\n\n"
-            "- Cédula*: Ingrese la cédula del mesero que desea eliminar. "
-            "Solo se permiten números.\n"
-            "- Presione el botón 'Buscar' para localizar al mesero.\n"
-            "- Si el mesero existe y es válido, se mostrará la información.\n"
-            "- Presione el botón 'Eliminar' para eliminar el registro.\n\n"
-            "Nota: Los campos 'Nombre', 'Apellido', 'Teléfono' y 'Email' "
-            "se rellenan automáticamente al buscar al mesero."
-        )
-        messagebox.showinfo("Ayuda" "Eliminar Mesero", mensaje_ayuda)
+        ayuda = """
+        Formulario de Eliminación de Cliente:
+        - Cédula: Ingrese la cédula del cliente que desea eliminar. Solo se permiten números.
+        - Nombre, Apellido, Teléfono y Email: Estos campos se llenarán automáticamente después de buscar al cliente con la cédula.
+        - Buscar: Presione para buscar el cliente con la cédula ingresada.
+        - Eliminar: Presione para eliminar al cliente seleccionado.
+
+        Recuerde que los campos Nombre, Apellido, Teléfono y Email estarán deshabilitados hasta que se realice la búsqueda.
+        """
+        messagebox.showinfo("Ayuda - Eliminar Cliente", ayuda)
 
     def limpiarCampos(self, event):
         self.txtCedula.delete(0, tk.END)
@@ -29,66 +28,6 @@ class EliminarMesero:
         self.txtApellido.config(bg="#ffffff")
         self.txtTelefono.config(bg="#ffffff")
         self.txtEmail.config(bg="#ffffff")
-
-    def buscarMesero(self, event):
-        if not self.txtCedula.get():
-            messagebox.showerror("Error", "Por favor ingrese la cédula.")
-            return
-        if not self.txtCedula.get().isdigit():
-            messagebox.showerror("Error", "El campo 'Cédula' solo puede contener números.")
-            return
-        cedula = int(self.txtCedula.get())
-        try:
-            mesero = self.obtenerMesero(cedula)
-            if mesero:
-                if mesero[6] == "Mesero":  # Verificar si es un mesero
-                    self.txtNombre.config(state="normal")
-                    self.txtApellido.config(state="normal")
-                    self.txtTelefono.config(state="normal")
-                    self.txtEmail.config(state="normal")
-                    self.txtNombre.delete(0, tk.END)
-                    self.txtNombre.insert(0, mesero[1])
-                    self.txtApellido.delete(0, tk.END)
-                    self.txtApellido.insert(0, mesero[2])
-                    self.txtTelefono.delete(0, tk.END)
-                    self.txtTelefono.insert(0, mesero[4])
-                    self.txtEmail.delete(0, tk.END)
-                    self.txtEmail.insert(0, mesero[3])
-                    self.txtNombre.config(state="disabled")
-                    self.txtApellido.config(state="disabled")
-                    self.txtTelefono.config(state="disabled")
-                    self.txtEmail.config(state="disabled")
-                    messagebox.showinfo("Información", f"Mesero {cedula} encontrado.")
-                    self.btnEliminar.config(state="normal")
-                else:
-                    messagebox.showinfo("Información", f"El usuario con cédula {cedula} no es un Mesero.")
-                    self.btnEliminar.config(state="disabled")
-            else:
-                messagebox.showinfo("Información", f"Mesero con cédula {cedula} no encontrado.")
-        except Exception as e:
-            messagebox.showerror("Error", f"Ocurrió un error al buscar el mesero. Detalles: {e}")
-
-    def obtenerMesero(self, cedula):
-        return self.Usuario.buscarMesero(cedula)
-
-    def eliminarMesero(self, event):
-        if not self.txtCedula.get():
-            messagebox.showerror("Error", "Por favor ingrese la cédula.")
-            return
-        if not self.txtCedula.get().isdigit():
-            messagebox.showerror("Error", "El campo 'cédula' solo puede contener números.")
-            return
-        cedula = int(self.txtCedula.get())
-        mesero = self.obtenerMesero(cedula)
-        if not mesero:
-            messagebox.showinfo("Información", f"Cédula {cedula} no encontrada.")
-            return
-        try:
-            self.Usuario.eliminarMesero(cedula)
-            messagebox.showinfo("Confirmación", f"Cédula {cedula} eliminada con éxito.")
-            self.limpiarCampos(event)
-        except Exception as e:
-            messagebox.showerror("Error", f"No se pudo eliminar el mesero. Detalles: {e}")
 
     def salir(self, event):
         self.ventana.destroy()
@@ -104,7 +43,7 @@ class EliminarMesero:
 
     def __init__(self, Usuario):
         self.ventana = tk.Toplevel()
-        self.ventana.title("Gestión de Meseros")
+        self.ventana.title("Gestión de Cliente")
         self.ventana.configure(width=320, height=390)
         self.ventana.resizable(0,0)
 
@@ -118,7 +57,7 @@ class EliminarMesero:
         self.iconoBuscar = tk.PhotoImage(file=r"Restaurante/Src/buscar.png")
 
         # Título
-        self.lblTitulo = tk.Label(self.ventana, text="Eliminar Mesero", font=("Times", 20, "bold"))
+        self.lblTitulo = tk.Label(self.ventana, text="Eliminar Cliente", font=("Times", 20, "bold"))
         self.lblTitulo.place(relx=0.5, rely=0.08, anchor="center")
 
         # Textos
@@ -166,13 +105,13 @@ class EliminarMesero:
         # Botones
         self.btnBuscar = tk.Button(self.ventana, image=self.iconoBuscar, text="Buscar", width=85, compound="left")
         self.btnBuscar.place(relx=0.34, rely=0.87, anchor="center")
-        self.btnBuscar.bind("<Button-1>", self.buscarMesero)
-        Tooltip(self.btnBuscar, "Buscar un mesero para eliminar")
+        #self.btnBuscar.bind("<Button-1>", self.buscarMesero)
+        Tooltip(self.btnBuscar, "Buscar un cliente para eliminar")
 
         self.btnEliminar = tk.Button(self.ventana, image=self.iconoEliminar, text="Eliminar", width=85, compound="left")
         self.btnEliminar.place(relx=0.65, rely=0.87, anchor="center")
-        self.btnEliminar.bind("<Button-1>", self.eliminarMesero)
-        Tooltip(self.btnEliminar, "Eliminar al mesero seleccionado")
+        #self.btnEliminar.bind("<Button-1>", self.eliminarMesero)
+        Tooltip(self.btnEliminar, "Eliminar al cliente seleccionado")
 
         self.btnSalir = tk.Button(self.ventana, image=self.iconoSalir, text="Salir", width=185, compound="left")
         self.btnSalir.place(relx=0.49, rely=0.93, anchor="center")

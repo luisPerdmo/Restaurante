@@ -3,19 +3,23 @@ from tkinter import *
 from tkinter import messagebox
 from Tooltip import Tooltip
 
-class CrearMesero():
+
+class CrearCliente():
 
     def mostrarAyuda(self, event):
-        mensajeAyuda = (
-            "Para registrar un mesero, siga estas instrucciones:\n\n"
-            "- Cedula*: Ingrese solo números, sin puntos ni espacios.\n"
-            "- Nombre*: Ingrese el nombre del mesero, solo letras.\n"
-            "- Apellido*: Ingrese el apellido del mesero, solo letras.\n"
-            "- Teléfono*: Ingrese un número de teléfono válido, solo números.\n"
-            "- Email*: Ingrese un correo válido en formato usuario@dominio.com.\n\n"
-            "Los campos marcados con * son obligatorios."
-        )
-        messagebox.showinfo("Ayuda" "Registro de Mesero", mensajeAyuda)
+        ayuda = """
+        Formulario de Registro de Cliente:
+        - Cédula: Ingrese solo números.
+        - Nombre: Ingrese solo letras.
+        - Apellido: Ingrese solo letras.
+        - Teléfono: Ingrese solo números.
+        - Email: Ingrese un correo electrónico válido (usuario@dominio.com).
+
+        Presione "Registrar" para guardar los datos.
+        Presione "Limpiar" para limpiar los campos.
+        """
+        messagebox.showinfo("Ayuda - Registro Cliente", ayuda)
+
 
     def limpiarCampos(self, event):
         self.txtCedula.delete(0, tk.END)
@@ -32,27 +36,6 @@ class CrearMesero():
     def salir(self, event):
         self.ventana.destroy()
 
-    def guardarMesero(self, event):
-        if not self.txtCedula.get() or not self.txtNombre.get() or not self.txtApellido.get() or not self.txtTelefono.get() or not self.txtEmail.get():
-            messagebox.showerror("Error", "Por favor ingrese todos los valores en los campos obligatorios.")
-            return 
-        for campo, nombreCampo in [(self.txtNombre.get(), "Nombres"), (self.txtApellido.get(), "Apellido")] :
-            if not campo.replace(" ", "").isalpha():
-                messagebox.showerror("Error", f"El campo '{nombreCampo}' solo puede contener letras.")
-                return
-        if not self.txtCedula.get().isdigit():
-            messagebox.showerror("Error", "El campo 'Cédula' solo puede contener números.")
-            return
-        if not self.txtTelefono.get().isdigit():
-            messagebox.showerror("Error", "El campo 'Teléfono' solo puede contener números.")
-            return
-        rol = "Mesero"
-        if self.Usuario.existeUsuario(self.txtCedula.get()):  
-            messagebox.showerror("Error", f"La cédula '{self.txtCedula.get()}' ya está registrada.")
-            return
-        self.Usuario.crearMesero(self.txtNombre.get(), self.txtApellido.get(), self.txtEmail.get(), self.txtTelefono.get(), self.txtCedula.get(), rol)
-        messagebox.showinfo("Confirmación", "Nuevo Mesero registrado con éxito.")
-    
     def soloNumeros(self, event):
         numeros = event.keysym
         if numeros.isalpha(): 
@@ -94,7 +77,7 @@ class CrearMesero():
         self.iconoAyuda = tk.PhotoImage(file=r"Restaurante/Src/ayuda.png")
 
         #Titulo
-        self.lblTitulo = tk.Label(self.ventana, text="Registrar Mesero", font=("Times", 20, "bold"))
+        self.lblTitulo = tk.Label(self.ventana, text="Registrar Cliente", font=("Times", 20, "bold"))
         self.lblTitulo.place(relx=0.5, rely=0.08, anchor="center")
 
         #Textos
@@ -141,8 +124,8 @@ class CrearMesero():
         #Botones
         self.btnRegistrar = tk.Button(self.ventana, image=self.iconoRegistrar, text="Registrar", width=85, compound="left")
         self.btnRegistrar.place(relx=0.34, rely=0.87, anchor="center")
-        self.btnRegistrar.bind("<Button-1>", self.guardarMesero)
-        Tooltip(self.btnRegistrar, "Registrar un nuevo usuario")
+        #self.btnRegistrar.bind("<Button-1>", self.guardarMesero)
+        Tooltip(self.btnRegistrar, "Registrar un nuevo cliente")
 
         self.btnLimpiar = tk.Button(self.ventana, image=self.iconoLimpiar, text="Limpiar", width=85, compound="left")
         self.btnLimpiar.place(relx=0.65, rely=0.87, anchor="center")

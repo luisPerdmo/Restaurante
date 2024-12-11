@@ -2,6 +2,7 @@ from Model.ConexionBD import ConexionDB
 from tkinter import messagebox
 from View.GestionRegistrador import GestionRegistrador
 from View.GestionChef import GestionChef
+from View.GestionMesero import GestionMesero
 
 class Usuario():
 
@@ -32,22 +33,27 @@ class Usuario():
         cursor.execute("Select * from usuario")
         listaUsuario = cursor.fetchall()
         for usuario in listaUsuario:
-            if(usuario[1] == nombre and usuario[7] == password):
+            if(usuario[1] == nombre and usuario[7] == password and usuario[6] == "Registrador"):
                 self.nombre = usuario[1]
                 self.password = usuario[7]
                 self.rol = usuario[6]
-                if(usuario[6] == "Registrador"):
-                    messagebox.showinfo("informacion", "Acceso Correcto Registrador")
-                    menuRegistrador = GestionRegistrador(loggin, self)
-                    return   
-            elif(usuario[1] == nombre and usuario[5] == password):
+                messagebox.showinfo("informacion", "Acceso Correcto Registrador")
+                menuRegistrador = GestionRegistrador(loggin, self)
+                return   
+            elif(usuario[1] == nombre and usuario[5] == password and usuario[6] == "Chef"):
                 self.nombre = usuario[1]
                 self.password = usuario[7]
                 self.rol = usuario[6]
-                if(usuario[6] == "Chef"):
-                    messagebox.showinfo("informacion", "Acceso correcto Chef")
-                    menuChef = GestionChef(loggin, self)
-                    return
+                messagebox.showinfo("informacion", "Acceso correcto Chef")
+                menuChef = GestionChef(loggin, self)
+                return
+            elif(usuario[1] == nombre and usuario[5] == password and usuario[6] == "Mesero"):
+                self.nombre = usuario[1]
+                self.password = usuario[7]
+                self.rol = usuario[6]
+                messagebox.showinfo("informacion", "Acceso correcto Mesero")
+                menuMesero = GestionMesero(loggin, self)
+                return
         messagebox.showwarning("Advertencia", "El nombre de usuario y/o Password no existe, verifique e intente nuevamente!")
 
     def crearRegistrador(self, nombreUsu, apellidoUsu, emailUsu, cedulaUsu, passworUsu, rolUsu):
