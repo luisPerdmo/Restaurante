@@ -3,7 +3,7 @@ from tkinter import *
 from tkinter import messagebox
 from Tooltip import Tooltip
 
-class CrearMesa:
+class CrearMesa():
 
     def mostrarAyuda(self, event):
         ayudaTexto = (

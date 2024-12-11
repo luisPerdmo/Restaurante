@@ -5,9 +5,10 @@ from Tooltip import Tooltip
 
 from View.CrearCliente import CrearCliente
 from View.EliminarCliente import EliminarCliente
+from View.ConsultarMesa import ConsultarMesa
+from View.OcuparMesa import OcuparMesa
 
 class GestionMesero():
-    
 
     def toggleBarra(self, event):
         if self.barraExpandida:
@@ -44,6 +45,22 @@ class GestionMesero():
 
     def eliminarCliente(self):  
         EliminarCliente(self.usuario)
+
+    # Funciones cliente
+    def crearMenuMesa(self, event):
+        if self.barraExpandida:
+            self.menuMesa = tk.Menu(self.ventana)
+            self.menuMesa.add_command(label="Registrar Cliente", command=self.consultarMesa)
+            self.menuMesa.add_separator()
+            self.menuMesa.add_command(label="Eliminar Cliente", command=self.ocuparMesa)
+            self.menuMesa.post(self.barra.winfo_rootx() + 85, self.barra.winfo_rooty() + 110)
+
+    def consultarMesa(self):  
+        ConsultarMesa(self.usuario)
+
+    def ocuparMesa(self):  
+        OcuparMesa(self.usuario)
+
     
     #Salir
     def crearMenuSalir(self, event):
@@ -92,7 +109,7 @@ class GestionMesero():
         self.btnGestionMesas = tk.Label(self.barra, text="Gestionar Mesas", bg="#B0B0B0")
         self.btnGestionMesas.place(relx=0.01, rely=0.3, anchor="w")
         self.btnGestionMesas.place_forget()
-        #self.btnGestionMesas.bind("<Button-1>", self.crearMenuMesero)
+        self.btnGestionMesas.bind("<Button-1>", self.crearMenuMesa)
 
         self.btnGestionComandas = tk.Label(self.barra, text="Gestionar Mesa", bg="#B0B0B0")
         self.btnGestionComandas.place(relx=0.01, rely=0.4, anchor="w")
