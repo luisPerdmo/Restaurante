@@ -89,7 +89,7 @@ class AgregarPlatoComanda():
         #self.btnBuscar.bind("<Button-1>", self.buscarComanda)
         Tooltip(self.btnBuscar, "Haga clic para buscar una comanda existente.")
 
-        self.btnGuardar = tk.Button(self.ventana, image=self.iconoGuardar, text="Cambiar", width=85, compound="left")
+        self.btnGuardar = tk.Button(self.ventana, image=self.iconoGuardar, text="Guardar", width=85, compound="left")
         self.btnGuardar.place(relx=0.65, rely=0.89, anchor="center")
         #self.btnGuardar.bind("<Button-1>", self.cambiarEstado)
         Tooltip(self.btnGuardar, "Haga clic para Agregar la información de la comanda.")
