@@ -198,12 +198,12 @@ class TomarComanda():
         # Botones
         self.btnBuscar = tk.Button(self.ventana, image=self.iconoBuscar, text="Buscar", width=85, compound="left")
         self.btnBuscar.place(relx=0.34, rely=0.89, anchor="center")
-        self.btnBuscar.bind("<Button-1>", self.calcular_precio_total)
+        self.btnBuscar.bind("<Button-1>", self.validar_cliente_mesa)
         Tooltip(self.btnBuscar, "Haga clic para buscar una comanda existente.")
 
         self.btnGuardar = tk.Button(self.ventana, image=self.iconoGuardar, text="Guardar", width=85, compound="left")
         self.btnGuardar.place(relx=0.65, rely=0.89, anchor="center")
-        self.btnGuardar.bind("<Button-1>", self.validar_cliente_mesa)
+        self.btnGuardar.bind("<Button-1>", self.calcular_precio_total)
         Tooltip(self.btnGuardar, "Haga clic para guardar la información de la comanda.")
 
         self.btnSalir = tk.Button(self.ventana, image=self.iconoSalir, text="Salir", width=185, compound="left")
