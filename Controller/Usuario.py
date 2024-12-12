@@ -262,6 +262,51 @@ class Usuario():
         conexion.commit()
         miConexion.cerrarConexion()
         return total_precio
+    
+    def eliminarPlatoDeComanda(self, id_comanda, plato_a_eliminar):
+        miConexion = ConexionDB()
+        miConexion.crearConexion()
+        conexion = miConexion.getConection()
+        cursor = conexion.cursor()
+
+        # Verificar el estado de la comanda
+        cursor.execute("SELECT estado, platos FROM Comanda WHERE id_comanda = ?", (id_comanda,))
+        comanda = cursor.fetchone()
+        if not comanda:
+            miConexion.cerrarConexion()
+            raise ValueError(f"No se encontró la comanda con ID {id_comanda}")
+
+        estado, platos = comanda
+        if estado != "Pendiente":
+            miConexion.cerrarConexion()
+            raise ValueError("Solo se pueden eliminar platos de comandas con estado 'Pendiente'")
+
+        # Convertir la lista de platos a una lista de enteros
+        lista_platos = [int(id_plato) for id_plato in platos.split('-')]
+
+        # Verificar si el plato a eliminar está en la lista
+        if plato_a_eliminar not in lista_platos:
+            miConexion.cerrarConexion()
+            raise ValueError(f"El plato con ID {plato_a_eliminar} no está en la comanda")
+
+        # Remover el plato de la lista
+        lista_platos.remove(plato_a_eliminar)
+
+        # Recalcular el precio total
+        total_precio = 0
+        for plato_id in lista_platos:
+            cursor.execute("SELECT precio FROM Plato WHERE id_plato = ?", (plato_id,))
+            precio_plato = cursor.fetchone()
+            if precio_plato:
+                total_precio += precio_plato[0]
+
+        # Actualizar la comanda en la base de datos
+        platos_str = '-'.join(map(str, lista_platos))
+        cursor.execute("UPDATE Comanda SET platos = ?, precio_total = ? WHERE id_comanda = ?",
+                       (platos_str, total_precio, id_comanda))
+        conexion.commit()
+        miConexion.cerrarConexion()
+        return total_precio
 
     #Cliente
     def crearCliente(self, cedulaCli, nombreCli, apellidoCli, telefonoCli, emailCli):

@@ -5,6 +5,49 @@ from Tooltip import Tooltip
 
 class EliminarPlatoComanda():
 
+    def eliminarPlato(self, event):
+        platos_str = self.txtPlatos.get().strip()
+        if not platos_str:
+            messagebox.showwarning("Advertencia", "No hay platos para eliminar.")
+            return
+
+        try:
+            lista_platos = [int(id_plato) for id_plato in platos_str.split('-')]
+        except ValueError:
+            messagebox.showerror("Error", "Los platos deben ser una lista de números separados por guiones (ej. 1-2-3).")
+            return
+
+        plato_a_eliminar = self.txtPlatos.get().strip()  # Asegúrate de obtener el ID del plato a eliminar del campo correcto
+        if not plato_a_eliminar.isdigit():
+            messagebox.showerror("Error", "El ID del plato a eliminar debe ser numérico.")
+            return
+
+        plato_a_eliminar = int(plato_a_eliminar)
+        if plato_a_eliminar not in lista_platos:
+            messagebox.showerror("Error", f"El plato con ID {plato_a_eliminar} no está en la comanda.")
+            return
+
+        # Actualizar la comanda en la base de datos y obtener el nuevo precio total
+        try:
+            precio_total = self.Usuario.eliminarPlatoDeComanda(int(self.txtId.get()), plato_a_eliminar)
+        except ValueError as e:
+            messagebox.showerror("Error", str(e))
+            return
+
+        # Remover el plato de la lista en la interfaz de usuario
+        lista_platos.remove(plato_a_eliminar)
+        platos_actualizados = '-'.join(map(str, lista_platos))
+        self.txtPlatos.delete(0, tk.END)
+        self.txtPlatos.insert(0, platos_actualizados)
+
+        # Actualizar el precio total en la interfaz de usuario
+        self.txtPrecioTo.config(state='normal')
+        self.txtPrecioTo.delete(0, tk.END)
+        self.txtPrecioTo.insert(0, f"{precio_total:.2f}")
+        self.txtPrecioTo.config(state='disabled')
+
+        messagebox.showinfo("Éxito", f"Plato con ID {plato_a_eliminar} eliminado correctamente.")
+
     def buscarComanda(self, event):
         if not self.txtId.get():
             messagebox.showerror("Error", "Por favor ingrese el ID de la comanda.")
@@ -35,7 +78,7 @@ class EliminarPlatoComanda():
                 self.txtPrecioTo.delete(0, tk.END)
                 self.txtPrecioTo.insert(0, comanda[4])  
                 
-                self.estado_var.set("servido")  
+                self.estado_var.set("Pendiente")  
                 
                 self.cmbEstado.config(state="disabled")
                 self.txtCedulaCli.config(state="disabled")
@@ -139,7 +182,7 @@ class EliminarPlatoComanda():
 
         self.btnEliminar = tk.Button(self.ventana, image=self.iconoEliminar, text="Eliminar", width=85, compound="left")
         self.btnEliminar.place(relx=0.65, rely=0.89, anchor="center")
-        #self.btnEliminar.bind("<Button-1>", self.cambiarEstado)
+        self.btnEliminar.bind("<Button-1>", self.eliminarPlato)
         Tooltip(self.btnEliminar, "Haga clic para Eliminar el plato de la comanda.")
 
         self.btnSalir = tk.Button(self.ventana, image=self.iconoSalir, text="Salir", width=185, compound="left")
