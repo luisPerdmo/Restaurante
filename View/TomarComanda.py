@@ -41,7 +41,7 @@ class TomarComanda():
         self.txtMesa.config(state='normal')  # Desbloquea el campo de mesa
         messagebox.showinfo("Validación exitosa", "Cliente y mesa válidos. Ahora puede ingresar los platos.")
 
-    def calcular_precio_total(self, event=None):
+    def calcular_precio_total(self, event):
         platos_str = self.txtPlatos.get().strip()
         if not platos_str:
             messagebox.showwarning("Advertencia", "Debe ingresar al menos un plato para calcular el precio total.")
@@ -58,15 +58,20 @@ class TomarComanda():
             if not self.Usuario.existePlato(id_plato):
                 messagebox.showerror("Error", f"El plato con ID {id_plato} no existe.")
                 return
+
         id_comanda = self.txtId.get().strip()
+        cedula_cliente = self.txtCedulaCli.get().strip()
+        no_mesa = self.txtMesa.get().strip()
+
         # Calcular el precio total usando la clase Usuario
-        precio_total = self.Usuario.tomarComanda(id_comanda, self.txtCedulaCli.get(), self.txtMesa.get(), lista_platos)
+        precio_total = self.Usuario.tomarComanda(id_comanda, cedula_cliente, no_mesa, lista_platos)
 
         # Mostrar el precio total en el campo correspondiente
         self.txtPrecioTo.config(state='normal')
         self.txtPrecioTo.delete(0, tk.END)
         self.txtPrecioTo.insert(0, f"{precio_total:.2f}")
         self.txtPrecioTo.config(state='disabled')
+        messagebox.showinfo("Informarcion", "Comanda tomada con exito")
 
     def guardar_comanda(self):
         id_comanda = self.txtId.get().strip()

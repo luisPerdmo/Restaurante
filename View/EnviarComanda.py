@@ -5,6 +5,72 @@ from Tooltip import Tooltip
 
 class EnviarComanda():
 
+    def cambiarEstado(self, event):
+        if not self.txtId.get():
+            messagebox.showerror("Error", "Por favor ingrese el ID de la comanda.")
+            return
+
+        if not self.txtId.get().isdigit():
+            messagebox.showerror("Error", "El campo 'ID' solo puede contener números.")
+            return
+
+        id_comanda = int(self.txtId.get())
+        nuevo_estado = self.estado_var.get()
+
+        if not nuevo_estado:
+            messagebox.showerror("Error", "Por favor seleccione un estado para la comanda.")
+            return
+
+        self.cambiarEstadoComanda(id_comanda, nuevo_estado)
+        messagebox.showinfo("Informacion", f"se cambio el estado de la comanda a {nuevo_estado}")
+
+
+    def buscarComanda(self, event):
+        if not self.txtId.get():
+            messagebox.showerror("Error", "Por favor ingrese el ID de la comanda.")
+            return
+        
+        if not self.txtId.get().isdigit():
+            messagebox.showerror("Error", "El campo 'ID' solo puede contener números.")
+            return
+
+        id_comanda = int(self.txtId.get())
+        
+        try:
+            comanda = self.obtenerComanda(id_comanda)
+            if comanda:
+                self.txtCedulaCli.config(state="normal")
+                self.txtCedulaCli.delete(0, tk.END)
+                self.txtCedulaCli.insert(0, comanda[1])  
+                
+                self.txtMesa.config(state="normal")
+                self.txtMesa.delete(0, tk.END)
+                self.txtMesa.insert(0, comanda[2]) 
+                
+                self.txtPlatos.config(state="normal")
+                self.txtPlatos.delete(0, tk.END)
+                self.txtPlatos.insert(0, comanda[3])  
+                
+                self.txtPrecioTo.config(state="normal")
+                self.txtPrecioTo.delete(0, tk.END)
+                self.txtPrecioTo.insert(0, comanda[4])  
+                
+                self.estado_var.set(comanda[5])  
+                
+                self.txtCedulaCli.config(state="disabled")
+                self.txtMesa.config(state="disabled")
+                self.txtPlatos.config(state="disabled")
+                self.txtPrecioTo.config(state="disabled")
+                messagebox.showinfo("Información", f"Comanda con ID {id_comanda} encontrada.")
+                self.btnCambiar.config(state="normal")
+            else:
+                messagebox.showinfo("Información", f"Comanda con ID {id_comanda} no encontrada.")
+        except Exception as e:
+            messagebox.showerror("Error", f"Ocurrió un error al buscar la comanda. Detalles: {e}")
+
+    def cambiarEstadoComanda(self, id_comanda, nuevo_estado):
+        return self.Usuario.cambiarComanda(id_comanda, nuevo_estado)
+
     def buscarComanda(self, event):
         if not self.txtId.get():
             messagebox.showerror("Error", "Por favor ingrese el ID de la comanda.")
@@ -140,7 +206,7 @@ class EnviarComanda():
 
         self.btnGuardar = tk.Button(self.ventana, image=self.iconoGuardar, text="Enviar", width=85, compound="left")
         self.btnGuardar.place(relx=0.65, rely=0.89, anchor="center")
-        #self.btnGuardar.bind("<Button-1>", self.cambiarEstado)
+        self.btnGuardar.bind("<Button-1>", self.cambiarEstado)
         Tooltip(self.btnGuardar, "Haga clic para guardar la información de la comanda.")
 
         self.btnSalir = tk.Button(self.ventana, image=self.iconoSalir, text="Salir", width=185, compound="left")

@@ -243,30 +243,25 @@ class Usuario():
         miConexion.cerrarConexion()
 
     def tomarComanda(self, id_comanda, cedula_cliente, no_mesa, lista_platos):
-        if not lista_platos:
-            messagebox.showwarning("Advertencia", "Debe seleccionar al menos un plato para crear la comanda.")
-            return
-
         miConexion = ConexionDB()
         miConexion.crearConexion()
         conexion = miConexion.getConection()
         cursor = conexion.cursor()
+        total_precio = 0
 
-        # Calcular precio total
-        query_precio = "SELECT SUM(precio) FROM plato WHERE id_plato IN (%s)" % ", ".join("?" for _ in lista_platos)
-        cursor.execute(query_precio, lista_platos)
-        precio_total = cursor.fetchone()[0] or 0.0
+        for plato_id in lista_platos:
+            cursor.execute("SELECT precio FROM Plato WHERE id_plato = ?", (plato_id,))
+            precio_plato = cursor.fetchone()
+            if precio_plato:
+                total_precio += precio_plato[0]
 
-        # Insertar comanda
-        query_comanda = """
-            INSERT INTO comanda (id_comanda, cedula_cliente, no_mesa, platos, precio_total, estado)
-            VALUES (?, ?, ?, ?, ?, ?)"""
-        platos_str = "-".join(map(str, lista_platos))
-        cursor.execute(query_comanda, (id_comanda, cedula_cliente, no_mesa, platos_str, precio_total, "Pendiente"))
-
+        platos_str = '-'.join(map(str, lista_platos))
+        estado = 'Pendiente'  # Asegúrate de que el estado sea uno de los valores permitidos
+        cursor.execute("INSERT INTO Comanda (id_comanda, cedula_cliente, no_mesa, platos, precio_total, estado) VALUES (?, ?, ?, ?, ?, ?)",
+                       (id_comanda, cedula_cliente, no_mesa, platos_str, total_precio, estado))
         conexion.commit()
         miConexion.cerrarConexion()
-        messagebox.showinfo("Información", "Comanda creada correctamente.")
+        return total_precio
 
     #Cliente
     def crearCliente(self, cedulaCli, nombreCli, apellidoCli, telefonoCli, emailCli):
