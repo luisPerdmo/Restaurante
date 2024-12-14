@@ -63,13 +63,7 @@ class TomarComanda():
         cedula_cliente = self.txtCedulaCli.get().strip()
         no_mesa = self.txtMesa.get().strip()
 
-        # Calcular el precio total usando la clase Usuario
         precio_total = self.Usuario.tomarComanda(id_comanda, cedula_cliente, no_mesa, lista_platos)
-
-        # Mostrar el precio total en el campo correspondiente
-        self.txtPrecioTo.config(state='normal')
-        self.txtPrecioTo.delete(0, tk.END)
-        self.txtPrecioTo.insert(0, f"{precio_total:.2f}")
         self.txtPrecioTo.config(state='disabled')
         messagebox.showinfo("Informarcion", "Comanda tomada con exito")
 
@@ -195,7 +189,7 @@ class TomarComanda():
 
         # Combobox para el estado
         self.estado_var = tk.StringVar(value="Pendiente")
-        self.cmbEstado = ttk.Combobox(self.ventana, textvariable=self.estado_var, values=["Pendiente"])
+        self.cmbEstado = ttk.Combobox(self.ventana, textvariable=self.estado_var, values=["Pendiente"],  state='disabled')
         self.cmbEstado.place(relx=0.50, rely=0.79, anchor="center")
 
         # Botones

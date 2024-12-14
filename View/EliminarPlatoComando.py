@@ -40,12 +40,6 @@ class EliminarPlatoComanda():
         self.txtPlatos.delete(0, tk.END)
         self.txtPlatos.insert(0, platos_actualizados)
 
-        # Actualizar el precio total en la interfaz de usuario
-        self.txtPrecioTo.config(state='normal')
-        self.txtPrecioTo.delete(0, tk.END)
-        self.txtPrecioTo.insert(0, f"{precio_total:.2f}")
-        self.txtPrecioTo.config(state='disabled')
-
         messagebox.showinfo("Éxito", f"Plato con ID {plato_a_eliminar} eliminado correctamente.")
 
     def buscarComanda(self, event):
@@ -74,16 +68,11 @@ class EliminarPlatoComanda():
                 self.txtPlatos.delete(0, tk.END)
                 self.txtPlatos.insert(0, comanda[3])  
                 
-                self.txtPrecioTo.config(state="normal")
-                self.txtPrecioTo.delete(0, tk.END)
-                self.txtPrecioTo.insert(0, comanda[4])  
-                
                 self.estado_var.set("Pendiente")  
                 
                 self.cmbEstado.config(state="disabled")
                 self.txtCedulaCli.config(state="disabled")
                 self.txtMesa.config(state="disabled")
-                self.txtPlatos.config(state="normal")
                 self.txtPrecioTo.config(state="disabled")
                 messagebox.showinfo("Información", f"Comanda con ID {id_comanda} encontrada.")
                 #self.btnCambiar.config(state="normal") 
@@ -171,7 +160,7 @@ class EliminarPlatoComanda():
 
         # Combobox para el estado
         self.estado_var = tk.StringVar(value="Pendiente")
-        self.cmbEstado = ttk.Combobox(self.ventana, textvariable=self.estado_var, values=["Pendiente"])
+        self.cmbEstado = ttk.Combobox(self.ventana, textvariable=self.estado_var, values=["Pendiente"], state='disabled')
         self.cmbEstado.place(relx=0.50, rely=0.79, anchor="center")
 
         # Botones

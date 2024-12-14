@@ -5,6 +5,39 @@ from Tooltip import Tooltip
 
 class AgregarPlatoComanda():
 
+    def agregarPlato(self, event):
+        platos_str = self.txtPlatos.get().strip()
+        if not platos_str:
+            messagebox.showwarning("Advertencia", "No hay platos para agregar.")
+            return
+
+        try:
+            lista_platos = [int(id_plato) for id_plato in platos_str.split('-')]
+        except ValueError:
+            messagebox.showerror("Error", "Los platos deben ser una lista de números separados por guiones (ej. 1-2-3).")
+            return
+
+        plato_a_agregar = self.txtPlatos.get().strip() 
+        if not plato_a_agregar.isdigit():
+            messagebox.showerror("Error", "El ID del plato a agregar debe ser numérico.")
+            return
+
+        plato_a_agregar = int(plato_a_agregar)
+
+        # Actualizar la comanda en la base de datos y obtener el nuevo precio total
+        try:
+            precio_total = self.Usuario.agregarPlatoAComanda(int(self.txtId.get()), plato_a_agregar)
+        except ValueError as e:
+            messagebox.showerror("Error", str(e))
+            return
+
+        # Agregar el plato a la lista en la interfaz de usuario
+        lista_platos.append(plato_a_agregar)
+        platos_actualizados = '-'.join(map(str, lista_platos))
+        self.txtPrecioTo.config(state='disabled')
+
+        messagebox.showinfo("Éxito", f"Plato con ID {plato_a_agregar} agregado correctamente.")
+
     def buscarComanda(self, event):
         if not self.txtId.get():
             messagebox.showerror("Error", "Por favor ingrese el ID de la comanda.")
@@ -31,15 +64,10 @@ class AgregarPlatoComanda():
                 self.txtPlatos.delete(0, tk.END)
                 self.txtPlatos.insert(0, comanda[3])  
                 
-                self.txtPrecioTo.config(state="normal")
-                self.txtPrecioTo.delete(0, tk.END)
-                self.txtPrecioTo.insert(0, comanda[4])  
-                
-                self.estado_var.set(comanda[5])  
+                self.estado_var.set("Pendiente")  
                 
                 self.txtCedulaCli.config(state="disabled")
                 self.txtMesa.config(state="disabled")
-                self.txtPlatos.config(state="normal")
                 self.txtPrecioTo.config(state="disabled")
                 messagebox.showinfo("Información", f"Comanda con ID {id_comanda} encontrada.")
                 #self.btnCambiar.config(state="normal") 
@@ -47,7 +75,6 @@ class AgregarPlatoComanda():
                 messagebox.showinfo("Información", f"Comanda con ID {id_comanda} no encontrada.")
         except Exception as e:
             messagebox.showerror("Error", f"Ocurrió un error al buscar la comanda. Detalles: {e}")
-
 
     def obtenerComanda(self, id_comanda):
         return self.Usuario.buscarComanda(id_comanda)
@@ -127,7 +154,7 @@ class AgregarPlatoComanda():
 
         # Combobox para el estado
         self.estado_var = tk.StringVar(value="Pendiente")
-        self.cmbEstado = ttk.Combobox(self.ventana, textvariable=self.estado_var, values=["Pendiente"])
+        self.cmbEstado = ttk.Combobox(self.ventana, textvariable=self.estado_var, values=["Pendiente"], state='disabled')
         self.cmbEstado.place(relx=0.50, rely=0.79, anchor="center")
 
         # Botones
@@ -138,7 +165,7 @@ class AgregarPlatoComanda():
 
         self.btnGuardar = tk.Button(self.ventana, image=self.iconoGuardar, text="Guardar", width=85, compound="left")
         self.btnGuardar.place(relx=0.65, rely=0.89, anchor="center")
-        #self.btnGuardar.bind("<Button-1>", self.cambiarEstado)
+        self.btnGuardar.bind("<Button-1>", self.agregarPlato)
         Tooltip(self.btnGuardar, "Haga clic para Agregar la información de la comanda.")
 
         self.btnSalir = tk.Button(self.ventana, image=self.iconoSalir, text="Salir", width=185, compound="left")

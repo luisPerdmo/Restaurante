@@ -55,7 +55,7 @@ class EnviarComanda():
                 self.txtPrecioTo.delete(0, tk.END)
                 self.txtPrecioTo.insert(0, comanda[4])  
                 
-                self.estado_var.set(comanda[5])  
+                self.estado_var.set("En preparacion")  
                 
                 self.txtCedulaCli.config(state="disabled")
                 self.txtMesa.config(state="disabled")
@@ -148,8 +148,8 @@ class EnviarComanda():
         self.txtPrecioTo.place(relx=0.50, rely=0.68, anchor="center")
 
         # Combobox para el estado
-        self.estado_var = tk.StringVar(value="en Preparacion")
-        self.cmbEstado = ttk.Combobox(self.ventana, textvariable=self.estado_var, values=["en preparación"])
+        self.estado_var = tk.StringVar(value="En Preparacion")
+        self.cmbEstado = ttk.Combobox(self.ventana, textvariable=self.estado_var, values=["En preparación"], state='disabled')
         self.cmbEstado.place(relx=0.50, rely=0.79, anchor="center")
 
         # Botones

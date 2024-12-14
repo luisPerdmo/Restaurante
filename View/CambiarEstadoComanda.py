@@ -51,11 +51,7 @@ class CambiarEstadoComanda():
                 self.txtPlatos.delete(0, tk.END)
                 self.txtPlatos.insert(0, comanda[3])  
                 
-                self.txtPrecioTo.config(state="normal")
-                self.txtPrecioTo.delete(0, tk.END)
-                self.txtPrecioTo.insert(0, comanda[4])  
-                
-                self.estado_var.set(comanda[5])  
+                self.estado_var.set("Servido")  
                 
                 self.txtCedulaCli.config(state="disabled")
                 self.txtMesa.config(state="disabled")
@@ -152,7 +148,7 @@ class CambiarEstadoComanda():
 
         # Combobox para el estado
         self.estado_var = tk.StringVar()
-        self.cmbEstado = ttk.Combobox(self.ventana, textvariable=self.estado_var, values=["en preparación", "servido"])
+        self.cmbEstado = ttk.Combobox(self.ventana, textvariable=self.estado_var, values=["Servido"], state='disabled')
         self.cmbEstado.place(relx=0.50, rely=0.79, anchor="center")
         Tooltip(self.lblEstado, "Seleccione el estado de la comanda.")
 

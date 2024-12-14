@@ -1,8 +1,24 @@
 import tkinter as tk
 from tkinter import messagebox
+from datetime import datetime
 from Tooltip import Tooltip
 
 class InformeDiario():
+
+    def generarInforme(self, event):
+        try:
+            informe = self.Usuario.generarInformeDiario()
+            fecha_actual = datetime.now().strftime("%Y-%m-%d")
+            self.actualizarValores(
+                informe["id_informe"],
+                fecha_actual,
+                informe["cantidad_comandas"],
+                informe["ganancia_total"],
+                informe["promedio_dia"]
+            )
+            messagebox.showinfo("Éxito", "Informe diario generado correctamente.")
+        except ValueError as e:
+            messagebox.showerror("Error", str(e))
 
     def limpiarCampos(self, event):
         self.lblIdInformeValor.config(text="")
@@ -24,9 +40,6 @@ class InformeDiario():
     def guardarInforme(self, event):
         messagebox.showinfo("Confirmación", "Los valores han sido actualizados correctamente.")
 
-    def salir(self, event):
-        self.ventana.destroy()
-
     def __init__(self, Usuario):
         self.ventana = tk.Toplevel()
         self.ventana.title("Informe Diario")
@@ -35,7 +48,7 @@ class InformeDiario():
 
         self.Usuario = Usuario
 
-        #iconos
+        # Iconos
         self.iconoSalir = tk.PhotoImage(file=r"Restaurante/Src/salir.png")
 
         self.lblTitulo = tk.Label(self.ventana, text="Registro de Informe Diario", font=("Times", 20, "bold"), bg="lightgray", fg="black")
@@ -67,10 +80,14 @@ class InformeDiario():
         self.lblPromedioDiaValor = tk.Label(self.ventana, text="", bg="lightgray", fg="black", width=20)
         self.lblPromedioDiaValor.place(relx=0.60, rely=0.60, anchor="center")
 
+        # Botón Generar Informe
+        self.btnGenerarInforme = tk.Button(self.ventana, text="Generar Informe", width=185)
+        self.btnGenerarInforme.place(relx=0.5, rely=0.75, anchor="center")
+        self.btnGenerarInforme.bind("<Button-1>", self.generarInforme)
+
         # Botón Salir
         self.btnSalir = tk.Button(self.ventana, text="Salir", width=185, image=self.iconoSalir, compound="left")
         self.btnSalir.place(relx=0.5, rely=0.85, anchor="center")
         self.btnSalir.bind("<Button-1>", self.salir)
 
         self.ventana.mainloop()
-
