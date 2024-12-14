@@ -9,7 +9,7 @@ from View.EliminarMesa import EliminarMesa
 from View.CrearMesero import CrearMesero
 from View.EliminarMesero import EliminarMesero
 from View.InformeDiario import InformeDiario
-from View.CambiarEstado import CambiarEstado
+from View.Calculartotal import Calculartotal
 
 class GestionRegistrador():
 
@@ -103,7 +103,7 @@ class GestionRegistrador():
         InformeDiario(self.usuario)
 
     def precioTotal(self):
-        CambiarEstado(self.usuario)
+        Calculartotal(self.usuario)
 
     #Salir
     def crearMenuSalir(self, event):

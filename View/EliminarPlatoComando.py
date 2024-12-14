@@ -17,7 +17,7 @@ class EliminarPlatoComanda():
             messagebox.showerror("Error", "Los platos deben ser una lista de números separados por guiones (ej. 1-2-3).")
             return
 
-        plato_a_eliminar = self.txtPlatos.get().strip()  # Asegúrate de obtener el ID del plato a eliminar del campo correcto
+        plato_a_eliminar = self.txtPlatos.get().strip()  
         if not plato_a_eliminar.isdigit():
             messagebox.showerror("Error", "El ID del plato a eliminar debe ser numérico.")
             return
@@ -26,15 +26,12 @@ class EliminarPlatoComanda():
         if plato_a_eliminar not in lista_platos:
             messagebox.showerror("Error", f"El plato con ID {plato_a_eliminar} no está en la comanda.")
             return
-
-        # Actualizar la comanda en la base de datos y obtener el nuevo precio total
         try:
             precio_total = self.Usuario.eliminarPlatoDeComanda(int(self.txtId.get()), plato_a_eliminar)
         except ValueError as e:
             messagebox.showerror("Error", str(e))
             return
 
-        # Remover el plato de la lista en la interfaz de usuario
         lista_platos.remove(plato_a_eliminar)
         platos_actualizados = '-'.join(map(str, lista_platos))
         self.txtPlatos.delete(0, tk.END)

@@ -23,15 +23,12 @@ class AgregarPlatoComanda():
             return
 
         plato_a_agregar = int(plato_a_agregar)
-
-        # Actualizar la comanda en la base de datos y obtener el nuevo precio total
         try:
             precio_total = self.Usuario.agregarPlatoAComanda(int(self.txtId.get()), plato_a_agregar)
         except ValueError as e:
             messagebox.showerror("Error", str(e))
             return
 
-        # Agregar el plato a la lista en la interfaz de usuario
         lista_platos.append(plato_a_agregar)
         platos_actualizados = '-'.join(map(str, lista_platos))
         self.txtPrecioTo.config(state='disabled')

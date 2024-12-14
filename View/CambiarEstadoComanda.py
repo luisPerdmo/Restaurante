@@ -136,7 +136,7 @@ class CambiarEstadoComanda():
 
         # Combobox para el estado
         self.estado_var = tk.StringVar()
-        self.cmbEstado = ttk.Combobox(self.ventana, textvariable=self.estado_var, values=["Servido"], state='disabled')
+        self.cmbEstado = ttk.Combobox(self.ventana, textvariable=self.estado_var, values=["En preparacion","Servido"])
         self.cmbEstado.place(relx=0.50, rely=0.79, anchor="center")
         Tooltip(self.lblEstado, "Seleccione el estado de la comanda.")
 

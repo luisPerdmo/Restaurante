@@ -256,7 +256,7 @@ class Usuario():
                 total_precio += precio_plato[0]
 
         platos_str = '-'.join(map(str, lista_platos))
-        estado = 'Pendiente'  # Asegúrate de que el estado sea uno de los valores permitidos
+        estado = 'Pendiente' 
         cursor.execute("INSERT INTO Comanda (id_comanda, cedula_cliente, no_mesa, platos, precio_total, estado) VALUES (?, ?, ?, ?, ?, ?)",
                        (id_comanda, cedula_cliente, no_mesa, platos_str, total_precio, estado))
         conexion.commit()
