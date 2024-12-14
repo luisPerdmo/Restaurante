@@ -3,7 +3,7 @@ from tkinter import ttk
 from tkinter import messagebox
 from Tooltip import Tooltip
 
-class Calculartotal():
+class Calculartotal:
 
     def calcularTotal(self, event):
         if not self.txtId.get():
@@ -14,14 +14,9 @@ class Calculartotal():
             return
         id_comanda = int(self.txtId.get())
         
-        # Verificar el estado de la comanda
-        estado_comanda = self.estado_var.get()
-        if estado_comanda != "Servido":
-            messagebox.showwarning("Advertencia", f"El estado de la comanda es '{estado_comanda}'. Solo se pueden calcular comandas con estado 'Servido'.")
-            return
-        
         try:
-            cedula_cliente, no_mesa, platos, total_precio = self.Usuario.calcularTotal(id_comanda)
+            # Obtener los detalles de la comanda, incluyendo el estado
+            cedula_cliente, no_mesa, platos, total_precio, estado_comanda = self.Usuario.calcularTotal(id_comanda)
             
             self.txtCedulaCli.config(state="normal")
             self.txtCedulaCli.delete(0, tk.END)
@@ -42,6 +37,15 @@ class Calculartotal():
             self.txtPrecioTo.delete(0, tk.END)
             self.txtPrecioTo.insert(0, f"{total_precio:.2f}")
             self.txtPrecioTo.config(state="disabled")
+
+            self.txtEstado.config(state="normal")
+            self.txtEstado.delete(0, tk.END)
+            self.txtEstado.insert(0, estado_comanda)
+            self.txtEstado.config(state="disabled")
+
+            if estado_comanda != "Servido":
+                messagebox.showwarning("Advertencia", f"El estado de la comanda es '{estado_comanda}'. Solo se pueden calcular comandas con estado 'Servido'.")
+                return
 
             messagebox.showinfo("Información", f"Total de la comanda con ID {id_comanda} calculado correctamente.")
         except Exception as e:
@@ -65,7 +69,9 @@ class Calculartotal():
         self.txtPrecioTo.delete(0, tk.END)
         self.txtPrecioTo.config(state="disabled")
         
-        self.estado_var.set("")
+        self.txtEstado.config(state="normal")
+        self.txtEstado.delete(0, tk.END)
+        self.txtEstado.config(state="disabled")
 
     def salir(self, event):
         self.ventana.destroy()
@@ -124,10 +130,9 @@ class Calculartotal():
         self.txtPrecioTo = tk.Entry(self.ventana, state='disabled')  
         self.txtPrecioTo.place(relx=0.50, rely=0.68, anchor="center")
 
-        # Combobox para el estado
-        self.estado_var = tk.StringVar(value="Servido")
-        self.cmbEstado = ttk.Combobox(self.ventana, textvariable=self.estado_var, values=["Servido"],  state='disabled')
-        self.cmbEstado.place(relx=0.50, rely=0.79, anchor="center")
+        # Entry para el estado
+        self.txtEstado = tk.Entry(self.ventana, state="disabled")
+        self.txtEstado.place(relx=0.50, rely=0.79, anchor="center")
 
         # Botones
         self.btnCalcular = tk.Button(self.ventana, image=self.iconoCalcular, text="Calcular", width=85, compound="left")

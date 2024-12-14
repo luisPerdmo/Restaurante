@@ -329,27 +329,16 @@ class Usuario():
         miConexion.crearConexion()
         conexion = miConexion.getConection()
         cursor = conexion.cursor()
-        cursor.execute("SELECT cedula_cliente, no_mesa, platos FROM Comanda WHERE id_comanda = ?", (id_comanda,))
+        
+        cursor.execute("SELECT cedula_cliente, no_mesa, platos, precio_total, estado FROM Comanda WHERE id_comanda = ?", (id_comanda,))
         comanda = cursor.fetchone()
-        if not comanda:
-            miConexion.cerrarConexion()
-            raise ValueError(f"No se encontró la comanda con ID {id_comanda}")
-
-        cedula_cliente, no_mesa, platos = comanda
-        lista_platos = [int(id_plato) for id_plato in platos.split('-')]
-
-        total_precio = 0
-        for plato_id in lista_platos:
-            cursor.execute("SELECT precio FROM Plato WHERE id_plato = ?", (plato_id,))
-            precio_plato = cursor.fetchone()
-            if precio_plato:
-                total_precio += precio_plato[0]
-
-        cursor.execute("UPDATE Comanda SET precio_total = ? WHERE id_comanda = ?",
-                       (total_precio, id_comanda))
-        conexion.commit()
+        
         miConexion.cerrarConexion()
-        return cedula_cliente, no_mesa, platos, total_precio
+        
+        if not comanda:
+            raise Exception("No se encontró una comanda con el ID proporcionado.")
+        
+        return comanda
 
     #Cliente
     def crearCliente(self, cedulaCli, nombreCli, apellidoCli, telefonoCli, emailCli):
