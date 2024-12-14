@@ -9,6 +9,7 @@ from View.EliminarMesa import EliminarMesa
 from View.CrearMesero import CrearMesero
 from View.EliminarMesero import EliminarMesero
 from View.InformeDiario import InformeDiario
+from View.CambiarEstado import CambiarEstado
 
 class GestionRegistrador():
 
@@ -95,11 +96,14 @@ class GestionRegistrador():
             self.menuComada = tk.Menu(self.ventana, tearoff=0)
             self.menuComada.add_command(label="Crear informe diario", command=self.informeDiario)
             self.menuComada.add_separator()
-            self.menuComada.add_command(label="Calcular precio total")
+            self.menuComada.add_command(label="Calcular precio total", command=self.precioTotal)
             self.menuComada.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 150)
        
     def informeDiario(self):
         InformeDiario(self.usuario)
+
+    def precioTotal(self):
+        CambiarEstado(self.usuario)
 
     #Salir
     def crearMenuSalir(self, event):
