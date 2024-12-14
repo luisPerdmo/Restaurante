@@ -3,8 +3,49 @@ from tkinter import ttk
 from tkinter import messagebox
 from Tooltip import Tooltip
 
-
 class Calculartotal():
+
+    def calcularTotal(self, event):
+        if not self.txtId.get():
+            messagebox.showerror("Error", "Por favor ingrese el ID de la comanda.")
+            return 
+        if not self.txtId.get().isdigit():
+            messagebox.showerror("Error", "El campo 'ID' solo puede contener números.")
+            return
+        id_comanda = int(self.txtId.get())
+        
+        # Verificar el estado de la comanda
+        estado_comanda = self.estado_var.get()
+        if estado_comanda != "Servido":
+            messagebox.showwarning("Advertencia", f"El estado de la comanda es '{estado_comanda}'. Solo se pueden calcular comandas con estado 'Servido'.")
+            return
+        
+        try:
+            cedula_cliente, no_mesa, platos, total_precio = self.Usuario.calcularTotal(id_comanda)
+            
+            self.txtCedulaCli.config(state="normal")
+            self.txtCedulaCli.delete(0, tk.END)
+            self.txtCedulaCli.insert(0, cedula_cliente)
+            self.txtCedulaCli.config(state="disabled")
+            
+            self.txtMesa.config(state="normal")
+            self.txtMesa.delete(0, tk.END)
+            self.txtMesa.insert(0, no_mesa)
+            self.txtMesa.config(state="disabled")
+            
+            self.txtPlatos.config(state="normal")
+            self.txtPlatos.delete(0, tk.END)
+            self.txtPlatos.insert(0, platos)
+            self.txtPlatos.config(state="disabled")
+            
+            self.txtPrecioTo.config(state="normal")
+            self.txtPrecioTo.delete(0, tk.END)
+            self.txtPrecioTo.insert(0, f"{total_precio:.2f}")
+            self.txtPrecioTo.config(state="disabled")
+
+            messagebox.showinfo("Información", f"Total de la comanda con ID {id_comanda} calculado correctamente.")
+        except Exception as e:
+            messagebox.showerror("Error", f"Ocurrió un error al calcular el total de la comanda. Detalles: {e}")
 
     def limpiarCampos(self, event):
         self.txtId.delete(0, tk.END)
