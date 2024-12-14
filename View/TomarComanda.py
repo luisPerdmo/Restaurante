@@ -8,37 +8,29 @@ class TomarComanda():
     def validar_cliente_mesa(self, event):
         cedula = self.txtCedulaCli.get().strip()
         mesa = self.txtMesa.get().strip()
-
         if not cedula:
             messagebox.showerror("Error", "La cédula del cliente es obligatoria.")
             return
-
         if not mesa.isdigit():
             messagebox.showerror("Error", "El número de mesa debe ser numérico.")
             return
-
         no_mesa = int(mesa)
-
-        # Validar existencia del cliente y disponibilidad de la mesa usando la clase Usuario
         cliente = self.Usuario.buscarCliente(cedula)
         if not cliente:
             messagebox.showerror("Error", "El cliente con esta cédula no existe.")
             return
-
         mesa_existente = self.Usuario.buscarMesa(no_mesa)
         if not mesa_existente:
             messagebox.showerror("Error", "La mesa especificada no existe.")
             return
-
-        estado_mesa = mesa_existente[2].lower()  # Asumiendo que el estado está en la tercera columna
-        if estado_mesa != "ocupada":  # Aquí verificamos que la mesa esté ocupada
+        estado_mesa = mesa_existente[2].lower()  
+        if estado_mesa != "ocupada":  
             messagebox.showerror("Error", "La mesa especificada no está ocupada.")
             return
-
-        # Si todo es válido, desbloquear el campo de platos
-        self.txtPlatos.config(state='normal')  # Desbloquea el campo de platos
-        self.txtCedulaCli.config(state='normal')  # Desbloquea el campo de cédula
-        self.txtMesa.config(state='normal')  # Desbloquea el campo de mesa
+       
+        self.txtPlatos.config(state='normal')  
+        self.txtCedulaCli.config(state='normal')  
+        self.txtMesa.config(state='normal') 
         messagebox.showinfo("Validación exitosa", "Cliente y mesa válidos. Ahora puede ingresar los platos.")
 
     def calcular_precio_total(self, event):
@@ -46,23 +38,18 @@ class TomarComanda():
         if not platos_str:
             messagebox.showwarning("Advertencia", "Debe ingresar al menos un plato para calcular el precio total.")
             return
-
         try:
             lista_platos = [int(id_plato) for id_plato in platos_str.split('-')]
         except ValueError:
             messagebox.showerror("Error", "Los platos deben ser una lista de números separados por guiones (ej. 1-2-3).")
             return
-
-        # Verificar existencia de cada plato
         for id_plato in lista_platos:
             if not self.Usuario.existePlato(id_plato):
                 messagebox.showerror("Error", f"El plato con ID {id_plato} no existe.")
                 return
-
         id_comanda = self.txtId.get().strip()
         cedula_cliente = self.txtCedulaCli.get().strip()
         no_mesa = self.txtMesa.get().strip()
-
         precio_total = self.Usuario.tomarComanda(id_comanda, cedula_cliente, no_mesa, lista_platos)
         self.txtPrecioTo.config(state='disabled')
         messagebox.showinfo("Informarcion", "Comanda tomada con exito")
@@ -93,22 +80,17 @@ class TomarComanda():
         if not precio_total:
             messagebox.showerror("Error", "Debe calcular el precio total.")
             return
-
         id_comanda = int(id_comanda)
         no_mesa = int(mesa)
         lista_platos = [int(id_plato) for id_plato in platos_str.split('-')]
-
-        # Llamar al método tomarComanda de la clase Usuario para guardar la comanda
         self.Usuario.tomarComanda(id_comanda, cedula_cliente, no_mesa, lista_platos)
-
-        # Resetear los campos después de guardar
         self.limpiarcampos()
 
     def limpiarcampos(self):
         self.txtId.delete(0, tk.END)
         self.txtCedulaCli.delete(0, tk.END)
         self.txtMesa.delete(0, tk.END)
-        self.txtPlatos.config(state='disabled')  # Bloquea el campo de platos
+        self.txtPlatos.config(state='disabled')  
         self.txtPlatos.delete(0, tk.END)
         self.txtPrecioTo.config(state='normal')
         self.txtPrecioTo.delete(0, tk.END)

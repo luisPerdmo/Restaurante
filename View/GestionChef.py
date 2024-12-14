@@ -47,7 +47,7 @@ class GestionChef():
             self.btnGestionComanda.place(relx=0.01, rely=0.3, anchor="w")
             self.btnSalir.place(relx=0.01, rely=0.4, anchor="w")
             self.btnBarra.place(relx=0.89, rely=0.05, anchor="center")
-            self.lblMenu = tk.Label(self.barra, text="Menu", bg="#D1EBFF", font=("Times", 20, "bold"))
+            self.lblMenu = tk.Label(self.barra, text="Menu", bg="#CCD1D1", font=("Times", 20, "bold"))
             self.lblMenu.place(relx=0.43, rely=0.05, anchor="center")
 
     #Plato
@@ -106,7 +106,7 @@ class GestionChef():
         self.iconoAyuda = tk.PhotoImage(file=r"Restaurante/Src/ayuda.png")
 
         # Barra lateral
-        self.barra = tk.Frame(self.ventana, width=50, height=348, bg="#D1EBFF")
+        self.barra = tk.Frame(self.ventana, width=50, height=348, bg="#CCD1D1")
         self.barra.place(relx=0.00, rely=0.5, anchor="w")
 
         # Botones
@@ -115,19 +115,19 @@ class GestionChef():
         self.btnBarra.bind("<Button-1>", self.toggleBarra)
         Tooltip(self.btnBarra, "Expandir o contraer el menú")
 
-        self.btnGestionPlatos = tk.Label(self.barra, text="Gestionar Platos", bg="#D1EBFF")
+        self.btnGestionPlatos = tk.Label(self.barra, text="Gestionar Platos", bg="#CCD1D1")
         self.btnGestionPlatos.place(relx=0.01, rely=0.1, anchor="w")
         self.btnGestionPlatos.place_forget()
         self.btnGestionPlatos.bind("<Button-1>", self.crearMenuPlato)
         Tooltip(self.btnGestionPlatos, "Haz clic para gestionar los platos: agregar o eliminar platos.")
 
-        self.btnGestionComanda = tk.Label(self.barra, text="Gestionar Comandas", bg="#D1EBFF")
+        self.btnGestionComanda = tk.Label(self.barra, text="Gestionar Comandas", bg="#CCD1D1")
         self.btnGestionComanda.place(relx=0.01, rely=0.3, anchor="w")
         self.btnGestionComanda.place_forget()
         self.btnGestionComanda.bind("<Button-1>", self.crearMenuComanda)
         Tooltip(self.btnGestionComanda, "Haz clic para gestionar las comandas: cambiar el estado de una comanda.")
 
-        self.btnSalir = tk.Label(self.barra, text="Salir", bg="#D1EBFF")
+        self.btnSalir = tk.Label(self.barra, text="Salir", bg="#CCD1D1")
         self.btnSalir.place(relx=0.01, rely=0.4, anchor="w")
         self.btnSalir.place_forget()
         self.btnSalir.bind("<Button-1>", self.crearMenuSalir)

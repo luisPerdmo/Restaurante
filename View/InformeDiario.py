@@ -50,6 +50,7 @@ class InformeDiario():
 
         # Iconos
         self.iconoSalir = tk.PhotoImage(file=r"Restaurante/Src/salir.png")
+        self.iconoInforme = tk.PhotoImage(file=r"Restaurante/Src/infrome.png")
 
         self.lblTitulo = tk.Label(self.ventana, text="Registro de Informe Diario", font=("Times", 20, "bold"), bg="lightgray", fg="black")
         self.lblTitulo.place(relx=0.5, rely=0.08, anchor="center")
@@ -57,32 +58,32 @@ class InformeDiario():
         # Etiquetas y valores dinámicos
         self.lblIdInforme = tk.Label(self.ventana, text="ID Informe*: ", bg="lightgray", fg="black")
         self.lblIdInforme.place(relx=0.10, rely=0.20, anchor="w")
-        self.lblIdInformeValor = tk.Label(self.ventana, text="", bg="lightgray", fg="black", width=20)
+        self.lblIdInformeValor = tk.Label(self.ventana, text="", bg="lightgray", fg="black", width=13)
         self.lblIdInformeValor.place(relx=0.60, rely=0.20, anchor="center")
 
         self.lblFechaInforme = tk.Label(self.ventana, text="Fecha*: ", bg="lightgray", fg="black")
         self.lblFechaInforme.place(relx=0.10, rely=0.30, anchor="w")
-        self.lblFechaInformeValor = tk.Label(self.ventana, text="", bg="lightgray", fg="black", width=20)
+        self.lblFechaInformeValor = tk.Label(self.ventana, text="", bg="lightgray", fg="black", width=13)
         self.lblFechaInformeValor.place(relx=0.60, rely=0.30, anchor="center")
 
         self.lblCantidadComandas = tk.Label(self.ventana, text="Cantidad Comandas*: ", bg="lightgray", fg="black")
         self.lblCantidadComandas.place(relx=0.10, rely=0.40, anchor="w")
-        self.lblCantidadComandasValor = tk.Label(self.ventana, text="", bg="lightgray", fg="black", width=20)
+        self.lblCantidadComandasValor = tk.Label(self.ventana, text="", bg="lightgray", fg="black", width=13)
         self.lblCantidadComandasValor.place(relx=0.60, rely=0.40, anchor="center")
 
         self.lblGananciaDia = tk.Label(self.ventana, text="Ganancia del Día*: ", bg="lightgray", fg="black")
         self.lblGananciaDia.place(relx=0.10, rely=0.50, anchor="w")
-        self.lblGananciaDiaValor = tk.Label(self.ventana, text="", bg="lightgray", fg="black", width=20)
+        self.lblGananciaDiaValor = tk.Label(self.ventana, text="", bg="lightgray", fg="black", width=13)
         self.lblGananciaDiaValor.place(relx=0.60, rely=0.50, anchor="center")
 
         self.lblPromedioDia = tk.Label(self.ventana, text="Promedio del Día*: ", bg="lightgray", fg="black")
         self.lblPromedioDia.place(relx=0.10, rely=0.60, anchor="w")
-        self.lblPromedioDiaValor = tk.Label(self.ventana, text="", bg="lightgray", fg="black", width=20)
+        self.lblPromedioDiaValor = tk.Label(self.ventana, text="", bg="lightgray", fg="black", width=13)
         self.lblPromedioDiaValor.place(relx=0.60, rely=0.60, anchor="center")
 
         # Botón Generar Informe
-        self.btnGenerarInforme = tk.Button(self.ventana, text="Generar Informe", width=185)
-        self.btnGenerarInforme.place(relx=0.5, rely=0.75, anchor="center")
+        self.btnGenerarInforme = tk.Button(self.ventana, image=self.iconoInforme, text="Generar Informe", width=185, compound="left")
+        self.btnGenerarInforme.place(relx=0.5, rely=0.77, anchor="center")
         self.btnGenerarInforme.bind("<Button-1>", self.generarInforme)
 
         # Botón Salir
