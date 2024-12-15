@@ -13,6 +13,7 @@ class GestionChef():
         ayudaTexto = (
             "Atajos.\n\n"
             "- Presione 'F4' para crear menu plato. \n"
+            "- Presione 'F5' para crear menu salir. \n"
             "- presione 'F3' para crear menu comanda. \n"
             "- presione 'F2' para cerrar la ventana. \n"
             "- Presione 'F1' para obtener ayuda. \n"
@@ -118,7 +119,7 @@ class GestionChef():
         self.btnSalir = tk.Label(self.barra, text="Salir", bg="#CCD1D1")
         self.btnSalir.place(relx=0.01, rely=0.4, anchor="w")
         self.btnSalir.place_forget()
-        self.btnSalir.bind("<Button-1>", self.crearMenuSalir)
+        self.btnSalir.bind("<Button-1>", self.salir)
         Tooltip(self.btnSalir, "Presione para salir de la ventana")
 
         self.btnAyuda = tk.Label(self.ventana, image=self.iconoAyuda)
@@ -129,7 +130,8 @@ class GestionChef():
         # Atajos
         self.ventana.bind("<F4>", self.crearMenuPlato)
         self.ventana.bind("<F3>", self.crearMenuComanda)
-        self.ventana.bind("<F2>", self.crearMenuSalir)
+        self.ventana.bind("<F5>", self.crearMenuSalir)
+        self.ventana.bind("<F2>", self.salir)
         self.ventana.bind("<F1>", self.mostrarAyuda)
 
 

@@ -176,7 +176,7 @@ class GestionRegistrador():
         self.btnSalir = tk.Label(self.barra, text="Salir", bg="#CCD1D1")
         self.btnSalir.place(relx=0.01, rely=0.6, anchor="w")
         self.btnSalir.place_forget()
-        self.btnSalir.bind("<Button-1>", self.crearMenuSalir)
+        self.btnSalir.bind("<Button-1>", self.salir)
         Tooltip(self.btnSalir, "Presione para salir de la ventana")
 
         self.btnAyuda = tk.Label(self.ventana, image=self.iconoAyuda)

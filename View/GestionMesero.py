@@ -166,7 +166,7 @@ class GestionMesero():
         self.btnSalir = tk.Label(self.barra, text="Salir", bg="#B0B0B0")
         self.btnSalir.place(relx=0.01, rely=0.5, anchor="w")
         self.btnSalir.place_forget()
-        self.btnSalir.bind("<Button-1>", self.crearMenuSalir)
+        self.btnSalir.bind("<Button-1>", self.salir)
 
         self.btnAyuda = tk.Button(self.ventana, text="Ayuda", image=self.iconoAyuda, width=10)
         self.btnAyuda.place(relx=0.88, rely=0.9, anchor="center")
