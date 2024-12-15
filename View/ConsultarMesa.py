@@ -23,7 +23,7 @@ class ConsultarMesa():
                 self.txtEstado.insert(0, mesa[2])  
                 self.txtCantidadComensales.config(state="disabled")
                 self.txtEstado.config(state="disabled")
-                if mesa[2] == "Disponible":
+                if mesa[2] in ["Disponible", "Ocupada"]:
                     messagebox.showinfo("Información", f"Mesa {id_mesa} encontrada. Estado: {mesa[2]}")
             else:
                 messagebox.showinfo("Información", f"Mesa {id_mesa} no encontrada.")

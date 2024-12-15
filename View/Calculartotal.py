@@ -26,7 +26,6 @@ class Calculartotal:
         id_comanda = int(self.txtId.get())
         
         try:
-            # Obtener los detalles de la comanda, incluyendo el estado
             cedula_cliente, no_mesa, platos, total_precio, estado_comanda = self.Usuario.calcularTotal(id_comanda)
             
             self.txtCedulaCli.config(state="normal")

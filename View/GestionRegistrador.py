@@ -117,7 +117,7 @@ class GestionRegistrador():
             self.menuSalir.add_separator()
             self.menuSalir.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 198)
     
-    def salir(self):
+    def salir(self, event):
         self.ventana.destroy()
 
     def __init__(self, loggin, usuario):

@@ -43,12 +43,12 @@ class OcuparMesa():
                 self.cmbEstado.delete(0, tk.END)
                 self.cmbEstado.insert(0, mesa[2])  
                 
-                self.estado_var.set(mesa[2])
+                self.estado_var.set("Ocupada")
                 self.btnOcupar.config(state="normal")
-                self.txtCantidadComensales.config(state="normal")
+                self.txtCantidadComensales.config(state="disabled")
                 self.cmbEstado.config(state="disabled")
                 messagebox.showinfo("Información", f"Mesa con ID {id_mesa} encontrada.")
-                self.cmbEstado.config(state="normal")
+                self.cmbEstado.config(state="disabled")
             else:
                 messagebox.showinfo("Información", f"Mesa con ID {id_mesa} no encontrada.")
         except Exception as e:
@@ -126,13 +126,13 @@ class OcuparMesa():
         self.txtIdMesa.bind("<KeyPress>", self.soloNumeros)
         Tooltip(self.txtIdMesa, "Ingrese el ID de la mesa. Solo se permiten números.")
 
-        self.txtCantidadComensales = tk.Entry(self.ventana)
+        self.txtCantidadComensales = tk.Entry(self.ventana, state="disabled")
         self.txtCantidadComensales.place(relx=0.50, rely=0.46, anchor="center")
         self.txtCantidadComensales.config(state="disabled")
         Tooltip(self.txtCantidadComensales, "La cantidad de comensales se muestra tras buscar la mesa.")
 
         self.estado_var = tk.StringVar()
-        self.cmbEstado = ttk.Combobox(self.ventana, textvariable=self.estado_var, values=["Ocupada"])
+        self.cmbEstado = ttk.Combobox(self.ventana, textvariable=self.estado_var, values=["Ocupada"], state="disabled")
         self.cmbEstado.place(relx=0.50, rely=0.59, anchor="center")
         Tooltip(self.lblEstado, "Seleccione el estado de la mesa.")
 

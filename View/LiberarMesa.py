@@ -43,10 +43,10 @@ class LiberarMesa():
                 self.cmbEstado.delete(0, tk.END)
                 self.cmbEstado.insert(0, "Disponible")  
                 
-                self.estado_var.set(mesa[2]) 
+                self.estado_var.set("Disponible") 
                 self.btnLiberar.config(state="normal")
                 self.txtCantidadComensales.config(state="disabled")
-                self.cmbEstado.config(state="normal")
+                self.cmbEstado.config(state="disabled")
                 messagebox.showinfo("Información", f"Mesa con ID {id_mesa} encontrada.")
             else:
                 messagebox.showinfo("Información", f"Mesa con ID {id_mesa} no encontrada.")
@@ -132,7 +132,7 @@ class LiberarMesa():
         Tooltip(self.txtCantidadComensales, "La cantidad de comensales se muestra tras buscar la mesa.")
 
         self.estado_var = tk.StringVar()
-        self.cmbEstado = ttk.Combobox(self.ventana, textvariable=self.estado_var, values=["Disponible"])
+        self.cmbEstado = ttk.Combobox(self.ventana, textvariable=self.estado_var, values=["Disponible"], state= "disabled")
         self.cmbEstado.place(relx=0.50, rely=0.59, anchor="center")
         Tooltip(self.lblEstado, "Estado de la mesa: solo 'Disponible' para liberar.")
 

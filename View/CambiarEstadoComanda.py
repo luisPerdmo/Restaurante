@@ -45,6 +45,7 @@ class CambiarEstadoComanda():
                 self.txtMesa.config(state="disabled")
                 self.txtPlatos.config(state="disabled")
                 self.txtPrecioTo.config(state="disabled")
+                self.cmbEstado.config(state="disabled")
                 messagebox.showinfo("Información", f"Comanda con ID {id_comanda} encontrada.")
                 self.btnCambiar.config(state="normal")
             else:
@@ -131,7 +132,7 @@ class CambiarEstadoComanda():
 
         # Combobox para el estado
         self.estado_var = tk.StringVar()
-        self.cmbEstado = ttk.Combobox(self.ventana, textvariable=self.estado_var, values=["En preparacion","Servido"])
+        self.cmbEstado = ttk.Combobox(self.ventana, textvariable=self.estado_var, values=["Servido"],state="disabled")
         self.cmbEstado.place(relx=0.50, rely=0.79, anchor="center")
         Tooltip(self.lblEstado, "Seleccione el estado de la comanda.")
 
