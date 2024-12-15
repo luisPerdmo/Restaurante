@@ -16,8 +16,7 @@ from View.EnviarComanda import EnviarComanda
 class GestionMesero():
         
     def mostrarAyuda(self, event):
-        mensaje_ayuda = (
-            "Ayuda", 
+        mensaje_ayuda = ( 
             "Atajos.\n\n"
             "- presione 'F6' para crear el menu cliente.\n"
             "- presione 'F5' para crear el menu mesa.\n"

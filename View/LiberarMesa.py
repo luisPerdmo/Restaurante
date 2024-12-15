@@ -72,7 +72,6 @@ class LiberarMesa():
 
     def mostrarAyuda(self, event):
         mensaje_ayuda = (
-            "Ayuda", 
             "Atajos.\n\n"
             "- Presione 'F5' para buscar la mesa con el ID. \n"
             "- Presione 'F4' para cambiar el estado de la mesa. \n"

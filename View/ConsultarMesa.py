@@ -34,8 +34,7 @@ class ConsultarMesa():
         return self.usuario.buscarMesa(id_mesa)
 
     def mostrarAyuda(self, event):
-        mensaje_Ayuda = (
-               "Ayuda", 
+        mensaje_Ayuda = ( 
                "Atajos.\n\n"
                "- Presione 'F4' para buscar la mesa con el ID. \n"
                "- presione 'F3' para limpiar los campos. \n"

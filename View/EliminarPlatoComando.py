@@ -83,8 +83,7 @@ class EliminarPlatoComanda():
         return self.Usuario.buscarComanda(id_comanda)
 
     def mostrarAyuda(self, event):
-        mensaje_ayuda = (
-            "Ayuda", 
+        mensaje_ayuda = ( 
             "Atajos.\n\n"
             "- Presione 'F4' para buscar comanda existente. \n"
             "- presione 'F3' para eliminar el plato de la comanda. \n"

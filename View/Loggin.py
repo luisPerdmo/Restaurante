@@ -8,8 +8,7 @@ from tkinter import messagebox
 class Loggin():
 
     def mostrarAyuda(self, event):
-        mensaje_Ayuda = (
-            "Ayuda", 
+        mensaje_Ayuda = ( 
             "Atajos.\n\n"
             "- Presione 'F4' para ingresar. \n"
             "- presione 'F2' para cerrar la ventana. \n"

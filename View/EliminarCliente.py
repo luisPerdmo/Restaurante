@@ -7,7 +7,6 @@ class EliminarCliente():
 
     def mostrarAyuda(self, event):
         mensaje_Ayuda = (
-            "Ayuda", 
             "Atajos.\n\n"
             "- Presione 'F4' para buscar el cliente para eliminar. \n"
             "- presione 'F3' para eliminar el cliente seleccionado. \n"

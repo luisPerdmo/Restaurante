@@ -6,7 +6,6 @@ class EliminarMesa:
 
     def mostrarAyuda(self, event):
         mensaje_Ayuda = (
-            "Ayuda", 
             "Atajos.\n\n"
             "- Presione 'F5' para buscar la mesa por el ID . \n"
             "- Presione 'F4' para eliminar mesa. \n"

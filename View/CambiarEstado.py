@@ -8,7 +8,6 @@ class CambiarEstado():
 
     def mostrarAyuda(self, event):
             mensaje_Ayuda = (
-               "Ayuda", 
                "Atajos.\n\n"
                #"- presione 'F3' para cambiar el estado. \n"
                "- presione 'F2' para cerrar la ventana. \n"

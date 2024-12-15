@@ -6,8 +6,7 @@ from Tooltip import Tooltip
 class InformeDiario():
 
     def mostrarAyuda(self, event):
-        mensaje_ayuda = (
-            "Ayuda", 
+        mensaje_ayuda = ( 
             "Atajos.\n\n"
             "- Presione 'F3' para generar un informe. \n"
             "- presione 'F2' para cerrar la ventana. \n"

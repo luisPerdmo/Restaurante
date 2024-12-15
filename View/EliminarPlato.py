@@ -7,12 +7,11 @@ class EliminarPlato():
 
     def mostrarAyuda(self, event):
         mensaje_Ayuda = (
-        "Ayuda", 
             "Atajos.\n\n"
             "- Presione 'F4' para guardar los datos. \n"
             "- presione 'F3' para eliminar los campos. \n"
             "- presione 'F2' para cerrar la ventana. \n"
-            "- Presione 'F1' para obtener ayuda. \n"
+            "- Presione 'F1' para obtener ayuda. \n"      
         )
         messagebox.showinfo("Ayuda", mensaje_Ayuda)
 

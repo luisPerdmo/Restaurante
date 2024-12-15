@@ -6,8 +6,7 @@ from Tooltip import Tooltip
 class CrearMesero():
 
     def mostrarAyuda(self, event):
-        mensaje_Ayuda = (
-               "Ayuda", 
+        mensaje_Ayuda = ( 
                "Atajos.\n\n"
                "- Presione 'F4' para registrar un nuevo usuario. \n"
                "- presione 'F3' para limpiar los campos. \n"

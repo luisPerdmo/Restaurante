@@ -7,7 +7,6 @@ class EliminarMesero:
 
     def mostrarAyuda(self, event):
         mensaje_Ayuda = (
-            "Ayuda", 
             "Atajos.\n\n"
             "- Presione 'F4' para buscar el mesero para eliminarlo. \n"
             "- presione 'F3' para eliminar el mesero seleccionado. \n"

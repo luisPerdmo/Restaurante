@@ -7,7 +7,6 @@ class CrearMesa():
 
     def mostrarAyuda(self, event):
         mensaje_Ayuda = (
-               "Ayuda", 
                "Atajos.\n\n"
                "- Presione 'F4' para registrar un nuevo usuario. \n"
                "- presione 'F3' para limpiar los campos. \n"

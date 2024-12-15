@@ -15,7 +15,6 @@ class GestionRegistrador():
 
     def mostrarAyuda(self, event):
         mensaje_ayuda = (
-            "Ayuda", 
             "Atajos.\n\n"
             "- presione 'F7' para crear el menu Chef.\n"
             "- presione 'F6' para crear el menu mesa.\n"

@@ -98,7 +98,6 @@ class TomarComanda():
 
     def mostrarAyuda(self, event):
         mensaje_ayuda = (
-            "Ayuda", 
             "Atajos.\n\n"
             "- presione 'F2' para cerrar la ventana. \n"
             "- Presione 'F1' para obtener ayuda. \n"

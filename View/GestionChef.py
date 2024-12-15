@@ -11,7 +11,6 @@ class GestionChef():
 
     def mostrarAyuda(self, event):
         ayudaTexto = (
-            "Ayuda", 
             "Atajos.\n\n"
             "- Presione 'F4' para crear menu plato. \n"
             "- presione 'F3' para crear menu comanda. \n"
