@@ -251,34 +251,27 @@ class Usuario():
         total_precio = 0
 
         try:
-            # Calcular el precio total de los platos
             for plato_id in lista_platos:
                 cursor.execute("SELECT precio FROM Plato WHERE id_plato = ?", (plato_id,))
                 precio_plato = cursor.fetchone()
                 if precio_plato:
                     total_precio += precio_plato[0]
 
-            # Crear el string de platos y preparar datos
             platos_str = '-'.join(map(str, lista_platos))
             estado = 'Pendiente'
 
-            # Insertar la comanda en la base de datos
             cursor.execute(
                 "INSERT INTO Comanda (id_comanda, cedula_cliente, no_mesa, platos, precio_total, estado) VALUES (?, ?, ?, ?, ?, ?)",
                 (id_comanda, cedula_cliente, no_mesa, platos_str, total_precio, estado)
             )
             conexion.commit()
-            
-            # Si todo es exitoso, mostrar mensaje de confirmación
             messagebox.showinfo("Éxito", f"Comanda con ID {id_comanda} tomada correctamente.")
         
         except mariadb.IntegrityError:
-            # Manejar error de clave duplicada
             messagebox.showerror("Error", f"El ID de comanda {id_comanda} ya existe. Por favor, ingrese otra ID para poder tomar la comanda.")
-            return  # Salir de la función para evitar continuar
+            return  
 
         finally:
-            # Cerrar la conexión a la base de datos
             miConexion.cerrarConexion()
 
         return total_precio

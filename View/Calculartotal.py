@@ -95,7 +95,7 @@ class Calculartotal:
         self.Usuario = Usuario
 
         # Iconos
-        self.iconoCalcular = tk.PhotoImage(file=r"Restaurante\Src\buscar.png")
+        self.iconoCalcular = tk.PhotoImage(file=r"Restaurante\Src\Calcular.png")
         self.iconoLimpiar = tk.PhotoImage(file=r"Restaurante/Src/limpiar.png")
         self.iconoSalir = tk.PhotoImage(file=r"Restaurante/Src/salir.png")
         self.iconoAyuda = tk.PhotoImage(file=r"Restaurante/Src/ayuda.png")
