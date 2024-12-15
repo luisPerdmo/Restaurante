@@ -9,7 +9,7 @@ class Calculartotal:
         mensaje_Ayuda = (
                "Ayuda", 
                "Atajos.\n\n"
-               "- Presione 'F4' para calcular el total e la comanda. \n"
+               "- Presione 'F4' para calcular el total de la comanda. \n"
                "- presione 'F3' para limpiar los campos. \n"
                "- presione 'F2' para cerrar la ventana. \n"
                "- Presione 'F1' para obtener ayuda. \n"
@@ -160,8 +160,8 @@ class Calculartotal:
         self.btnSalir.bind("<Button-1>", self.salir)
         Tooltip(self.btnSalir, "Haga clic para salir de la ventana.")
 
-        self.btnAyuda = tk.Button(self.ventana, image=self.iconoAyuda, text="Ayuda", width=85, compound="left")
-        self.btnAyuda.place(relx=0.15, rely=0.95, anchor="center")
+        self.btnAyuda = tk.Button(self.ventana, image=self.iconoAyuda, text="Ayuda")
+        self.btnAyuda.place(relx=0.9, rely=0.2, anchor="center")
         self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
         Tooltip(self.btnAyuda, "Haga clic para obtener ayuda.")
 

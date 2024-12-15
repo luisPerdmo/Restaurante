@@ -100,7 +100,7 @@ class InformeDiario():
         self.btnSalir.place(relx=0.5, rely=0.85, anchor="center")
         self.btnSalir.bind("<Button-1>", self.salir)
 
-        self.btnAyuda = tk.Button(self.ventana, image=self.iconoAyuda, text="Ayuda", width=185, compound="left")
+        self.btnAyuda = tk.Button(self.ventana, image=self.iconoAyuda, text="Ayuda")
         self.btnAyuda.place(relx=0.5, rely=0.93, anchor="center")
         self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
 
