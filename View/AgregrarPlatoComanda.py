@@ -78,17 +78,12 @@ class AgregarPlatoComanda():
 
     def mostrarAyuda(self, event):
         mensaje_ayuda = (
-            "Ayuda:\n\n"
-            "1. ID: Ingrese el número de ID de la comanda. Solo se permiten números.\n"
-            "2. Cédula Cliente: Este campo se completará automáticamente al buscar una comanda.\n"
-            "3. Mesa: Este campo se completará automáticamente al buscar una comanda.\n"
-            "4. Platos: Este campo se completará automáticamente al buscar una comanda.\n"
-            "5. Precio Total: Este campo se completará automáticamente al buscar una comanda.\n"
-            "6. Estado: Elija el estado de la comanda entre 'en preparación' o 'servido'.\n"
-            "7. Buscar: Haga clic en este botón para buscar una comanda por su ID.\n"
-            "8. Cambiar: Haga clic en este botón para cambiar el estado de la comanda.\n"
-            "9. Salir: Cierra la ventana de agregar plato a la comanda.\n"
-            "10. Si desea agregar un nuevo plato a la comanda, complete los campos correspondientes y haga clic en 'Cambiar'."
+               "Ayuda", 
+               "Atajos.\n\n"
+               "- Presione 'F4' para buscar la comanda existente. \n"
+               "- presione 'F3' para agregar informacion a la comanda. \n"
+               "- presione 'F2' para cerrar la ventana. \n"
+               "- Presione 'F1' para obtener ayuda. \n"
         )
         messagebox.showinfo("Ayuda", mensaje_ayuda)
 
@@ -174,6 +169,12 @@ class AgregarPlatoComanda():
         self.btnAyuda.place(relx=0.93, rely=0.07, anchor="center")
         self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
         Tooltip(self.btnAyuda, "Haga clic para obtener ayuda sobre cómo usar esta ventana.")
+
+        # Atajo
+        self.ventana.bind("<F4>", self.buscarComanda)
+        self.ventana.bind("<F3>", self.agregarPlato)
+        self.ventana.bind("<F2>", self.salir)
+        self.ventana.bind("<F1>", self.mostrarAyuda)
 
         self.ventana.mainloop()
 

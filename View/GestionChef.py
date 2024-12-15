@@ -11,25 +11,14 @@ class GestionChef():
 
     def mostrarAyuda(self, event):
         ayudaTexto = (
-            "Instrucciones para usar la ventana de Gestión Chef:\n\n"
-            "- Barra lateral:\n"
-            "  * Haz clic en el icono de la barra para expandir o contraer el menú lateral.\n\n"
-            "- Gestión de Platos:\n"
-            "  * Haz clic en 'Gestionar Platos' para desplegar las opciones:\n"
-            "    - Agregar plato: Permite registrar un nuevo plato en el sistema.\n"
-            "    - Eliminar plato: Permite eliminar un plato existente del sistema.\n\n"
-            "- Gestión de Comandas:\n"
-            "  * Haz clic en 'Gestionar Comandas' para desplegar las opciones:\n"
-            "    - Cambiar estado comanda: Permite actualizar el estado de una comanda.\n\n"
-            "- Salir:\n"
-            "  * Haz clic en 'Salir' para cerrar la ventana de Gestión Chef.\n\n"
-            "Iconos adicionales:\n"
-            "- Ayuda: Haz clic en el icono de ayuda (esquina superior derecha) para consultar estas instrucciones.\n\n"
-            "Navegación:\n"
-            "- Usa el menú expandible en la barra lateral para acceder a las funcionalidades principales.\n\n"
-            "¡Gracias por usar la ventana de Gestión Chef!"
+            "Ayuda", 
+            "Atajos.\n\n"
+            "- Presione 'F4' para crear menu plato. \n"
+            "- presione 'F3' para crear menu comanda. \n"
+            "- presione 'F2' para cerrar la ventana. \n"
+            "- Presione 'F1' para obtener ayuda. \n"
         )
-        messagebox.showinfo("Ayuda - Gestión Chef", ayudaTexto)
+        messagebox.showinfo("Ayuda", ayudaTexto)
 
     def toggleBarra(self, event):
         if self.barraExpandida:
@@ -137,6 +126,12 @@ class GestionChef():
         self.btnAyuda.place(relx=0.95, rely=0.05, anchor="center")
         self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
         Tooltip(self.btnAyuda, "Obtener ayuda sobre la ventana")
+
+        # Atajos
+        self.ventana.bind("<F4>", self.crearMenuPlato)
+        self.ventana.bind("<F3>", self.crearMenuComanda)
+        self.ventana.bind("<F2>", self.crearMenuSalir)
+        self.ventana.bind("<F1>", self.mostrarAyuda)
 
 
         self.ventana.mainloop()

@@ -6,22 +6,15 @@ from Tooltip import Tooltip
 class CrearChef():
 
     def mostrarAyuda(self, event):
-        mensajeAyuda = (
-            "Bienvenido al formulario de registro de Chef.\n\n"
-            "Instrucciones:\n"
-            "- Los campos marcados con * son obligatorios.\n"
-            "- Ingrese la cédula únicamente con números.\n"
-            "- El nombre y apellido deben contener solo letras.\n"
-            "- El teléfono debe ser numérico.\n"
-            "- El correo electrónico debe tener un formato válido, como usuario@dominio.com.\n\n"
-            "Botones:\n"
-            "- Registrar: Guarda los datos ingresados.\n"
-            "- Limpiar: Borra todos los campos del formulario.\n"
-            "- Salir: Cierra esta ventana.\n"
-            "- Ayuda: Muestra esta ventana de instrucciones.\n\n"
-            "Asegúrese de completar correctamente todos los campos antes de registrar un Chef."
+        mensaje_Ayuda = (
+               "Ayuda", 
+               "Atajos.\n\n"
+               "- Presione 'F4' para registrar un nuevo usuario. \n"
+               "- presione 'F3' para limpiar los campos. \n"
+               "- presione 'F2' para cerrar la ventana. \n"
+               "- Presione 'F1' para obtener ayuda. \n" 
         )
-        messagebox.showinfo("Ayuda" "Registrar Chef", mensajeAyuda)
+        messagebox.showinfo("Ayuda", mensaje_Ayuda)
 
     def limpiarCampos(self, event):
         self.txtCedula.delete(0, tk.END)
@@ -165,5 +158,11 @@ class CrearChef():
         self.btnAyuda.place(relx=0.90, rely=0.07, anchor="center")
         self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
         Tooltip(self.btnAyuda, "Obtener ayuda sobre el formulario")
+
+        # Atajo
+        self.ventana.bind("<F4>", self.guardarChef)
+        self.ventana.bind("<F3>", self.limpiarCampos)
+        self.ventana.bind("<F2>", self.salir)
+        self.ventana.bind("<F1>", self.mostrarAyuda)
 
         self.ventana.mainloop()

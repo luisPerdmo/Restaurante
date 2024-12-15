@@ -72,14 +72,13 @@ class LiberarMesa():
 
     def mostrarAyuda(self, event):
         mensaje_ayuda = (
-            "Ayuda:\n\n"
-            "1. ID de Mesa: Ingrese el número de identificación de la mesa que desea consultar.\n"
-            "2. Buscar: Al presionar este botón, se busca la mesa con el ID proporcionado.\n"
-            "3. Liberar: Si la mesa está ocupada, este botón la liberará.\n"
-            "4. Limpiar: Limpia los campos para una nueva consulta.\n"
-            "5. Salir: Cierra la ventana de consulta de mesa.\n"
-            "6. Estado: El estado de la mesa (disponible, ocupada, etc.) se muestra tras realizar la búsqueda.\n"
-            "7. Cantidad Comensales: Se muestra el número de comensales para la mesa seleccionada."
+            "Ayuda", 
+            "Atajos.\n\n"
+            "- Presione 'F5' para buscar la mesa con el ID. \n"
+            "- Presione 'F4' para cambiar el estado de la mesa. \n"
+            "- Presione 'F3' para para limpiar los campos. \n"
+            "- presione 'F2' para cerrar la ventana. \n"
+            "- Presione 'F1' para obtener ayuda. \n"
         )
         messagebox.showinfo("Ayuda", mensaje_ayuda)
 
@@ -163,5 +162,12 @@ class LiberarMesa():
         self.btnAyuda.place(relx=0.90, rely=0.07, anchor="center")
         self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
         Tooltip(self.btnAyuda, "Obtener ayuda sobre el formulario")
+
+        # Atajo
+        self.ventana.bind("<F5>", self.buscarMesa)
+        self.ventana.bind("<F4>", self.cambiarEstado)
+        self.ventana.bind("<F3>", self.limpiarCampos)
+        self.ventana.bind("<F2>", self.salir)
+        self.ventana.bind("<F1>", self.mostrarAyuda)
 
         self.ventana.mainloop()

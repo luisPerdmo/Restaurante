@@ -7,15 +7,12 @@ class AgregarPlato():
 
     def mostrarAyuda(self, event):
         messagebox.showinfo(
-            "Ayuda", 
-            "Para agregar un plato, completa todos los campos obligatorios (Id, Nombre, Precio, Cantidad y Descripción).\n\n"
-            "Recuerda que:\n"
-            "- El campo 'Id' solo puede contener números.\n"
-            "- El campo 'Nombre' debe contener solo letras.\n"
-            "- El campo 'Precio' debe contener solo números.\n"
-            "- El campo 'Cantidad' debe contener solo números.\n"
-            "- El campo 'Descripción' puede contener letras y números.\n\n"
-            "Si necesitas más ayuda, contacta con el administrador."
+               "Ayuda", 
+               "Atajos.\n\n"
+               "- Presione 'F4' para guardar los datos de plato. \n"
+               "- presione 'F3' para limpiar los campos. \n"
+               "- presione 'F2' para cerrar la ventana. \n"
+               "- Presione 'F1' para obtener ayuda. \n"
             )
 
     def guardarPlato(self, event):
@@ -167,5 +164,10 @@ class AgregarPlato():
         self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
         Tooltip(self.btnAyuda, "Obtener ayuda sobre el formulario")
         
-        
+        # Atajo
+        self.ventana.bind("<F4>", self.guardarPlato)
+        self.ventana.bind("<F3>", self.limpiarCampos)
+        self.ventana.bind("<F2>", self.salir)
+        self.ventana.bind("<F1>", self.mostrarAyuda)
+
         self.ventana.mainloop()

@@ -6,16 +6,15 @@ from Tooltip import Tooltip
 class CrearMesero():
 
     def mostrarAyuda(self, event):
-        mensajeAyuda = (
-            "Para registrar un mesero, siga estas instrucciones:\n\n"
-            "- Cedula*: Ingrese solo números, sin puntos ni espacios.\n"
-            "- Nombre*: Ingrese el nombre del mesero, solo letras.\n"
-            "- Apellido*: Ingrese el apellido del mesero, solo letras.\n"
-            "- Teléfono*: Ingrese un número de teléfono válido, solo números.\n"
-            "- Email*: Ingrese un correo válido en formato usuario@dominio.com.\n\n"
-            "Los campos marcados con * son obligatorios."
+        mensaje_Ayuda = (
+               "Ayuda", 
+               "Atajos.\n\n"
+               "- Presione 'F4' para registrar un nuevo usuario. \n"
+               "- presione 'F3' para limpiar los campos. \n"
+               "- presione 'F2' para cerrar la ventana. \n"
+               "- Presione 'F1' para obtener ayuda. \n" 
         )
-        messagebox.showinfo("Ayuda" "Registro de Mesero", mensajeAyuda)
+        messagebox.showinfo("Ayuda", mensaje_Ayuda)
 
     def limpiarCampos(self, event):
         self.txtCedula.delete(0, tk.END)
@@ -158,5 +157,11 @@ class CrearMesero():
         self.btnAyuda.place(relx=0.90, rely=0.07, anchor="center")
         self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
         Tooltip(self.btnAyuda, "Obtener ayuda sobre el formulario")
+
+        # Atajo
+        self.ventana.bind("<F4>", self.guardarMesero)
+        self.ventana.bind("<F3>", self.limpiarCampos)
+        self.ventana.bind("<F2>", self.salir)
+        self.ventana.bind("<F1>", self.mostrarAyuda)
 
         self.ventana.mainloop()

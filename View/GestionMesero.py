@@ -14,6 +14,19 @@ from View.EliminarPlatoComando import EliminarPlatoComanda
 from View.EnviarComanda import EnviarComanda
 
 class GestionMesero():
+        
+    def mostrarAyuda(self, event):
+        mensaje_ayuda = (
+            "Ayuda", 
+            "Atajos.\n\n"
+            "- presione 'F6' para crear el menu cliente.\n"
+            "- presione 'F5' para crear el menu mesa.\n"
+            "- presione 'F4' para crear el menu salir.\n"
+            "- presione 'F3' para crear el menu comanda.\n"
+            "- presione 'F2' para salir. \n"
+            "- presione 'F1' para obtener ayuda.\n"
+        )
+        messagebox.showinfo("Ayuda", mensaje_ayuda)
 
     def toggleBarra(self, event):
         if self.barraExpandida:
@@ -117,6 +130,7 @@ class GestionMesero():
 
         # Iconos
         self.iconoBarra = tk.PhotoImage(file=r"Restaurante/Src/barra.png")
+        self.iconoAyuda = tk.PhotoImage(file=r"Restaurante\Src\ayuda.png")
 
         # Mensaje de bienvenida
         self.lblBienvenida = tk.Label(self.ventana, text=f"Bienvenido Mesero \n{self.usuario.nombre}", font=("Times", 18, "bold"), fg="black")
@@ -155,6 +169,18 @@ class GestionMesero():
         self.btnSalir.place_forget()
         self.btnSalir.bind("<Button-1>", self.crearMenuSalir)
 
+        self.btnAyuda = tk.Button(self.ventana, text="Ayuda", image=self.iconoAyuda, width=10)
+        self.btnAyuda.place(relx=0.88, rely=0.9, anchor="center")
+        self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
+
+
+         # Atajos
+        self.ventana.bind("<F6>", self.crearMenuCliente)
+        self.ventana.bind("<F5>", self.crearMenuMesa)
+        self.ventana.bind("<F4>", self.crearMenuSalir)
+        self.ventana.bind("<F3>", self.crearMenuComanda)
+        self.ventana.bind("<F2>", self.salir)
+        self.ventana.bind("<F1>", self.mostrarAyuda)
 
 
         self.ventana.mainloop()

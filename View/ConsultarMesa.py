@@ -34,17 +34,15 @@ class ConsultarMesa():
         return self.usuario.buscarMesa(id_mesa)
 
     def mostrarAyuda(self, event):
-        ayuda = """
-        Formulario de Consulta de Mesa:
-        - ID de Mesa: Ingrese el ID de la mesa que desea consultar. Solo se permiten números.
-        - Cantidad de Comensales: Se muestra automáticamente al buscar la mesa.
-        - Estado: Muestra el estado de la mesa después de realizar la búsqueda.
-        - Buscar: Presione para consultar los datos de la mesa por el ID ingresado.
-        - Eliminar: Este botón se habilita si la mesa ha sido encontrada y permite eliminar la mesa seleccionada.
-
-        Recuerde que los campos Cantidad de Comensales y Estado estarán deshabilitados hasta que realice la búsqueda.
-        """
-        messagebox.showinfo("Ayuda - Consultar Mesa", ayuda)
+        mensaje_Ayuda = (
+               "Ayuda", 
+               "Atajos.\n\n"
+               "- Presione 'F4' para buscar la mesa con el ID. \n"
+               "- presione 'F3' para limpiar los campos. \n"
+               "- presione 'F2' para cerrar la ventana. \n"
+               "- Presione 'F1' para obtener ayuda. \n"
+        )
+        messagebox.showinfo("Ayuda", mensaje_Ayuda)
 
     def limpiarCampos(self, event):
         self.txtEstado.config(state="normal")
@@ -132,5 +130,11 @@ class ConsultarMesa():
         self.btnAyuda.place(relx=0.90, rely=0.07, anchor="center")
         self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
         Tooltip(self.btnAyuda, "Obtener ayuda sobre el formulario")
+
+        # Atajo
+        self.ventana.bind("<F4>", self.buscarMesa)
+        self.ventana.bind("<F3>", self.limpiarCampos)
+        self.ventana.bind("<F2>", self.salir)
+        self.ventana.bind("<F1>", self.mostrarAyuda)
 
         self.ventana.mainloop()

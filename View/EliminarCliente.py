@@ -6,16 +6,15 @@ from Tooltip import Tooltip
 class EliminarCliente():
 
     def mostrarAyuda(self, event):
-        ayuda = """
-        Formulario de Eliminación de Cliente:
-        - Cédula: Ingrese la cédula del cliente que desea eliminar. Solo se permiten números.
-        - Nombre, Apellido, Teléfono y Email: Estos campos se llenarán automáticamente después de buscar al cliente con la cédula.
-        - Buscar: Presione para buscar el cliente con la cédula ingresada.
-        - Eliminar: Presione para eliminar al cliente seleccionado.
-
-        Recuerde que los campos Nombre, Apellido, Teléfono y Email estarán deshabilitados hasta que se realice la búsqueda.
-        """
-        messagebox.showinfo("Ayuda - Eliminar Cliente", ayuda)
+        mensaje_Ayuda = (
+            "Ayuda", 
+            "Atajos.\n\n"
+            "- Presione 'F4' para buscar el cliente para eliminar. \n"
+            "- presione 'F3' para eliminar el cliente seleccionado. \n"
+            "- presione 'F2' para cerrar la ventana. \n"
+            "- Presione 'F1' para obtener ayuda. \n"
+        )
+        messagebox.showinfo("Ayuda", mensaje_Ayuda)
 
     def limpiarCampos(self, event):
         self.txtCedula.delete(0, tk.END)
@@ -179,5 +178,11 @@ class EliminarCliente():
         self.btnAyuda.place(relx=0.90, rely=0.07, anchor="center")
         self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
         Tooltip(self.btnAyuda, "Obtener ayuda sobre el formulario")
+
+        # Atajo
+        self.ventana.bind("<F4>", self.buscarCliente)
+        self.ventana.bind("<F3>", self.eliminarCliente)
+        self.ventana.bind("<F2>", self.salir)
+        self.ventana.bind("<F1>", self.mostrarAyuda)
 
         self.ventana.mainloop()

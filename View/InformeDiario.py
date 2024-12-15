@@ -5,6 +5,16 @@ from Tooltip import Tooltip
 
 class InformeDiario():
 
+    def mostrarAyuda(self, event):
+        mensaje_ayuda = (
+            "Ayuda", 
+            "Atajos.\n\n"
+            "- Presione 'F3' para generar un informe. \n"
+            "- presione 'F2' para cerrar la ventana. \n"
+            "- Presione 'F1' para obtener ayuda. \n"
+        )
+        messagebox.showinfo("Ayuda", mensaje_ayuda)
+
     def generarInforme(self, event):
         try:
             informe = self.Usuario.generarInformeDiario()
@@ -51,6 +61,7 @@ class InformeDiario():
         # Iconos
         self.iconoSalir = tk.PhotoImage(file=r"Restaurante/Src/salir.png")
         self.iconoInforme = tk.PhotoImage(file=r"Restaurante/Src/infrome.png")
+        self.iconoAyuda = tk.PhotoImage(file=r"Restaurante\Src\ayuda.png")
 
         self.lblTitulo = tk.Label(self.ventana, text="Registro de Informe Diario", font=("Times", 20, "bold"), bg="lightgray", fg="black")
         self.lblTitulo.place(relx=0.5, rely=0.08, anchor="center")
@@ -81,14 +92,22 @@ class InformeDiario():
         self.lblPromedioDiaValor = tk.Label(self.ventana, text="", bg="lightgray", fg="black", width=13)
         self.lblPromedioDiaValor.place(relx=0.60, rely=0.60, anchor="center")
 
-        # Botón Generar Informe
+        # Botón
         self.btnGenerarInforme = tk.Button(self.ventana, image=self.iconoInforme, text="Generar Informe", width=185, compound="left")
         self.btnGenerarInforme.place(relx=0.5, rely=0.77, anchor="center")
         self.btnGenerarInforme.bind("<Button-1>", self.generarInforme)
 
-        # Botón Salir
         self.btnSalir = tk.Button(self.ventana, text="Salir", width=185, image=self.iconoSalir, compound="left")
         self.btnSalir.place(relx=0.5, rely=0.85, anchor="center")
         self.btnSalir.bind("<Button-1>", self.salir)
+
+        self.btnAyuda = tk.Button(self.ventana, image=self.iconoAyuda, text="Ayuda", width=185, compound="left")
+        self.btnAyuda.place(relx=0.5, rely=0.93, anchor="center")
+        self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
+
+        # Atajo
+        self.ventana.bind("<F3>", self.generarInforme)
+        self.ventana.bind("<F2>", self.salir)
+        self.ventana.bind("<F1>", self.mostrarAyuda)
 
         self.ventana.mainloop()

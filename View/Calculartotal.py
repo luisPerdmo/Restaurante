@@ -5,6 +5,17 @@ from Tooltip import Tooltip
 
 class Calculartotal:
 
+    def mostrarAyuda(self, event):
+        mensaje_Ayuda = (
+               "Ayuda", 
+               "Atajos.\n\n"
+               "- Presione 'F4' para calcular el total e la comanda. \n"
+               "- presione 'F3' para limpiar los campos. \n"
+               "- presione 'F2' para cerrar la ventana. \n"
+               "- Presione 'F1' para obtener ayuda. \n"
+        )
+        messagebox.showinfo("Ayuda", mensaje_Ayuda)
+
     def calcularTotal(self, event):
         if not self.txtId.get():
             messagebox.showerror("Error", "Por favor ingrese el ID de la comanda.")
@@ -149,5 +160,17 @@ class Calculartotal:
         self.btnSalir.place(relx=0.49, rely=0.95, anchor="center")
         self.btnSalir.bind("<Button-1>", self.salir)
         Tooltip(self.btnSalir, "Haga clic para salir de la ventana.")
+
+        self.btnAyuda = tk.Button(self.ventana, image=self.iconoAyuda, text="Ayuda", width=85, compound="left")
+        self.btnAyuda.place(relx=0.15, rely=0.95, anchor="center")
+        self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
+        Tooltip(self.btnAyuda, "Haga clic para obtener ayuda.")
+
+
+        # Atajo
+        self.ventana.bind("<F4>", self.calcularTotal)
+        self.ventana.bind("<F3>", self.limpiarCampos)
+        self.ventana.bind("<F2>", self.salir)
+        self.ventana.bind("<F1>", self.mostrarAyuda)
 
         self.ventana.mainloop()

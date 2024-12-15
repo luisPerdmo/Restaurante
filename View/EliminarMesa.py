@@ -5,18 +5,16 @@ from Tooltip import Tooltip
 class EliminarMesa:
 
     def mostrarAyuda(self, event):
-        mensaje = (
-            "Instrucciones para eliminar una mesa:\n\n"
-            "1. Ingrese el ID de la mesa que desea buscar en el campo 'ID de Mesa'.\n"
-            "2. Presione el botón 'Buscar' para verificar si la mesa existe.\n"
-            "   - Si la mesa está 'Disponible', podrá eliminarla.\n"
-            "   - Si la mesa está 'Ocupado', no podrá eliminarla.\n"
-            "3. Si desea proceder con la eliminación, haga clic en el botón 'Eliminar'.\n"
-            "4. Utilice el botón 'Limpiar' para borrar los campos del formulario.\n"
-            "5. Presione 'Salir' para cerrar esta ventana.\n\n"
-            "Nota: Solo se permite ingresar números en el campo 'ID de Mesa'."
+        mensaje_Ayuda = (
+            "Ayuda", 
+            "Atajos.\n\n"
+            "- Presione 'F5' para buscar la mesa por el ID . \n"
+            "- Presione 'F4' para eliminar mesa. \n"
+            "- presione 'F3' para limpiar los campos. \n"
+            "- presione 'F2' para cerrar la ventana. \n"
+            "- Presione 'F1' para obtener ayuda. \n"
         )
-        messagebox.showinfo("Ayuda - Eliminar Mesa", mensaje)
+        messagebox.showinfo("Ayuda", mensaje_Ayuda)
 
     def limpiarCampos(self, event):
         self.txtEstado.config(state="normal")
@@ -165,5 +163,12 @@ class EliminarMesa:
         self.btnAyuda.place(relx=0.90, rely=0.07, anchor="center")
         self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
         Tooltip(self.btnAyuda, "Obtener ayuda sobre el formulario")
+
+        # Atajo
+        self.ventana.bind("<F5>", self.buscarMesa)
+        self.ventana.bind("<F4>", self.eliminarMesa)
+        self.ventana.bind("<F3>", self.limpiarCampos)
+        self.ventana.bind("<F2>", self.salir)
+        self.ventana.bind("<F1>", self.mostrarAyuda)
 
         self.ventana.mainloop()

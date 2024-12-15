@@ -7,18 +7,14 @@ from Tooltip import Tooltip
 class CambiarEstado():
 
     def mostrarAyuda(self, event):
-            ayudaTexto = (
-                "Instrucciones para usar la ventana:\n\n"
-                "- ID: Ingrese el ID de la comanda. Solo se permiten números.\n"
-                "- Cédula Cliente: Ingrese la cédula del cliente.\n"
-                "- Mesa: Ingrese el número de la mesa.\n"
-                "- Platos: Detalle los platos de la comanda.\n"
-                "- Precio Total: Ingrese el precio total de la comanda.\n"
-                "- Estado: Actualice el estado de la comanda (por ejemplo: Preparado, Servido).\n\n"
-                "Haga clic en 'Calcular' para actualizar la información de la comanda.\n"
-                "Haga clic en 'Salir' para cerrar la ventana."
+            mensaje_Ayuda = (
+               "Ayuda", 
+               "Atajos.\n\n"
+               #"- presione 'F3' para cambiar el estado. \n"
+               "- presione 'F2' para cerrar la ventana. \n"
+               "- Presione 'F1' para obtener ayuda. \n"  
             )
-            messagebox.showinfo("Ayuda - Cambiar Estado Comanda", ayudaTexto)
+            messagebox.showinfo("Ayuda", mensaje_Ayuda)
 
     def soloNumeros(self, event):
         numeros = event.keysym
@@ -109,6 +105,11 @@ class CambiarEstado():
         self.btnAyuda.place(relx=0.93, rely=0.07, anchor="center")
         self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
         Tooltip(self.btnAyuda, "Haga clic para obtener ayuda sobre cómo usar esta ventana.")
+
+        # Atajo
+        #self.ventana.bind("<>", self.cambiarEstado)
+        self.ventana.bind("<>", self.salir)
+        self.ventana.bind("<>", self.mostrarAyuda)
 
         self.ventana.mainloop()
 

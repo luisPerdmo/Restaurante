@@ -14,13 +14,18 @@ from View.Calculartotal import Calculartotal
 class GestionRegistrador():
 
     def mostrarAyuda(self, event):
-        messagebox.showinfo(
+        mensaje_ayuda = (
             "Ayuda", 
-            "Bienvenido al sistema de gestión de registradores.\n\n"
-            "1. Use el menú lateral para gestionar chefs, meseros y mesas.\n"
-            "2. Puede crear y eliminar registros según sea necesario.\n"
-            "3. Expanda o contraiga el menú con el botón de la barra.\n"
+            "Atajos.\n\n"
+            "- presione 'F7' para crear el menu Chef.\n"
+            "- presione 'F6' para crear el menu mesa.\n"
+            "- presione 'F5' para crear el menu mesero.\n"
+            "- presione 'F4' para crear el menu salir.\n"
+            "- presione 'F3' para crear el menu comanda.\n"
+            "- presione 'F2' para salir. \n"
+            "- presione 'F1' para obtener ayuda.\n"
         )
+        messagebox.showinfo("Ayuda", mensaje_ayuda)
 
     def toggleBarra(self, event):
         if self.barraExpandida:
@@ -179,5 +184,14 @@ class GestionRegistrador():
         self.btnAyuda.place(relx=0.95, rely=0.05, anchor="center")
         self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
         Tooltip(self.btnAyuda, "Obtener ayuda sobre la ventana")
+
+        # Atajos
+        self.ventana.bind("<F7>", self.crearMenuChef)
+        self.ventana.bind("<F6>", self.crearMenuMesa)
+        self.ventana.bind("<F5>", self.crearMenuMesero)
+        self.ventana.bind("<F4>", self.crearMenuSalir)
+        self.ventana.bind("<F3>", self.crearMenuComada)
+        self.ventana.bind("<F2>", self.salir)
+        self.ventana.bind("<F1>", self.mostrarAyuda)
 
         self.ventana.mainloop()

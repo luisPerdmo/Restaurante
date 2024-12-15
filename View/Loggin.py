@@ -3,8 +3,21 @@ from tkinter import *
 from Tooltip import Tooltip
 from Controller.Usuario import Usuario
 from View.CrearRegistrador import CrearRegistrador
+from tkinter import messagebox
 
 class Loggin():
+
+    def mostrarAyuda(self, event):
+        mensaje_Ayuda = (
+            "Ayuda", 
+            "Atajos.\n\n"
+            "- Presione 'F4' para ingresar. \n"
+            "- presione 'F2' para cerrar la ventana. \n"
+            "- Presione 'F1' para obtener ayuda. \n"
+            "- Presione 'F3' para crear el registrador. \n"
+        )
+        messagebox.showinfo("Ayuda", mensaje_Ayuda)
+
     def crearRegistrador(self, event):
         CrearRegistrador(Usuario())
 
@@ -46,6 +59,7 @@ class Loggin():
         #Iconos
         self.iconoVer = tk.PhotoImage(file=r"Restaurante/Src/ver.png")
         self.icononoVer = tk.PhotoImage(file=r"Restaurante/Src/noVer.png")
+        self.iconoAyuda = tk.PhotoImage(file=r"Restaurante\Src\ayuda.png")
 
         #Titulo
         self.lblTitulo = tk.Label(self.ventana, text="Inicio de Sesion", font=("Times", 20, "bold"))
@@ -89,5 +103,16 @@ class Loggin():
         Tooltip(self.btnVer, text="Pase el cursor para mostrar u ocultar la contraseña.")
         self.btnVer.bind("<Enter>", self.verCaracteres)
         self.btnVer.bind("<Leave>", self.verCaracteres)
+
+        self.btnAyuda = tk.Button(self.ventana, text="Ayuda", image=self.iconoAyuda)
+        self.btnAyuda.place(relx=0.5, rely=0.9, anchor="center") 
+        Tooltip(self.btnAyuda, text="Haga clic para obtener ayuda.")
+        self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
+
+        # Atajos
+        self.ventana.bind("<F4>", self.ingresar)
+        self.ventana.bind("<F2>", self.salir)
+        self.ventana.bind("<F3>", self.crearRegistrador)
+        self.ventana.bind("<F1>", self.mostrarAyuda)
         
         self.ventana.mainloop()

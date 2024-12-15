@@ -6,17 +6,15 @@ from Tooltip import Tooltip
 class EliminarMesero:
 
     def mostrarAyuda(self, event):
-        mensaje_ayuda = (
-            "Instrucciones para eliminar un mesero:\n\n"
-            "- Cédula*: Ingrese la cédula del mesero que desea eliminar. "
-            "Solo se permiten números.\n"
-            "- Presione el botón 'Buscar' para localizar al mesero.\n"
-            "- Si el mesero existe y es válido, se mostrará la información.\n"
-            "- Presione el botón 'Eliminar' para eliminar el registro.\n\n"
-            "Nota: Los campos 'Nombre', 'Apellido', 'Teléfono' y 'Email' "
-            "se rellenan automáticamente al buscar al mesero."
+        mensaje_Ayuda = (
+            "Ayuda", 
+            "Atajos.\n\n"
+            "- Presione 'F4' para buscar el mesero para eliminarlo. \n"
+            "- presione 'F3' para eliminar el mesero seleccionado. \n"
+            "- presione 'F2' para cerrar la ventana. \n"
+            "- Presione 'F1' para obtener ayuda. \n"
         )
-        messagebox.showinfo("Ayuda" "Eliminar Mesero", mensaje_ayuda)
+        messagebox.showinfo("Ayuda", mensaje_Ayuda)
 
     def limpiarCampos(self, event):
         self.txtCedula.delete(0, tk.END)
@@ -183,5 +181,11 @@ class EliminarMesero:
         self.btnAyuda.place(relx=0.90, rely=0.07, anchor="center")
         self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
         Tooltip(self.btnAyuda, "Obtener ayuda sobre el formulario")
+
+        # Atajo
+        self.ventana.bind("<F4>", self.buscarMesero)
+        self.ventana.bind("<F3>", self.eliminarMesero)
+        self.ventana.bind("<F2>", self.salir)
+        self.ventana.bind("<F1>", self.mostrarAyuda)
 
         self.ventana.mainloop()

@@ -6,17 +6,15 @@ from Tooltip import Tooltip
 class CrearMesa():
 
     def mostrarAyuda(self, event):
-        ayudaTexto = (
-            "Formulario para la creación de mesas:\n\n"
-            "- ID de Mesa: Debe ser un número único que identifica la mesa.\n"
-            "- Cantidad de Comensales: Especifica el número de personas que puede atender la mesa.\n\n"
-            "Botones disponibles:\n"
-            "- 'Registrar': Guarda la información ingresada.\n"
-            "- 'Limpiar': Borra los datos de los campos.\n"
-            "- 'Salir': Cierra esta ventana.\n\n"
-            "Nota: Los campos marcados con '*' son obligatorios."
+        mensaje_Ayuda = (
+               "Ayuda", 
+               "Atajos.\n\n"
+               "- Presione 'F4' para registrar un nuevo usuario. \n"
+               "- presione 'F3' para limpiar los campos. \n"
+               "- presione 'F2' para cerrar la ventana. \n"
+               "- Presione 'F1' para obtener ayuda. \n" 
         )
-        messagebox.showinfo("Ayuda - Crear Mesa", ayudaTexto)
+        messagebox.showinfo("Ayuda", mensaje_Ayuda)
 
     def limpiarCampos(self, event):
         self.txtIdMesa.delete(0, tk.END)
@@ -111,5 +109,11 @@ class CrearMesa():
         self.btnAyuda.place(relx=0.90, rely=0.07, anchor="center")
         self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
         Tooltip(self.btnAyuda, "Obtener ayuda sobre el formulario")
+
+        # Atajo
+        self.ventana.bind("<F4>", self.guardarMesa)
+        self.ventana.bind("<F3>", self.limpiarCampos)
+        self.ventana.bind("<F2>", self.salir)
+        self.ventana.bind("<F1>", self.mostrarAyuda)
 
         self.ventana.mainloop()

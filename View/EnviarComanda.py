@@ -65,17 +65,12 @@ class EnviarComanda():
 
     def mostrarAyuda(self, event):
         mensaje_ayuda = (
-            "Ayuda - Tomar Comanda:\n\n"
-            "1. **Id**: Ingrese el ID único de la comanda. Este campo es obligatorio.\n"
-            "2. **Cédula Cliente**: Este campo se completará automáticamente si el cliente ya está registrado. "
-            "De lo contrario, debe ingresar una cédula válida para el cliente.\n"
-            "3. **Mesa**: Este campo indica el número de la mesa asociada con la comanda. Se completará automáticamente.\n"
-            "4. **Platos**: Contiene la lista de platos seleccionados para la comanda. Este campo será gestionado por el sistema.\n"
-            "5. **Precio Total**: Calculado automáticamente en base a los platos seleccionados.\n"
-            "6. **Estado**: Use el menú desplegable para seleccionar el estado actual de la comanda, ya sea 'en preparación' o 'servido'.\n"
-            "7. **Guardar**: Haga clic en este botón para guardar la información ingresada y asociar la comanda al cliente.\n"
-            "8. **Salir**: Cierra la ventana sin realizar cambios adicionales.\n\n"
-            "Para obtener más información, contacte con el administrador del sistema."
+            "Ayuda", 
+            "Atajos.\n\n"
+            "- Presione 'F4' para buscar comanda existente. \n"
+            "- presione 'F3' para cambiar el estado de la comanda. \n"
+            "- presione 'F2' para cerrar la ventana. \n"
+            "- Presione 'F1' para obtener ayuda. \n"
         )
         messagebox.showinfo("Ayuda - Tomar Comanda", mensaje_ayuda)
 
@@ -142,8 +137,6 @@ class EnviarComanda():
         self.cmbEstado.place(relx=0.50, rely=0.79, anchor="center")
 
         # Botones
-
-        # Botones
         self.btnBuscar = tk.Button(self.ventana, image=self.iconoBuscar, text="Buscar", width=85, compound="left")
         self.btnBuscar.place(relx=0.34, rely=0.89, anchor="center")
         self.btnBuscar.bind("<Button-1>", self.buscarComanda)
@@ -163,6 +156,12 @@ class EnviarComanda():
         self.btnAyuda.place(relx=0.93, rely=0.07, anchor="center")
         self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
         Tooltip(self.btnAyuda, "Haga clic para obtener ayuda sobre cómo usar esta ventana.")
+
+        # Atajos
+        self.ventana.bind("<F4>", self.buscarComanda)
+        self.ventana.bind("<F3>", self.cambiarEstado)
+        self.ventana.bind("<F2>", self.salir)
+        self.ventana.bind("<F1>", self.mostrarAyuda)
 
         self.ventana.mainloop()
 

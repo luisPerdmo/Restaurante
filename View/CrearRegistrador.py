@@ -39,19 +39,15 @@ class CrearRegistrador():
         self.ventana.destroy()
 
     def mostrarAyuda(self, event):
-            mensaje = (
-                "Formulario de registro de usuarios:\n\n"
-                "1. Complete todos los campos obligatorios marcados con *.\n"
-                "2. Pulse 'Registrar' para guardar los datos ingresados.\n"
-                "3. Pulse 'Limpiar' para borrar los datos ingresados en los campos.\n"
-                "4. Pulse 'Salir' para cerrar la ventana de registro.\n\n"
-                "Notas adicionales:\n"
-                "- Los campos de 'Nombres' y 'Apellido' solo aceptan letras.\n"
-                "- El campo 'Cedula' solo acepta números.\n"
-                "- El campo 'Email' debe tener un formato válido.\n"
-                "- La contraseña debe ser segura y contener al menos 8 caracteres."
+            mensaje_Ayuda = (
+               "Ayuda", 
+               "Atajos.\n\n"
+               "- Presione 'F4' para registrar un nuevo usuario. \n"
+               "- presione 'F3' para limpiar los campos. \n"
+               "- presione 'F2' para cerrar la ventana. \n"
+               "- Presione 'F1' para obtener ayuda. \n" 
             )
-            messagebox.showinfo("Ayuda", mensaje)
+            messagebox.showinfo("Ayuda", mensaje_Ayuda)
 
     def soloNumeros(self, event):
         numeros = event.keysym
@@ -151,5 +147,11 @@ class CrearRegistrador():
         self.btnAyuda.place(relx=0.90, rely=0.07, anchor="center")
         self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
         Tooltip(self.btnAyuda, "Obtener ayuda sobre el formulario")
+
+        # Atajo
+        self.ventana.bind("<F4>", self.guardarRegistrador)
+        self.ventana.bind("<F3>", self.limpiarCampos)
+        self.ventana.bind("<F2>", self.salir)
+        self.ventana.bind("<F1>", self.mostrarAyuda)
 
         self.ventana.mainloop()
