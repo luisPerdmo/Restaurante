@@ -10,30 +10,31 @@ class AgregarPlatoComanda():
         if not platos_str:
             messagebox.showwarning("Advertencia", "No hay platos para agregar.")
             return
-
         try:
             lista_platos = [int(id_plato) for id_plato in platos_str.split('-')]
         except ValueError:
             messagebox.showerror("Error", "Los platos deben ser una lista de números separados por guiones (ej. 1-2-3).")
             return
-
-        plato_a_agregar = self.txtPlatos.get().strip() 
-        if not plato_a_agregar.isdigit():
+        plato_a_agregar_str = self.txtPlatos.get().strip() 
+        if not plato_a_agregar_str.isdigit():
             messagebox.showerror("Error", "El ID del plato a agregar debe ser numérico.")
             return
 
-        plato_a_agregar = int(plato_a_agregar)
+        plato_a_agregar = int(plato_a_agregar_str)
+        if not self.Usuario.existePlato(plato_a_agregar):
+            messagebox.showerror("Error", f"El plato con ID {plato_a_agregar} no existe.")
+            return
         try:
             precio_total = self.Usuario.agregarPlatoAComanda(int(self.txtId.get()), plato_a_agregar)
         except ValueError as e:
             messagebox.showerror("Error", str(e))
             return
-
         lista_platos.append(plato_a_agregar)
         platos_actualizados = '-'.join(map(str, lista_platos))
+        self.txtPlatos.config(state='normal')
         self.txtPrecioTo.config(state='disabled')
-
         messagebox.showinfo("Éxito", f"Plato con ID {plato_a_agregar} agregado correctamente.")
+
 
     def buscarComanda(self, event):
         if not self.txtId.get():
