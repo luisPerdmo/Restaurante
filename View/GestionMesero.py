@@ -168,8 +168,8 @@ class GestionMesero():
         self.btnSalir.place_forget()
         self.btnSalir.bind("<Button-1>", self.salir)
 
-        self.btnAyuda = tk.Button(self.ventana, text="Ayuda", image=self.iconoAyuda, width=10)
-        self.btnAyuda.place(relx=0.88, rely=0.9, anchor="center")
+        self.btnAyuda = tk.Label(self.ventana, text="Ayuda", image=self.iconoAyuda, width=20)
+        self.btnAyuda.place(relx=0.95, rely=0.05,anchor="center")
         self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
 
 

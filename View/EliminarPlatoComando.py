@@ -171,7 +171,7 @@ class EliminarPlatoComanda():
         Tooltip(self.btnSalir, "Haga clic para salir de la ventana.")
 
         self.btnAyuda = tk.Label(self.ventana, image=self.iconoAyuda)
-        self.btnAyuda.place(relx=0.93, rely=0.07, anchor="center")
+        self.btnAyuda.place(relx=0.93, rely=0.16, anchor="center")
         self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
         Tooltip(self.btnAyuda, "Haga clic para obtener ayuda sobre cómo usar esta ventana.")
 

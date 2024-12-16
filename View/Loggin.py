@@ -103,8 +103,8 @@ class Loggin():
         self.btnVer.bind("<Enter>", self.verCaracteres)
         self.btnVer.bind("<Leave>", self.verCaracteres)
 
-        self.btnAyuda = tk.Button(self.ventana, text="Ayuda", image=self.iconoAyuda)
-        self.btnAyuda.place(relx=0.5, rely=0.9, anchor="center") 
+        self.btnAyuda = tk.Label(self.ventana, text="Ayuda", image=self.iconoAyuda)
+        self.btnAyuda.place(relx=0.95, rely=0.05, anchor="ne") 
         Tooltip(self.btnAyuda, text="Haga clic para obtener ayuda.")
         self.btnAyuda.bind("<Button-1>", self.mostrarAyuda)
 
