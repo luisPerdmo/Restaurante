@@ -4,8 +4,30 @@ from tkinter import messagebox
 from Tooltip import Tooltip
 
 class TomarComanda():
+    """
+    Clase para gestionar la interfaz gráfica de la toma de comandas en un restaurante.
+
+    Permite al usuario validar clientes y mesas, calcular el precio total de los platos,
+    guardar la información de la comanda, y proporcionar ayuda sobre el uso de la ventana.
+    """
 
     def validar_cliente_mesa(self, event):
+        """
+        Valida que el cliente y la mesa ingresados sean correctos y estén disponibles.
+        
+        Parámetros:
+        - event: Evento que dispara la validación (como un clic en el botón "Buscar").
+
+        Validaciones:
+        - Verifica que la cédula del cliente no esté vacía.
+        - Comprueba que el número de mesa sea numérico.
+        - Valida que el cliente exista en el sistema.
+        - Verifica que la mesa exista y que esté ocupada.
+
+        Acciones:
+        - Habilita el campo para ingresar los platos si todas las validaciones son exitosas.
+        - Muestra mensajes de error o éxito según corresponda.
+        """
         cedula = self.txtCedulaCli.get().strip()
         mesa = self.txtMesa.get().strip()
         if not cedula:
@@ -34,6 +56,21 @@ class TomarComanda():
         messagebox.showinfo("Validación exitosa", "Cliente y mesa válidos. Ahora puede ingresar los platos.")
 
     def calcular_precio_total(self, event):
+        """
+        Calcula el precio total de los platos seleccionados en la comanda.
+
+        Parámetros:
+        - event: Evento que dispara el cálculo (como un clic en el botón "Guardar").
+
+        Validaciones:
+        - Verifica que se haya ingresado una lista de platos.
+        - Comprueba que los IDs de los platos sean numéricos y válidos.
+        - Calcula el precio total utilizando un método del objeto Usuario.
+
+        Acciones:
+        - Muestra mensajes de error en caso de validaciones fallidas.
+        - Deshabilita el campo de precio total tras el cálculo exitoso.
+        """
         platos_str = self.txtPlatos.get().strip()
         if not platos_str:
             messagebox.showwarning("Advertencia", "Debe ingresar al menos un plato para calcular el precio total.")
@@ -55,6 +92,18 @@ class TomarComanda():
         messagebox.showinfo("Informarcion", "Comanda tomada con exito")
 
     def guardar_comanda(self):
+        """
+        Guarda la información de la comanda en el sistema.
+
+        Validaciones:
+        - Verifica que todos los campos requeridos estén completos.
+        - Valida que los datos ingresados sean correctos (como IDs numéricos).
+
+        Acciones:
+        - Llama al método correspondiente del objeto Usuario para registrar la comanda.
+        - Limpia los campos de entrada tras guardar la información.
+        - Muestra mensajes de error en caso de validaciones fallidas.
+        """
         id_comanda = self.txtId.get().strip()
         cedula_cliente = self.txtCedulaCli.get().strip()
         mesa = self.txtMesa.get().strip()
@@ -87,6 +136,13 @@ class TomarComanda():
         self.limpiarcampos()
 
     def limpiarcampos(self):
+        """
+        Limpia todos los campos de entrada de la ventana.
+
+        Acciones:
+        - Reinicia los valores de los campos de texto.
+        - Deshabilita los campos de texto que no deben ser editables por el usuario.
+        """
         self.txtId.delete(0, tk.END)
         self.txtCedulaCli.delete(0, tk.END)
         self.txtMesa.delete(0, tk.END)
@@ -97,6 +153,12 @@ class TomarComanda():
         self.txtPrecioTo.config(state='disabled')
 
     def mostrarAyuda(self, event):
+        """
+        Muestra un mensaje de ayuda con información sobre los atajos y cómo usar la ventana.
+
+        Parámetros:
+        - event: Evento que dispara la acción (como presionar "F1").
+        """
         mensaje_ayuda = (
             "Atajos.\n\n"
             "- presione 'F2' para cerrar la ventana. \n"
@@ -105,9 +167,22 @@ class TomarComanda():
         messagebox.showinfo("Ayuda - Tomar Comanda", mensaje_ayuda)
 
     def salir(self, event):
+        """
+        Cierra la ventana de la aplicación.
+
+        Parámetros:
+        - event: Evento que dispara la acción (como presionar "F2").
+        """
         self.ventana.destroy()
 
     def __init__(self, Usuario):
+        """
+        Constructor de la clase. Configura la ventana y sus componentes gráficos.
+
+        Parámetros:
+        - Usuario: Objeto que contiene la lógica de negocio para gestionar clientes,
+                   mesas, y platos.
+        """
         self.ventana = tk.Toplevel()
         self.ventana.title("Tomar Comanda")
         self.ventana.configure(width=320, height=410)

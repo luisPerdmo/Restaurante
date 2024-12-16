@@ -4,8 +4,16 @@ from tkinter import messagebox
 from Tooltip import Tooltip
 
 class CambiarEstadoComanda():
+    """
+    Esta clase maneja la ventana para cambiar el estado de una comanda en el sistema. 
+    Permite buscar una comanda por ID, cambiar su estado, y mostrar información relevante en la interfaz.
+    """
 
     def cambiarEstado(self, event):
+        """
+        Cambia el estado de la comanda. Verifica que el ID y el nuevo estado sean válidos, y luego 
+        llama al método para cambiar el estado en el sistema.
+        """
         if not self.txtId.get():
             messagebox.showerror("Error", "Por favor ingrese el ID de la comanda.")
             return
@@ -21,6 +29,9 @@ class CambiarEstadoComanda():
         messagebox.showinfo("Informacion", f"se cambio el estado de la comanda a {nuevo_estado}")
 
     def buscarComanda(self, event):
+        """
+        Busca una comanda por ID. Si la encuentra, muestra los detalles en los campos de texto correspondientes.
+        """
         if not self.txtId.get():
             messagebox.showerror("Error", "Por favor ingrese el ID de la comanda.")
             return 
@@ -54,12 +65,21 @@ class CambiarEstadoComanda():
             messagebox.showerror("Error", f"Ocurrió un error al buscar la comanda. Detalles: {e}")
 
     def cambiarEstadoComanda(self, id_comanda, nuevo_estado):
+        """
+        Llama al método del usuario para cambiar el estado de la comanda en el sistema.
+        """
         return self.Usuario.cambiarComanda(id_comanda, nuevo_estado)
     
     def obtenerComanda(self, id_comanda):
+        """
+        Llama al método del usuario para obtener los detalles de la comanda por ID.
+        """
         return self.Usuario.buscarComanda(id_comanda)
 
     def mostrarAyuda(self, event):
+        """
+        Muestra una ventana de ayuda con los atajos disponibles en la interfaz.
+        """
         mensaje_Ayuda = ( 
                "Atajos.\n\n"
                "- Presione 'F4' para buscar la comanda existente. \n"
@@ -70,9 +90,15 @@ class CambiarEstadoComanda():
         messagebox.showinfo("Ayuda", mensaje_Ayuda)
 
     def salir(self, event):
+        """
+        Cierra la ventana actual de la interfaz.
+        """
         self.ventana.destroy()
 
     def __init__(self, Usuario):
+        """
+        Inicializa la ventana y los elementos gráficos (campos de texto, botones, etc.) para cambiar el estado de una comanda.
+        """
         self.ventana = tk.Toplevel()
         self.ventana.title("Cambiar Estado")
         self.ventana.configure(width=320, height=410)

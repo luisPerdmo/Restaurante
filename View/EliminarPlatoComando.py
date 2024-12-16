@@ -4,8 +4,20 @@ from tkinter import messagebox
 from Tooltip import Tooltip
 
 class EliminarPlatoComanda():
+    """
+    Clase que maneja la interfaz para eliminar un plato de una comanda.
+    """
 
     def eliminarPlato(self, event):
+        """
+        Elimina un plato de la comanda dada.
+
+        Obtiene el ID de un plato a eliminar, valida que sea correcto y luego elimina el plato
+        de la lista de platos de la comanda. Actualiza la interfaz con la nueva lista de platos.
+        
+        Parameters:
+        event (tkinter.Event): El evento que dispara el método.
+        """
         platos_str = self.txtPlatos.get().strip()
         if not platos_str:
             messagebox.showwarning("Advertencia", "No hay platos para eliminar.")
@@ -40,6 +52,15 @@ class EliminarPlatoComanda():
         messagebox.showinfo("Éxito", f"Plato con ID {plato_a_eliminar} eliminado correctamente.")
 
     def buscarComanda(self, event):
+        """
+        Busca una comanda en la base de datos por su ID.
+
+        Valida que el ID de la comanda sea correcto, obtiene los datos de la comanda,
+        y luego los muestra en los campos correspondientes de la interfaz.
+
+        Parameters:
+        event (tkinter.Event): El evento que dispara el método.
+        """
         if not self.txtId.get():
             messagebox.showerror("Error", "Por favor ingrese el ID de la comanda.")
             return
@@ -80,9 +101,25 @@ class EliminarPlatoComanda():
 
 
     def obtenerComanda(self, id_comanda):
+        """
+        Obtiene los datos de la comanda desde la base de datos.
+
+        Parameters:
+        id_comanda (int): El ID de la comanda que se desea obtener.
+
+        Returns:
+        tuple: Una tupla con los datos de la comanda si se encuentra, o None si no se encuentra.
+        """
+
         return self.Usuario.buscarComanda(id_comanda)
 
     def mostrarAyuda(self, event):
+        """
+        Muestra una ventana de ayuda con los atajos disponibles.
+
+        Parameters:
+        event (tkinter.Event): El evento que dispara el método.
+        """
         mensaje_ayuda = ( 
             "Atajos.\n\n"
             "- Presione 'F4' para buscar comanda existente. \n"
@@ -93,9 +130,24 @@ class EliminarPlatoComanda():
         messagebox.showinfo("Ayuda", mensaje_ayuda)
 
     def salir(self, event):
+        """
+        Cierra la ventana de la aplicación.
+
+        Parameters:
+        event (tkinter.Event): El evento que dispara el método.
+        """
         self.ventana.destroy()
 
     def __init__(self, Usuario):
+        """
+        Constructor de la clase EliminarPlatoComanda.
+
+        Inicializa la ventana principal, los campos de entrada, los botones y los atajos de teclado.
+
+        Parameters:
+        Usuario (object): El objeto que contiene la información y los métodos necesarios para interactuar con la base de datos.
+        """
+
         self.ventana = tk.Toplevel()
         self.ventana.title("Eliminar Plato Comanda")
         self.ventana.configure(width=320, height=410)

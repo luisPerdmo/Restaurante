@@ -4,6 +4,10 @@ from tkinter import messagebox
 from Tooltip import Tooltip
 
 class LiberarMesa():
+    """
+        Cambia el estado de la mesa, asegurándose de que el ID de la mesa y el estado estén correctamente definidos.
+        Muestra un mensaje de error si hay datos faltantes o incorrectos, o confirma el cambio si es exitoso.
+        """
     
     def cambiarEstado(self, event):
         if not self.txtIdMesa.get():
@@ -22,6 +26,10 @@ class LiberarMesa():
         messagebox.showinfo("Información", f"Se cambió el estado de la mesa a {nuevo_estado}")
 
     def buscarMesa(self, event):
+        """
+        Busca una mesa por su ID y muestra su cantidad de comensales y estado actual.
+        Si la mesa no se encuentra o hay un error, se muestra un mensaje de error.
+        """
         if not self.txtIdMesa.get():
             messagebox.showerror("Error", "Por favor ingrese el ID de la mesa.")
             return
@@ -54,12 +62,21 @@ class LiberarMesa():
             messagebox.showerror("Error", f"Ocurrió un error al buscar la mesa. Detalles: {e}")
 
     def obtenerMesa(self, id_mesa):
+        """
+        Devuelve los datos de la mesa dada su ID.
+        """
         return self.Usuario.buscarMesa(id_mesa)
     
     def cambiarestadocomanda(self, id_mesa, nuevo_estado):
+        """
+        Cambia el estado de la mesa en la base de datos o sistema.
+        """
         return self.Usuario.cambiarMesaEstado(id_mesa, nuevo_estado)
 
     def limpiarCampos(self, event):
+        """
+        Limpia todos los campos del formulario, devolviéndolos a su estado inicial.
+        """
         self.cmbEstado.config(state="normal")
         self.txtCantidadComensales.config(state="normal")
         self.txtIdMesa.delete(0, tk.END)
@@ -71,6 +88,9 @@ class LiberarMesa():
         self.txtCantidadComensales.config(state="disabled")
 
     def mostrarAyuda(self, event):
+        """
+        Muestra los atajos disponibles y las funcionalidades del formulario en una ventana emergente.
+        """
         mensaje_ayuda = (
             "Atajos.\n\n"
             "- Presione 'F5' para buscar la mesa con el ID. \n"
@@ -82,9 +102,15 @@ class LiberarMesa():
         messagebox.showinfo("Ayuda", mensaje_ayuda)
 
     def salir(self, event):
+        """
+        Cierra la ventana actual.
+        """
         self.ventana.destroy()
 
     def soloNumeros(self, event):
+        """
+        Valida que solo se ingresen números en los campos correspondientes, cambiando el color de fondo si se ingresan letras.
+        """
         numeros = event.keysym
         if numeros.isalpha():
             event.widget.config(bg="#F8D7DA", fg="#000000")
@@ -92,6 +118,10 @@ class LiberarMesa():
             event.widget.config(bg="#ffffff", fg="#000000")
     
     def __init__(self, Usuario):
+        """
+        Constructor de la clase, donde se inicializan los componentes de la interfaz gráfica,
+        los iconos, botones, campos de texto, y se asocian las funciones a los eventos.
+        """
         self.ventana = tk.Toplevel()
         self.ventana.title("Liberar Mesa")
         self.ventana.configure(width=320, height=350)

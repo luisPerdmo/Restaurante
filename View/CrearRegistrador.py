@@ -4,8 +4,16 @@ from tkinter import messagebox
 from Tooltip import Tooltip
 
 class CrearRegistrador():
+    """
+    Clase para gestionar la creación de un registrador (usuario) en el sistema.
+    Permite ingresar los datos, validarlos, y guardar el nuevo usuario en el sistema.
+    """
 
     def limpiarCampos(self, event):
+        """
+        Limpia todos los campos de entrada de la ventana de registro.
+        Restablece el fondo de los campos a blanco.
+        """
         self.txtNombres.delete(0, tk.END)
         self.txtApellido.delete(0, tk.END)
         self.txtEmail.delete(0, tk.END)
@@ -18,6 +26,10 @@ class CrearRegistrador():
         self.txtPassword.config(bg="#ffffff")
 
     def guardarRegistrador(self, event):
+        """
+        Guarda un nuevo registrador si los campos son válidos.
+        Valida que los campos estén completos y que la cédula no esté registrada.
+        """
         if not self.txtNombres.get() or not self.txtApellido.get() or not self.txtEmail.get() or not self.txtCedula.get() or not self.txtPassword.get():
             messagebox.showerror("Error", "Por favor ingrese todos los valores en los campos obligatorios.")
             return 
@@ -36,9 +48,15 @@ class CrearRegistrador():
         messagebox.showinfo("Confirmación", "Nuevo Registrador registrado con éxito.")
 
     def salir(self, event):
+        """
+        Cierra la ventana de registro.
+        """
         self.ventana.destroy()
 
     def mostrarAyuda(self, event):
+            """
+        Muestra una ventana con información sobre los atajos de teclado disponibles.
+        """
             mensaje_Ayuda = (
                "Atajos.\n\n"
                "- Presione 'F4' para registrar un nuevo usuario. \n"
@@ -49,6 +67,10 @@ class CrearRegistrador():
             messagebox.showinfo("Ayuda", mensaje_Ayuda)
 
     def soloNumeros(self, event):
+        """
+        Valida que el campo de cédula contenga solo números.
+        Cambia el color de fondo del campo si contiene caracteres no numéricos.
+        """
         numeros = event.keysym
         if numeros.isalpha(): 
             self.txtCedula.config(bg="#F8D7DA", fg="#000000")
@@ -56,6 +78,10 @@ class CrearRegistrador():
             self.txtCedula.config(bg="#ffffff", fg="#000000")
         
     def soloLetras(self, event):
+        """
+        Valida que los campos de nombres y apellidos contengan solo letras.
+        Cambia el color de fondo si el campo contiene números.
+        """
         letras = event.keysym
         if event.widget == self.txtNombres:
             if letras.isdigit() or letras == "BackSpace":
@@ -69,6 +95,10 @@ class CrearRegistrador():
                 self.txtApellido.config(bg="#ffffff", fg="#000000")
 
     def __init__(self, Usuario):
+        """
+        Inicializa la interfaz gráfica para el registro de un nuevo usuario.
+        Configura los componentes visuales y los eventos relacionados.
+        """
         self.ventana = tk.Toplevel()
         self.ventana.title("Registro de Usuarios")
         self.ventana.configure(width=320, height=390)

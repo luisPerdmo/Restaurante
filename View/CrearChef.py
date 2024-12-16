@@ -6,6 +6,9 @@ from Tooltip import Tooltip
 class CrearChef():
 
     def mostrarAyuda(self, event):
+        """ 
+        Función que muestra una ventana de ayuda con los atajos de teclado.
+        """
         mensaje_Ayuda = ( 
                "Atajos.\n\n"
                "- Presione 'F4' para registrar un nuevo usuario. \n"
@@ -16,6 +19,9 @@ class CrearChef():
         messagebox.showinfo("Ayuda", mensaje_Ayuda)
 
     def limpiarCampos(self, event):
+        """ 
+        Función para limpiar los campos de texto del formulario de registro.
+        """
         self.txtCedula.delete(0, tk.END)
         self.txtNombre.delete(0, tk.END)
         self.txtApellido.delete(0, tk.END)
@@ -28,9 +34,15 @@ class CrearChef():
         self.txtEmail.config(bg="#ffffff")
 
     def salir(self, event):
+        """ 
+        Función para limpiar los campos de texto del formulario de registro.
+        """
         self.ventana.destroy()
 
     def guardarChef(self, event):
+        """ 
+        Función para limpiar los campos de texto del formulario de registro.
+        """
         if not self.txtCedula.get() or not self.txtNombre.get() or not self.txtApellido.get() or not self.txtTelefono.get() or not self.txtEmail.get():
             messagebox.showerror("Error", "Por favor ingrese todos los valores en los campos obligatorios.")
             return 
@@ -52,6 +64,9 @@ class CrearChef():
         messagebox.showinfo("Confirmación", "Nuevo Chef registrado con éxito.")
     
     def soloNumeros(self, event):
+        """ 
+        Función que permite solo la entrada de números en los campos de cédula y teléfono.
+        """
         numeros = event.keysym
         if numeros.isalpha(): 
             if event.widget == self.txtCedula:
@@ -65,6 +80,9 @@ class CrearChef():
                 self.txtTelefono.config(bg="#ffffff", fg="#000000")
         
     def soloLetras(self, event):
+        """ 
+        Función que permite solo la entrada de letras en los campos de nombre y apellido.
+        """
         letras = event.keysym
         if event.widget == self.txtNombre:
             if letras.isdigit() or letras == "BackSpace":
@@ -79,6 +97,9 @@ class CrearChef():
         
 
     def __init__(self, Usuario):
+        """ 
+        Constructor que inicializa la ventana de registro del chef y sus componentes.
+        """
         self.ventana = tk.Toplevel()
         self.ventana.title("Gestion de Registador")
         self.ventana.configure(width=320, height=390)

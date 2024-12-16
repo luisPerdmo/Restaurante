@@ -3,8 +3,17 @@ from tkinter import messagebox
 from Tooltip import Tooltip
 
 class ConsultarMesa():
+    """
+    Esta clase crea una interfaz gráfica para consultar el estado de una mesa en un restaurante.
+    La interfaz permite buscar una mesa por su ID, mostrar la cantidad de comensales y su estado.
+    También proporciona funcionalidad para limpiar los campos, salir de la ventana y acceder a la ayuda.
+    """
 
     def buscarMesa(self, event):
+        """
+        Busca una mesa por su ID introducido por el usuario. Si la mesa existe, muestra la cantidad de 
+        comensales y su estado. Si no se encuentra la mesa o el ID no es válido, muestra un mensaje de error.
+        """
         if not self.txtIdMesa.get():
             messagebox.showerror("Error", "Por favor ingrese el ID de la mesa.")
             return
@@ -31,9 +40,15 @@ class ConsultarMesa():
             messagebox.showerror("Error", f"No se pudo buscar la mesa. Detalles: {e}")
 
     def obtenerMesa(self, id_mesa):
+        """
+        Llama al método de usuario para buscar la mesa en la base de datos o en la fuente de datos.
+        """
         return self.usuario.buscarMesa(id_mesa)
 
     def mostrarAyuda(self, event):
+        """
+        Muestra un cuadro de mensaje con los atajos de teclado disponibles en la ventana.
+        """
         mensaje_Ayuda = ( 
                "Atajos.\n\n"
                "- Presione 'F4' para buscar la mesa con el ID. \n"
@@ -44,6 +59,9 @@ class ConsultarMesa():
         messagebox.showinfo("Ayuda", mensaje_Ayuda)
 
     def limpiarCampos(self, event):
+        """
+        Limpia todos los campos de texto y restablece su estado a los valores iniciales.
+        """
         self.txtEstado.config(state="normal")
         self.txtCantidadComensales.config(state="normal")
         self.txtIdMesa.delete(0, tk.END)
@@ -55,9 +73,16 @@ class ConsultarMesa():
         self.txtCantidadComensales.config(state="disabled")
 
     def salir(self, event):
+        """
+        Cierra la ventana de la aplicación.
+        """
         self.ventana.destroy()
 
     def soloNumeros(self, event):
+        """
+        Permite ingresar solo números en el campo de texto del ID de mesa.
+        Si se ingresa una letra, cambia el color de fondo del campo para mostrar un error visual.
+        """
         numeros = event.keysym
         if numeros.isalpha():
             event.widget.config(bg="#F8D7DA", fg="#000000")
@@ -65,6 +90,10 @@ class ConsultarMesa():
             event.widget.config(bg="#ffffff", fg="#000000")
 
     def __init__(self, usuario):
+        """
+        Inicializa la ventana y los elementos gráficos de la interfaz, incluyendo botones, campos de texto, 
+        etiquetas y acciones asociadas. También configura atajos de teclado.
+        """
         self.ventana = tk.Toplevel()
         self.ventana.title("Consultar Mesa")
         self.ventana.configure(width=320, height=350)

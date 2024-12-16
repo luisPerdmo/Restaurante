@@ -4,8 +4,14 @@ from tkinter import messagebox
 from Tooltip import Tooltip
 
 class AgregarPlato():
+    """
+    Clase que maneja la interfaz gráfica y la lógica para agregar un plato en el sistema.
+    """
 
     def mostrarAyuda(self, event):
+        """
+        Muestra una ventana de ayuda con los atajos de teclado disponibles.
+        """
         messagebox.showinfo(
                "Ayuda", 
                "Atajos.\n\n"
@@ -16,6 +22,15 @@ class AgregarPlato():
             )
 
     def guardarPlato(self, event):
+        """
+        Valida y guarda los datos del plato en el sistema.
+
+        Se asegura de que los campos no estén vacíos, que el formato de los datos sea correcto,
+        y luego registra el plato si no existe previamente en el sistema.
+
+        Args:
+            event: El evento que dispara la acción.
+        """
         if not self.txtId.get() or not self.txtNombre.get() or not self.txtPrecio.get() or not self.txtCantidad.get() or not self.txtDescripcion.get("1.0", tk.END).strip():
             messagebox.showerror("Error", "Por favor ingrese todos los valores en los campos obligatorios.")
             return 
@@ -42,9 +57,21 @@ class AgregarPlato():
             messagebox.showerror("Error", f"No se pudo registrar la mesa. Detalles: {e}")
     
     def salir(self, event):
+        """
+        Cierra la ventana de registro de plato.
+
+        Args:
+            event: El evento que dispara la acción.
+        """
         self.ventana.destroy()
 
     def limpiarCampos(self, event):
+        """
+        Limpia todos los campos de entrada en el formulario.
+
+        Args:
+            event: El evento que dispara la acción.
+        """
         self.txtId.delete(0, tk.END)
         self.txtNombre.delete(0, tk.END)
         self.txtPrecio.delete(0, tk.END)
@@ -57,6 +84,14 @@ class AgregarPlato():
         self.txtDescripcion.config(bg="#ffffff", fg="#000000")
 
     def soloNumeros(self, event):
+        """
+        Permite solo la entrada de números en los campos específicos.
+
+        Cambia el color de fondo a rojo si se ingresa una letra en un campo numérico.
+
+        Args:
+            event: El evento que dispara la acción.
+        """
         numeros = event.keysym
         if numeros.isalpha(): 
             if event.widget == self.txtId:
@@ -74,6 +109,14 @@ class AgregarPlato():
                 self.txtCantidad.config(bg="#ffffff", fg="#000000")
     
     def soloLetras(self, event):
+        """
+        Permite solo la entrada de letras en el campo de nombre del plato.
+
+        Cambia el color de fondo a rojo si se ingresa un número en el campo de texto.
+
+        Args:
+            event: El evento que dispara la acción.
+        """
         letras = event.keysym
         if event.widget == self.txtNombre:
             if letras.isdigit() or letras == "BackSpace":
@@ -82,6 +125,12 @@ class AgregarPlato():
                 self.txtNombre.config(bg="#ffffff", fg="#000000")
 
     def __init__(self, usuario):
+        """
+        Constructor de la clase que inicializa la ventana de registro de plato.
+
+        Args:
+            usuario: Objeto que representa al usuario actual del sistema.
+        """
         self.ventana = tk.Toplevel()
         self.ventana.title("Registro Platos")
         self.ventana.configure(width=320, height=480)

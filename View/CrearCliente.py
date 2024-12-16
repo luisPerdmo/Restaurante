@@ -7,6 +7,16 @@ from Tooltip import Tooltip
 class CrearCliente():
 
     def guardarCliente(self, event):
+        """
+        Registra un nuevo cliente con la información proporcionada en los campos de texto.
+        Valida que los campos obligatorios no estén vacíos y que los datos sean correctos.
+
+        Atajos de teclado:
+        - F4: Registra un nuevo cliente.
+        - F3: Limpia los campos del formulario.
+        - F2: Cierra la ventana.
+        - F1: Muestra la ayuda.
+        """
         if not self.txtCedula.get() or not self.txtNombre.get() or not self.txtApellido.get() or not self.txtTelefono.get() or not self.txtEmail.get():
             messagebox.showerror("Error", "Por favor ingrese todos los valores en los campos obligatorios.")
             return 
@@ -27,6 +37,9 @@ class CrearCliente():
         messagebox.showinfo("Confirmación", "Nuevo Cliente registrado con éxito.")
 
     def mostrarAyuda(self, event):
+        """
+        Muestra un cuadro de mensaje con los atajos de teclado disponibles para el formulario.
+        """
         mensaje_Ayuda = (
                 "Atajos.\n\n"
                 "- Presione 'F4' para registrar un nuevo usuario. \n"
@@ -38,6 +51,9 @@ class CrearCliente():
 
 
     def limpiarCampos(self, event):
+        """
+        Limpia todos los campos de texto del formulario y los restablece a su color original.
+        """
         self.txtCedula.delete(0, tk.END)
         self.txtNombre.delete(0, tk.END)
         self.txtApellido.delete(0, tk.END)
@@ -50,9 +66,17 @@ class CrearCliente():
         self.txtEmail.config(bg="#ffffff")
 
     def salir(self, event):
+        """
+        Limpia todos los campos de texto del formulario y los restablece a su color original.
+        """
         self.ventana.destroy()
 
     def soloNumeros(self, event):
+        """
+        Valida que solo se ingresen números en los campos de Cédula y Teléfono.
+
+        Cambia el color de fondo a rojo si se detectan caracteres no numéricos.
+        """
         numeros = event.keysym
         if numeros.isalpha(): 
             if event.widget == self.txtCedula:
@@ -66,6 +90,11 @@ class CrearCliente():
                 self.txtTelefono.config(bg="#ffffff", fg="#000000")
         
     def soloLetras(self, event):
+        """
+        Valida que solo se ingresen letras en los campos de Nombre y Apellido.
+
+        Cambia el color de fondo a rojo si se detectan caracteres no alfabéticos.
+        """
         letras = event.keysym
         if event.widget == self.txtNombre:
             if letras.isdigit() or letras == "BackSpace":
@@ -79,6 +108,11 @@ class CrearCliente():
                 self.txtApellido.config(bg="#ffffff", fg="#000000")
 
     def __init__(self, Usuario):
+        """
+        Inicializa la ventana de registro de clientes con los campos, botones y funcionalidad necesarios.
+
+        :param Usuario: Instancia del objeto Usuario para interactuar con los datos del cliente.
+        """
         self.ventana = tk.Toplevel()
         self.ventana.title("Gestion de Registador")
         self.ventana.configure(width=320, height=390)

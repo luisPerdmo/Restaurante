@@ -4,9 +4,17 @@ from tkinter import messagebox
 from Tooltip import Tooltip
 
 class EliminarChef():
+    """
+    Clase para gestionar la interfaz de eliminación de un chef en el sistema.
+    Permite buscar, mostrar detalles y eliminar a un chef basado en su cédula.
+    """
 
     def mostrarAyuda(self, event):
-        mensaje_Ayuda = ( 
+        """
+        Muestra una ventana de ayuda con los atajos de teclado disponibles en la aplicación.
+        """
+        mensaje_Ayuda = (
+ 
             "Atajos.\n\n"
             "- Presione 'F4' para registrar un nuevo usuario. \n"
             "- presione 'F3' para limpiar los campos. \n"
@@ -16,6 +24,9 @@ class EliminarChef():
         messagebox.showinfo("Ayuda", mensaje_Ayuda)
 
     def limpiarCampos(self, event):
+        """
+        Limpia todos los campos de entrada de la ventana y los restablece a su estado inicial.
+        """
         self.txtCedula.config(state="normal")
         self.txtNombre.config(state="normal")
         self.txtApellido.config(state="normal")
@@ -37,6 +48,10 @@ class EliminarChef():
         self.txtEmail.config(state="disabled")
 
     def buscarChef(self, event):
+        """
+        Busca al chef en el sistema mediante su cédula y muestra los detalles en los campos correspondientes.
+        Si no se encuentra al chef o si la cédula no es válida, se muestra un mensaje de error.
+        """
         if not self.txtCedula.get():
             messagebox.showerror("Error", "Por favor ingrese la cédula.")
             return
@@ -76,9 +91,16 @@ class EliminarChef():
 
 
     def obtenerChef(self, cedula):
+        """
+        Obtiene los datos del chef mediante su cédula.
+        """
         return self.Usuario.buscarChef(cedula)
 
     def eliminarChef(self, event):
+        """
+        Elimina al chef del sistema basado en la cédula proporcionada.
+        Si no se encuentra al chef o si la cédula no es válida, se muestra un mensaje de error.
+        """
         if not self.txtCedula.get():
             messagebox.showerror("Error", "Por favor ingrese la cédula.")
             return
@@ -98,9 +120,15 @@ class EliminarChef():
             messagebox.showerror("Error", f"No se pudo eliminar el chef. Detalles: {e}")
 
     def salir(self, event):
+        """
+        Cierra la ventana de eliminación de chef.
+        """
         self.ventana.destroy()
 
     def soloNumeros(self, event):
+        """
+        Valida que el campo de cédula contenga solo números y cambia el color de fondo si es inválido.
+        """
         numeros = event.keysym
         if numeros.isalpha(): 
             if event.widget == self.txtCedula:
@@ -110,6 +138,9 @@ class EliminarChef():
                 self.txtCedula.config(bg="#ffffff", fg="#000000")
 
     def __init__(self, Usuario):
+        """
+        Inicializa la interfaz gráfica para la ventana de eliminación de chef y establece los componentes visuales.
+        """
         self.ventana = tk.Toplevel()
         self.ventana.title("Eliminar Chef")
         self.ventana.configure(width=320, height=390)

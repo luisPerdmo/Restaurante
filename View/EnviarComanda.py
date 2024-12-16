@@ -4,8 +4,21 @@ from tkinter import messagebox
 from Tooltip import Tooltip
 
 class EnviarComanda():
+    """
+    Clase que permite al usuario enviar y gestionar el estado de las comandas. 
+    Ofrece opciones para buscar una comanda, cambiar su estado y salir de la ventana.
+    """
 
     def cambiarEstado(self, event):
+        """
+        Cambia el estado de una comanda a un nuevo estado seleccionado por el usuario.
+        
+        Verifica que el ID de la comanda esté presente y que sea un número válido.
+        También se asegura de que el usuario haya seleccionado un estado para la comanda.
+
+        :param event: Evento de la acción de cambiar el estado de la comanda
+        """
+        
         if not self.txtId.get():
             messagebox.showerror("Error", "Por favor ingrese el ID de la comanda.")
             return
@@ -23,6 +36,14 @@ class EnviarComanda():
 
 
     def buscarComanda(self, event):
+        """
+        Busca una comanda en el sistema utilizando el ID proporcionado.
+        
+        Si la comanda es encontrada, muestra la información de la comanda y permite al usuario modificar su estado.
+        Si no se encuentra, muestra un mensaje de error.
+        
+        :param event: Evento de la acción de buscar la comanda
+        """
         if not self.txtId.get():
             messagebox.showerror("Error", "Por favor ingrese el ID de la comanda.")
             return
@@ -58,12 +79,33 @@ class EnviarComanda():
             messagebox.showerror("Error", f"Ocurrió un error al buscar la comanda. Detalles: {e}")
 
     def cambiarEstadoComanda(self, id_comanda, nuevo_estado):
+        """
+        Cambia el estado de una comanda en el sistema.
+        
+        Utiliza el método de la clase Usuario para realizar el cambio en la base de datos.
+        
+        :param id_comanda: ID de la comanda a la cual cambiar el estado
+        :param nuevo_estado: El nuevo estado de la comanda
+        """
         return self.Usuario.cambiarComanda(id_comanda, nuevo_estado)
 
     def obtenerComanda(self, id_comanda):
+        """
+        Obtiene la información de una comanda usando su ID.
+        
+        Llama al método de la clase Usuario para obtener los detalles de la comanda desde la base de datos.
+        
+        :param id_comanda: El ID de la comanda que se busca
+        :return: Detalles de la comanda si se encuentra, de lo contrario None
+        """
         return self.Usuario.buscarComanda(id_comanda)
 
     def mostrarAyuda(self, event):
+        """
+        Muestra un cuadro de mensaje con los atajos de teclado disponibles para el usuario.
+        
+        :param event: Evento de la acción de mostrar ayuda
+        """
         mensaje_ayuda = ( 
             "Atajos.\n\n"
             "- Presione 'F4' para buscar comanda existente. \n"
@@ -74,9 +116,19 @@ class EnviarComanda():
         messagebox.showinfo("Ayuda - Tomar Comanda", mensaje_ayuda)
 
     def salir(self, event):
+        """
+        Cierra la ventana actual.
+        
+        :param event: Evento de la acción de salir
+        """
         self.ventana.destroy()
 
     def __init__(self, Usuario):
+        """
+        Constructor de la clase. Inicializa la ventana y los componentes de la interfaz.
+        
+        :param Usuario: El usuario actual que está utilizando la ventana para gestionar las comandas.
+        """
         self.ventana = tk.Toplevel()
         self.ventana.title("Enviar Comanda")
         self.ventana.configure(width=320, height=410)

@@ -4,8 +4,16 @@ from tkinter import messagebox
 from Tooltip import Tooltip
 
 class Calculartotal:
+    """
+    Esta clase maneja la interfaz gráfica para calcular el total de una comanda en un restaurante.
+    Incluye funcionalidades para calcular el total de una comanda, limpiar los campos, 
+    salir de la ventana y mostrar ayuda sobre el uso de la aplicación.
+    """
 
     def mostrarAyuda(self, event):
+        """
+        Muestra un mensaje de ayuda con los atajos de teclado disponibles para la ventana.
+        """
         mensaje_Ayuda = (
                "Ayuda", 
                "Atajos.\n\n"
@@ -17,6 +25,14 @@ class Calculartotal:
         messagebox.showinfo("Ayuda", mensaje_Ayuda)
 
     def calcularTotal(self, event):
+        """
+        Calcula el total de la comanda basada en el ID proporcionado.
+        Si el estado de la comanda no es 'Servido', muestra un mensaje de advertencia.
+        Muestra el total calculado y otros detalles de la comanda.
+
+        Args:
+        - event: El evento asociado al botón o atajo de teclado que invoca esta función.
+        """
         if not self.txtId.get():
             messagebox.showerror("Error", "Por favor ingrese el ID de la comanda.")
             return 
@@ -62,6 +78,12 @@ class Calculartotal:
             messagebox.showerror("Error", f"Ocurrió un error al calcular el total de la comanda. Detalles: {e}")
 
     def limpiarCampos(self, event):
+        """
+        Limpia todos los campos de entrada en la ventana para permitir ingresar una nueva comanda.
+
+        Args:
+        - event: El evento asociado al botón o atajo de teclado que invoca esta función.
+        """
         self.txtId.delete(0, tk.END)
         self.txtCedulaCli.config(state="normal")
         self.txtCedulaCli.delete(0, tk.END)
@@ -84,9 +106,21 @@ class Calculartotal:
         self.txtEstado.config(state="disabled")
 
     def salir(self, event):
+        """
+        Cierra la ventana de la aplicación.
+
+        Args:
+        - event: El evento asociado al botón o atajo de teclado que invoca esta función.
+        """
         self.ventana.destroy()
 
     def __init__(self, Usuario):
+        """
+        Cierra la ventana de la aplicación.
+
+        Args:
+        - event: El evento asociado al botón o atajo de teclado que invoca esta función.
+        """
         self.ventana = tk.Toplevel()
         self.ventana.title("Calcular Total")
         self.ventana.configure(width=320, height=410)

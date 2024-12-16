@@ -14,6 +14,7 @@ from View.EliminarPlatoComando import EliminarPlatoComanda
 from View.EnviarComanda import EnviarComanda
 
 class GestionMesero():
+    """Clase para gestionar la interfaz y la lógica del mesero"""
         
     def mostrarAyuda(self, event):
         mensaje_ayuda = ( 
@@ -28,6 +29,7 @@ class GestionMesero():
         messagebox.showinfo("Ayuda", mensaje_ayuda)
 
     def toggleBarra(self, event):
+        """Función para expandir o contraer la barra lateral"""
         if self.barraExpandida:
             self.barra.configure(width=50)
             self.barraExpandida = False
@@ -50,6 +52,7 @@ class GestionMesero():
 
     # Funciones cliente
     def crearMenuCliente(self, event):
+        """Crea el menú para gestionar clientes"""
         if self.barraExpandida:
             self.menuCliente = tk.Menu(self.ventana)
             self.menuCliente.add_command(label="Registrar Cliente", command=self.agregarCliente)
@@ -58,13 +61,16 @@ class GestionMesero():
             self.menuCliente.post(self.barra.winfo_rootx() + 85, self.barra.winfo_rooty() + 40)
 
     def agregarCliente(self):  
+        """Crea una nueva ventana para agregar un cliente"""
         CrearCliente(self.usuario)
 
     def eliminarCliente(self):  
+        """Crea una nueva ventana para eliminar un cliente"""
         EliminarCliente(self.usuario)
 
     # Funciones Mesa
     def crearMenuMesa(self, event):
+        """Crea el menú para gestionar mesas"""
         if self.barraExpandida:
             self.menuMesa = tk.Menu(self.ventana)
             self.menuMesa.add_command(label="Consultar Mesa", command=self.consultarMesa)
@@ -75,16 +81,20 @@ class GestionMesero():
             self.menuMesa.post(self.barra.winfo_rootx() + 85, self.barra.winfo_rooty() + 80)
 
     def consultarMesa(self):  
+        """Consulta el estado de una mesa"""
         ConsultarMesa(self.usuario)
 
-    def ocuparMesa(self):  
+    def ocuparMesa(self):
+        """Ocupar una mesa"""  
         OcuparMesa(self.usuario)
 
     def liberarMesa(self):  
+        """Liberar una mesa"""
         LiberarMesa(self.usuario)
 
      # Funciones comanda
     def crearMenuComanda(self, event):
+        """Crea el menú para gestionar las comandas"""
         if self.barraExpandida:
             self.menuComanda = tk.Menu(self.ventana)
             self.menuComanda.add_command(label="Tomar Comanda", command=self.tomarComanda)
@@ -97,19 +107,24 @@ class GestionMesero():
             self.menuComanda.post(self.barra.winfo_rootx() + 85, self.barra.winfo_rooty() + 110)
 
     def tomarComanda(self):  
+        """Tomar una nueva comanda"""
         TomarComanda(self.usuario)
 
     def agregarComanda(self):  
+        """Agregar un plato a la comanda"""
         AgregarPlatoComanda(self.usuario)
 
     def eliminarPlatoCo(self):
+        """Eliminar un plato de la comanda"""
         EliminarPlatoComanda(self.usuario)
 
     def enviarComanda(self):
+        """Enviar la comanda al sistema"""
         EnviarComanda(self.usuario)
 
     #Salir
     def crearMenuSalir(self, event):
+        """Crea el menú de salida"""
         if self.barraExpandida:
             self.menuSalir = tk.Menu(self.ventana, tearoff=0)
             self.menuSalir.add_command(label="Salir", command=self.salir)
@@ -117,9 +132,11 @@ class GestionMesero():
             self.menuSalir.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 163)
     
     def salir(self, event):
+        """Cerrar la ventana"""
         self.ventana.destroy()
 
     def __init__(self, loggin, usuario):
+        """Inicializa la ventana y componentes de la interfaz"""
         self.ventana = tk.Toplevel(loggin)
         self.ventana.title("Gestion de Mesero")
         self.ventana.configure(width=530, height=350)

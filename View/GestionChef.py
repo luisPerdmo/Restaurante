@@ -8,8 +8,16 @@ from View.EliminarPlato import EliminarPlato
 from View.CambiarEstadoComanda import CambiarEstadoComanda
 
 class GestionChef():
+    """
+    Clase que representa la gestión del chef en el sistema. Esta ventana permite gestionar platos y comandas.
+    Además, ofrece una barra lateral con opciones para gestionar el restaurante.
+    """
 
     def mostrarAyuda(self, event):
+        """
+        Muestra un cuadro de mensaje con los atajos disponibles para el usuario.
+        Los atajos son accesibles mediante teclas específicas.
+        """
         ayudaTexto = (
             "Atajos.\n\n"
             "- Presione 'F4' para crear menu plato. \n"
@@ -21,6 +29,11 @@ class GestionChef():
         messagebox.showinfo("Ayuda", ayudaTexto)
 
     def toggleBarra(self, event):
+        """
+        Función que permite expandir o contraer la barra lateral en la ventana.
+        Si la barra está contraída, se expande, mostrando los botones del menú.
+        Si está expandida, se contrae, ocultando los botones del menú.
+        """
         if self.barraExpandida:
             self.barra.configure(width=50)
             self.barraExpandida = False
@@ -41,6 +54,10 @@ class GestionChef():
 
     #Plato
     def crearMenuPlato(self, event):
+        """
+        Crea y muestra el menú contextual para gestionar los platos.
+        Incluye las opciones para agregar o eliminar platos.
+        """
         if self.barraExpandida:
             self.menuPlato = tk.Menu(self.ventana)
             self.menuPlato.add_command(label="Agregar plato", command=self.agregarPlato)
@@ -49,23 +66,40 @@ class GestionChef():
             self.menuPlato.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 40)
     
     def agregarPlato(self):
+        """
+        Abre la vista para agregar un nuevo plato.
+        """
         AgregarPlato(self.usuario)
 
     def eliminarPlato(self):
+        """
+        Abre la vista para eliminar un plato existente.
+        """
         EliminarPlato(self.usuario)
 
     #Comanda    
     def crearMenuComanda(self, event):
+        """
+        Crea y muestra el menú contextual para gestionar las comandas.
+        Permite cambiar el estado de una comanda.
+        """
         if self.barraExpandida:
             self.menuComanda = tk.Menu(self.ventana)
             self.menuComanda.add_command(label="Cambiar estado comanda", command=self.cambiarEstado)
             self.menuComanda.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 80)
 
     def cambiarEstado(self): 
+        """
+        Abre la vista para cambiar el estado de una comanda.
+        """
         CambiarEstadoComanda(self.usuario)
 
     #SAlir
     def crearMenuSalir(self, event):
+        """
+        Crea y muestra el menú contextual para cerrar la aplicación.
+        Ofrece una opción para salir de la ventana.
+        """
         if self.barraExpandida:
             self.menuSalir = tk.Menu(self.ventana, tearoff=0)
             self.menuSalir.add_command(label="Salir", command=self.salir)
@@ -73,9 +107,18 @@ class GestionChef():
             self.menuSalir.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 133)
 
     def salir(self, event):
+        """
+        Cierra la ventana principal y termina la aplicación.
+        """
         self.ventana.destroy()
 
     def __init__(self, loggin, usuario):
+        """
+        Constructor de la clase, inicializa la ventana y los componentes visuales de la interfaz.
+        
+        :param loggin: La ventana principal donde se inició sesión
+        :param usuario: El usuario actual que está gestionando la ventana
+        """
         self.ventana = tk.Toplevel(loggin)
         self.ventana.title("Gestion Chef")
         self.ventana.configure(width=530, height=350)

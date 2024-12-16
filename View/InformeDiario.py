@@ -6,6 +6,9 @@ from Tooltip import Tooltip
 class InformeDiario():
 
     def mostrarAyuda(self, event):
+        """
+        Muestra un cuadro de diálogo con los atajos de teclado disponibles.
+        """
         mensaje_ayuda = ( 
             "Atajos.\n\n"
             "- Presione 'F3' para generar un informe. \n"
@@ -15,6 +18,10 @@ class InformeDiario():
         messagebox.showinfo("Ayuda", mensaje_ayuda)
 
     def generarInforme(self, event):
+        """
+        Genera el informe diario a través de la función correspondiente de la clase Usuario,
+        y actualiza los valores mostrados en la interfaz con la información obtenida.
+        """
         try:
             informe = self.Usuario.generarInformeDiario()
             fecha_actual = datetime.now().strftime("%Y-%m-%d")
@@ -30,6 +37,9 @@ class InformeDiario():
             messagebox.showerror("Error", str(e))
 
     def limpiarCampos(self, event):
+        """
+        Limpia todos los valores mostrados en los campos del informe.
+        """
         self.lblIdInformeValor.config(text="")
         self.lblFechaInformeValor.config(text="")
         self.lblCantidadComandasValor.config(text="")
@@ -37,9 +47,15 @@ class InformeDiario():
         self.lblPromedioDiaValor.config(text="")
 
     def salir(self, event):
+        """
+        Cierra la ventana de la interfaz de informe diario.
+        """
         self.ventana.destroy()
 
     def actualizarValores(self, id_informe, fecha, cantidad, ganancia, promedio):
+        """
+        Actualiza los campos de la interfaz con los nuevos valores del informe.
+        """
         self.lblIdInformeValor.config(text=id_informe)
         self.lblFechaInformeValor.config(text=fecha)
         self.lblCantidadComandasValor.config(text=cantidad)
@@ -47,9 +63,15 @@ class InformeDiario():
         self.lblPromedioDiaValor.config(text=promedio)
 
     def guardarInforme(self, event):
+        """
+        Muestra un cuadro de confirmación indicando que los valores se han actualizado correctamente.
+        """
         messagebox.showinfo("Confirmación", "Los valores han sido actualizados correctamente.")
 
     def __init__(self, Usuario):
+        """
+        Inicializa la interfaz gráfica, configurando los widgets y los atajos de teclado.
+        """
         self.ventana = tk.Toplevel()
         self.ventana.title("Informe Diario")
         self.ventana.configure(width=400, height=400, bg="lightgray")

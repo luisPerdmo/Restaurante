@@ -12,8 +12,15 @@ from View.InformeDiario import InformeDiario
 from View.Calculartotal import Calculartotal
 
 class GestionRegistrador():
+    """
+    Clase que gestiona la ventana del Registrador en el sistema.
+    Permite la creación y eliminación de chefs, mesas, meseros, y generar informes de comanda.
+    """
 
     def mostrarAyuda(self, event):
+        """
+        Muestra un cuadro de mensaje con los atajos de teclado disponibles.
+        """
         mensaje_ayuda = (
             "Atajos.\n\n"
             "- presione 'F7' para crear el menu Chef.\n"
@@ -27,6 +34,9 @@ class GestionRegistrador():
         messagebox.showinfo("Ayuda", mensaje_ayuda)
 
     def toggleBarra(self, event):
+        """
+        Expande o contrae la barra lateral dependiendo de su estado actual.
+        """
         if self.barraExpandida:
             self.barra.configure(width=50)
             self.barraExpandida = False
@@ -51,6 +61,9 @@ class GestionRegistrador():
     
     # Funciones chef
     def crearMenuChef(self, event):
+        """
+        Crea y muestra el menú para gestionar chefs (registrar o eliminar).
+        """
         if self.barraExpandida:
             self.menuChef = tk.Menu(self.ventana)
             self.menuChef.add_command(label="Registrar Chef", command=self.agregarChef)
@@ -58,14 +71,23 @@ class GestionRegistrador():
             self.menuChef.add_command(label="Eliminar Chef", command=self.eliminarChef)
             self.menuChef.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 40)
 
-    def agregarChef(self):  
+    def agregarChef(self): 
+        """
+        Abre la ventana para registrar un nuevo chef.
+        """ 
         CrearChef(self.usuario)
 
-    def eliminarChef(self):  
+    def eliminarChef(self): 
+        """
+        Abre la ventana para eliminar un chef existente.
+        """ 
         EliminarChef(self.usuario)
 
     # Función para mesas
     def crearMenuMesa(self, event):
+        """
+        Crea y muestra el menú para gestionar mesas (registrar o eliminar).
+        """
         if self.barraExpandida:
             self.menuMesa = tk.Menu(self.ventana)
             self.menuMesa.add_command(label="Registrar Mesa", command=self.agregarMesa)
@@ -74,13 +96,22 @@ class GestionRegistrador():
             self.menuMesa.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 110)
 
     def agregarMesa(self):
+        """
+        Abre la ventana para registrar una nueva mesa.
+        """
         CrearMesa(self.usuario)  
 
     def eliminarMesa(self):
+        """
+        Abre la ventana para eliminar una mesa existente.
+        """
         EliminarMesa(self.usuario)
 
     #Mesero
     def crearMenuMesero(self, event):
+        """
+        Crea y muestra el menú para gestionar meseros (registrar o eliminar).
+        """
         if self.barraExpandida:
             self.menuMesero = tk.Menu(self.ventana)
             self.menuMesero.add_command(label="Registrar Mesero", command=self.agregarMesero)
@@ -89,13 +120,23 @@ class GestionRegistrador():
             self.menuMesero.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 80)
 
     def agregarMesero(self): 
+        """
+        Abre la ventana para registrar un nuevo mesero.
+        """
         CrearMesero(self.usuario)
+        
 
     def eliminarMesero(self): 
+        """
+        Abre la ventana para eliminar un mesero existente.
+        """
         EliminarMesero(self.usuario)
 
     #Comanda
     def crearMenuComada(self, event):
+        """
+        Crea y muestra el menú para gestionar comandas (generar informes y calcular precio total).
+        """
         if self.barraExpandida:
             self.menuComada = tk.Menu(self.ventana, tearoff=0)
             self.menuComada.add_command(label="Crear informe diario", command=self.informeDiario)
@@ -104,13 +145,22 @@ class GestionRegistrador():
             self.menuComada.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 150)
        
     def informeDiario(self):
+        """
+        Abre la ventana para generar el informe diario de las comandas.
+        """
         InformeDiario(self.usuario)
 
     def precioTotal(self):
+        """
+        Abre la ventana para calcular el precio total de las comandas.
+        """
         Calculartotal(self.usuario)
 
     #Salir
     def crearMenuSalir(self, event):
+        """
+        Crea y muestra el menú para salir de la ventana.
+        """
         if self.barraExpandida:
             self.menuSalir = tk.Menu(self.ventana, tearoff=0)
             self.menuSalir.add_command(label="Salir", command=self.salir)
@@ -118,9 +168,15 @@ class GestionRegistrador():
             self.menuSalir.post(self.barra.winfo_rootx() + 80, self.barra.winfo_rooty() + 198)
     
     def salir(self, event):
+        """
+        Cierra la ventana actual.
+        """
         self.ventana.destroy()
 
     def __init__(self, loggin, usuario):
+        """
+        Inicializa la ventana del Registrador y establece la configuración inicial.
+        """
         self.ventana = tk.Toplevel(loggin)
         self.ventana.title("Gestion de Registrador")
         self.ventana.configure(width=530, height=350)

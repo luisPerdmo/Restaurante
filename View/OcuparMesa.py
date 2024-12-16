@@ -4,8 +4,29 @@ from tkinter import messagebox
 from Tooltip import Tooltip
 
 class OcuparMesa():
+    """
+    Clase para gestionar la ocupación de mesas en un restaurante.
+
+    Permite buscar mesas por su ID, cambiar su estado a 'Ocupada',
+    mostrar la cantidad de comensales y limpiar los campos de la interfaz.
+    """
     
     def cambiarEstado(self, event):
+        """
+        Cambia el estado de una mesa al valor seleccionado en el combobox.
+
+        Parámetros:
+        - event: Evento que dispara la acción (como un clic en el botón "Ocupar").
+
+        Validaciones:
+        - Verifica que el ID de la mesa no esté vacío.
+        - Asegura que el ID de la mesa sea numérico.
+        - Valida que se haya seleccionado un nuevo estado para la mesa.
+
+        Acciones:
+        - Llama a la función `cambiarestadocomanda` para realizar el cambio.
+        - Muestra mensajes informativos o de error según corresponda.
+        """
         if not self.txtIdMesa.get():
             messagebox.showerror("Error", "Por favor ingrese el ID de la mesa.")
             return
@@ -25,6 +46,22 @@ class OcuparMesa():
         messagebox.showinfo("Información", f"Se cambió el estado de la mesa a {nuevo_estado}")
 
     def buscarMesa(self, event):
+        """
+        Busca una mesa por su ID y muestra sus datos en los campos correspondientes.
+
+        Parámetros:
+        - event: Evento que dispara la acción (como un clic en el botón "Buscar").
+
+        Validaciones:
+        - Verifica que el ID de la mesa no esté vacío.
+        - Asegura que el ID de la mesa sea numérico.
+
+        Acciones:
+        - Llama a la función `obtenerMesa` para buscar los datos de la mesa.
+        - Muestra la cantidad de comensales y el estado de la mesa.
+        - Habilita el botón para cambiar el estado si la mesa se encuentra.
+        - Muestra mensajes informativos o de error según corresponda.
+        """
         if not self.txtIdMesa.get():
             messagebox.showerror("Error", "Por favor ingrese el ID de la mesa.")
             return 
@@ -55,12 +92,38 @@ class OcuparMesa():
             messagebox.showerror("Error", f"Ocurrió un error al buscar la mesa. Detalles: {e}")
 
     def obtenerMesa(self, id_mesa):
+        """
+        Busca los datos de una mesa en el sistema.
+
+        Parámetros:
+        - id_mesa: ID de la mesa que se desea buscar.
+
+        Retorna:
+        - Una tupla con los datos de la mesa (si existe) o None si no se encuentra.
+        """
         return self.Usuario.buscarMesa(id_mesa)
     
     def cambiarestadocomanda(self, id_mesa, nuevo_estado):
+        """
+        Cambia el estado de una mesa en el sistema.
+
+        Parámetros:
+        - id_mesa: ID de la mesa cuyo estado será cambiado.
+        - nuevo_estado: Nuevo estado que se asignará a la mesa.
+
+        Retorna:
+        - Resultado de la operación realizada en el sistema.
+        """
         return self.Usuario.cambiarMesaEstado(id_mesa, nuevo_estado)
 
     def limpiarCampos(self, event):
+        """
+        Limpia todos los campos de la interfaz gráfica.
+
+        Acciones:
+        - Reinicia los valores de los campos de texto y combobox.
+        - Cambia el estado de los campos a deshabilitado.
+        """
         self.cmbEstado.config(state="normal")
         self.txtCantidadComensales.config(state="normal")
         self.txtIdMesa.delete(0, tk.END)
@@ -72,6 +135,12 @@ class OcuparMesa():
         self.txtCantidadComensales.config(state="disabled")
 
     def mostrarAyuda(self, event):
+        """
+        Muestra un mensaje con información sobre los atajos y cómo usar la ventana.
+
+        Parámetros:
+        - event: Evento que dispara la acción (como presionar "F1").
+        """
         mensaje_ayuda = (
             "Atajos.\n\n"
             "- Presione 'F5' para buscar la mesa con el ID. \n"
@@ -83,15 +152,33 @@ class OcuparMesa():
         messagebox.showinfo("Ayuda", mensaje_ayuda)
 
     def salir(self, event):
+        """
+        Cierra la ventana de la aplicación.
+
+        Parámetros:
+        - event: Evento que dispara la acción (como presionar "F2").
+        """
         self.ventana.destroy()
 
     def soloNumeros(self, event):
+        """
+        Cierra la ventana de la aplicación.
+
+        Parámetros:
+        - event: Evento que dispara la acción (como presionar "F2").
+        """
         numeros = event.keysym
         if numeros.isalpha():
             event.widget.config(bg="#F8D7DA", fg="#000000")
         else:
             event.widget.config(bg="#ffffff", fg="#000000")
     def __init__(self, Usuario):
+        """
+        Constructor de la clase. Configura la ventana y sus componentes gráficos.
+
+        Parámetros:
+        - Usuario: Objeto que contiene la lógica de negocio para gestionar mesas.
+        """
         self.ventana = tk.Toplevel()
         self.ventana.title("Ocupar Mesa")
         self.ventana.configure(width=320, height=350)

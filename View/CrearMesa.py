@@ -4,8 +4,17 @@ from tkinter import messagebox
 from Tooltip import Tooltip
 
 class CrearMesa():
+    """
+    Clase para la creación de mesas en el sistema. 
+    Permite registrar una nueva mesa, limpiar los campos del formulario,
+    mostrar información de ayuda, y salir de la ventana.
+    """
 
     def mostrarAyuda(self, event):
+        """
+        Muestra una ventana de ayuda con los atajos de teclado disponibles.
+        Se activa al presionar F1 o hacer clic en el botón de ayuda.
+        """
         mensaje_Ayuda = (
                "Atajos.\n\n"
                "- Presione 'F4' para registrar un nuevo usuario. \n"
@@ -16,12 +25,22 @@ class CrearMesa():
         messagebox.showinfo("Ayuda", mensaje_Ayuda)
 
     def limpiarCampos(self, event):
+        """
+        Limpia los campos del formulario de mesa (ID de mesa y cantidad de comensales).
+        Resetea el color de fondo de los campos a blanco.
+        """
         self.txtIdMesa.delete(0, tk.END)
         self.txtCantidadComensales.delete(0, tk.END)
         self.txtIdMesa.config(bg="#ffffff")
         self.txtCantidadComensales.config(bg="#ffffff")
 
     def guardarMesa(self, event):
+        """
+        Guarda los datos de la nueva mesa si todos los campos son válidos.
+        Realiza validaciones como verificar que los campos no estén vacíos
+        y que contengan solo números. Si los datos son correctos, guarda la mesa
+        y muestra un mensaje de confirmación.
+        """
         if not self.txtIdMesa.get() or not self.txtCantidadComensales.get():
             messagebox.showerror("Error", "Por favor ingrese todos los valores en los campos obligatorios.")
             return
@@ -42,9 +61,16 @@ class CrearMesa():
             messagebox.showerror("Error", f"No se pudo registrar la mesa. Detalles: {e}")
 
     def salir(self, event):
+        """
+        Cierra la ventana de creación de mesas cuando el usuario presiona el botón 'Salir' o F2.
+        """
         self.ventana.destroy()
 
     def soloNumeros(self, event):
+        """
+        Restringe los campos 'ID de Mesa' y 'Cantidad de Comensales' a solo aceptar números.
+        Cambia el color de fondo a rojo si el valor ingresado es incorrecto.
+        """
         numeros = event.keysym
         if numeros.isalpha():
             event.widget.config(bg="#F8D7DA", fg="#000000")
@@ -52,6 +78,10 @@ class CrearMesa():
             event.widget.config(bg="#ffffff", fg="#000000")
 
     def __init__(self, usuario):
+        """
+        Inicializa la ventana de creación de mesas, configurando todos los componentes visuales
+        y asignando las acciones correspondientes a los botones y atajos de teclado.
+        """
         self.ventana = tk.Toplevel()
         self.ventana.title("Crear Mesa")
         self.ventana.configure(width=320, height=270)

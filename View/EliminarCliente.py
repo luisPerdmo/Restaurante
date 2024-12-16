@@ -6,6 +6,7 @@ from Tooltip import Tooltip
 class EliminarCliente():
 
     def mostrarAyuda(self, event):
+        """Muestra un mensaje con los atajos de teclado para el formulario."""
         mensaje_Ayuda = (
             "Atajos.\n\n"
             "- Presione 'F4' para buscar el cliente para eliminar. \n"
@@ -16,6 +17,7 @@ class EliminarCliente():
         messagebox.showinfo("Ayuda", mensaje_Ayuda)
 
     def limpiarCampos(self, event):
+        """Limpia todos los campos de entrada en el formulario."""
         self.txtCedula.delete(0, tk.END)
         self.txtNombre.delete(0, tk.END)
         self.txtApellido.delete(0, tk.END)
@@ -28,6 +30,7 @@ class EliminarCliente():
         self.txtEmail.config(bg="#ffffff")
 
     def buscarCliente(self, event):
+        """Busca un cliente por su cédula y completa los campos con su información."""
         if not self.txtCedula.get():
             messagebox.showerror("Error", "Por favor ingrese la cédula.")
             return
@@ -63,9 +66,11 @@ class EliminarCliente():
             messagebox.showerror("Error", f"Ocurrió un error al buscar el cliente. Detalles: {e}")
 
     def obtenerCliente(self, cedula):
+        """Obtiene la información de un cliente usando su cédula."""
         return self.Usuario.buscarCliente(cedula)
 
     def eliminarCliente(self, event):
+        """Elimina al cliente seleccionado por su cédula."""
         if not self.txtCedula.get():
             messagebox.showerror("Error", "Por favor ingrese la cédula.")
             return
@@ -85,9 +90,11 @@ class EliminarCliente():
             messagebox.showerror("Error", f"No se pudo eliminar el cliente. Detalles: {e}")
 
     def salir(self, event):
+        """Cierra la ventana de gestión de clientes."""
         self.ventana.destroy()
 
     def soloNumeros(self, event):
+        """Valida que solo se ingresen números en el campo de cédula."""
         numeros = event.keysym
         if numeros.isalpha(): 
             if event.widget == self.txtCedula:
@@ -97,6 +104,7 @@ class EliminarCliente():
                 self.txtCedula.config(bg="#ffffff", fg="#000000")
 
     def __init__(self, Usuario):
+        """Inicializa la ventana y todos los elementos de la interfaz."""
         self.ventana = tk.Toplevel()
         self.ventana.title("Gestión de Cliente")
         self.ventana.configure(width=320, height=390)

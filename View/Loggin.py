@@ -6,8 +6,15 @@ from View.CrearRegistrador import CrearRegistrador
 from tkinter import messagebox
 
 class Loggin():
+    """
+    Clase para gestionar la interfaz gráfica de inicio de sesión de un usuario.
+    Proporciona opciones para ingresar, crear un registrador, ver contraseñas y obtener ayuda.
+    """
 
     def mostrarAyuda(self, event):
+        """
+        Muestra un cuadro de mensaje con los atajos disponibles de teclado.
+        """
         mensaje_Ayuda = (
             "Atajos.\n\n"
             "- Presione 'F4' para ingresar. \n"
@@ -18,14 +25,24 @@ class Loggin():
         messagebox.showinfo("Ayuda", mensaje_Ayuda)
 
     def crearRegistrador(self, event):
+        """
+        Abre una nueva ventana para crear un registrador de usuario.
+        """
         CrearRegistrador(Usuario())
 
     def ingresar(self, event):
+        """
+        Verifica las credenciales ingresadas y permite el acceso si son correctas.
+        """
         miRegistrador = Usuario()
         miRegistrador.iniciarSesion(self.txtUsuario.get(), self.txtPassword.get(), self.ventana)
 
 
     def validarUsuario(self, event):
+        """
+        Valida que el nombre de usuario solo contenga caracteres alfabéticos y el punto.
+        Si es inválido, cambia el color de fondo a rojo.
+        """
         caracter = event.keysym
         if(caracter.isalpha() or caracter == '.' or caracter == "BackSpace"):
             self.txtUsuario.config(bg="#ffffff", fg="#000000")
@@ -33,6 +50,9 @@ class Loggin():
             self.txtUsuario.config(bg="#FF5252", fg="#000000")
 
     def verCaracteres(self, event):
+        """
+        Muestra u oculta los caracteres de la contraseña dependiendo del estado de la bandera.
+        """
         if(self.bandera == True):
             self.txtPassword.config(show='*')
             self.btnVer.config(image=self.iconoVer)
@@ -43,9 +63,16 @@ class Loggin():
             self.bandera = True
 
     def salir(self, event):
+        """
+        Cierra la ventana de inicio de sesión.
+        """
         self.ventana.destroy()
 
     def __init__(self):
+        """
+        Inicializa la interfaz gráfica de inicio de sesión, configurando los elementos visuales
+        y asignando funciones a los botones y atajos de teclado.
+        """
         self.ventana = tk.Tk()
         self.ventana.title("Inicio de Sesion")
         self.ventana.configure(width=320, height=300)

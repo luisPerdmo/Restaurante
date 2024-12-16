@@ -5,6 +5,9 @@ from Tooltip import Tooltip
 class EliminarMesa:
 
     def mostrarAyuda(self, event):
+        """
+        Muestra un mensaje de ayuda con los atajos disponibles.
+        """
         mensaje_Ayuda = (
             "Atajos.\n\n"
             "- Presione 'F5' para buscar la mesa por el ID . \n"
@@ -16,6 +19,9 @@ class EliminarMesa:
         messagebox.showinfo("Ayuda", mensaje_Ayuda)
 
     def limpiarCampos(self, event):
+        """
+        Limpia los campos del formulario, incluyendo el estado y la cantidad de comensales.
+        """
         self.txtEstado.config(state="normal")
         self.txtCantidadComensales.config(state="normal")
         self.txtIdMesa.delete(0, tk.END)
@@ -27,6 +33,9 @@ class EliminarMesa:
         self.txtCantidadComensales.config(state="disabled")
 
     def buscarMesa(self, event):
+        """
+        Busca una mesa por su ID. Si la encuentra, muestra los detalles de la mesa (cantidad de comensales y estado).
+        """
         if not self.txtIdMesa.get():
             messagebox.showerror("Error", "Por favor ingrese el ID de la mesa.")
             return
@@ -58,9 +67,15 @@ class EliminarMesa:
             self.btnEliminar.config(state="disabled")
 
     def obtenerMesa(self, id_mesa):
+        """
+        Obtiene los detalles de la mesa a través de la clase `usuario`.
+        """
         return self.usuario.buscarMesa(id_mesa)
 
     def eliminarMesa(self, event):
+        """
+        Elimina una mesa si está disponible. Si la mesa está ocupada, no puede ser eliminada.
+        """
         if not self.txtIdMesa.get():
             messagebox.showerror("Error", "Por favor ingrese el ID de la mesa.")
             return
@@ -83,9 +98,15 @@ class EliminarMesa:
             messagebox.showerror("Error", f"No se pudo eliminar la mesa. Detalles: {e}")
 
     def salir(self, event):
+        """
+        Cierra la ventana de eliminación de mesa.
+        """
         self.ventana.destroy()
 
     def soloNumeros(self, event):
+        """
+        Permite solo la entrada de números en los campos de ID de mesa.
+        """
         numeros = event.keysym
         if numeros.isalpha():
             event.widget.config(bg="#F8D7DA", fg="#000000")
@@ -93,6 +114,9 @@ class EliminarMesa:
             event.widget.config(bg="#ffffff", fg="#000000")
 
     def __init__(self, usuario):
+        """
+        Inicializa la ventana de la clase `EliminarMesa`, configura los widgets y acciones.
+        """
         self.ventana = tk.Toplevel()
         self.ventana.title("Eliminar Mesa")
         self.ventana.configure(width=320, height=350)

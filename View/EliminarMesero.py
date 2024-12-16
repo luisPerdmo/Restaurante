@@ -4,8 +4,16 @@ from tkinter import messagebox
 from Tooltip import Tooltip
 
 class EliminarMesero:
+    """
+    Esta clase permite la gestión de eliminación de meseros en un restaurante.
+    Permite buscar, eliminar, y limpiar campos de un mesero utilizando su cédula.
+    Además, cuenta con atajos de teclado para facilitar la interacción del usuario.
+    """
 
     def mostrarAyuda(self, event):
+        """
+        Muestra una ventana con información de ayuda sobre los atajos de teclado disponibles.
+        """
         mensaje_Ayuda = (
             "Atajos.\n\n"
             "- Presione 'F4' para buscar el mesero para eliminarlo. \n"
@@ -16,6 +24,9 @@ class EliminarMesero:
         messagebox.showinfo("Ayuda", mensaje_Ayuda)
 
     def limpiarCampos(self, event):
+        """
+        Limpia los campos de texto en la ventana.
+        """
         self.txtCedula.delete(0, tk.END)
         self.txtNombre.delete(0, tk.END)
         self.txtApellido.delete(0, tk.END)
@@ -28,6 +39,10 @@ class EliminarMesero:
         self.txtEmail.config(bg="#ffffff")
 
     def buscarMesero(self, event):
+        """
+        Busca un mesero por cédula. Si lo encuentra, llena los campos con los datos del mesero.
+        Si no lo encuentra, muestra un mensaje de error.
+        """
         if not self.txtCedula.get():
             messagebox.showerror("Error", "Por favor ingrese la cédula.")
             return
@@ -66,9 +81,16 @@ class EliminarMesero:
             messagebox.showerror("Error", f"Ocurrió un error al buscar el mesero. Detalles: {e}")
 
     def obtenerMesero(self, cedula):
+        """
+        Obtiene los datos del mesero de la base de datos o sistema de gestión.
+        """
         return self.Usuario.buscarMesero(cedula)
 
     def eliminarMesero(self, event):
+        """
+        Elimina un mesero de acuerdo a la cédula ingresada.
+        Si no se encuentra el mesero, muestra un mensaje de error.
+        """
         if not self.txtCedula.get():
             messagebox.showerror("Error", "Por favor ingrese la cédula.")
             return
@@ -88,9 +110,17 @@ class EliminarMesero:
             messagebox.showerror("Error", f"No se pudo eliminar el mesero. Detalles: {e}")
 
     def salir(self, event):
+        """
+        Cierra la ventana de gestión de meseros.
+        """
         self.ventana.destroy()
 
     def soloNumeros(self, event):
+        """
+        Permite solo la entrada de números en el campo de cédula.
+        Si se introduce una letra, el campo de cédula se resalta en rojo.
+        """
+
         numeros = event.keysym
         if numeros.isalpha(): 
             if event.widget == self.txtCedula:
@@ -100,6 +130,9 @@ class EliminarMesero:
                 self.txtCedula.config(bg="#ffffff", fg="#000000")
 
     def __init__(self, Usuario):
+        """
+        Inicializa la ventana y los elementos de la interfaz para gestionar los meseros.
+        """
         self.ventana = tk.Toplevel()
         self.ventana.title("Gestión de Meseros")
         self.ventana.configure(width=320, height=390)

@@ -4,8 +4,17 @@ from tkinter import messagebox
 from Tooltip import Tooltip
 
 class CrearMesero():
+    """
+    Clase que maneja la creación del formulario de registro de un mesero (waiter).
+    Proporciona funciones para agregar meseros, limpiar campos, mostrar ayuda,
+    y salir de la ventana.
+    """
 
     def mostrarAyuda(self, event):
+        """
+        Muestra una ventana de ayuda con los atajos de teclado disponibles.
+        Se activa al presionar F1 o hacer clic en el botón de ayuda.
+        """
         mensaje_Ayuda = ( 
                "Atajos.\n\n"
                "- Presione 'F4' para registrar un nuevo usuario. \n"
@@ -16,6 +25,10 @@ class CrearMesero():
         messagebox.showinfo("Ayuda", mensaje_Ayuda)
 
     def limpiarCampos(self, event):
+        """
+        Limpia todos los campos del formulario (Cédula, Nombre, Apellido, Teléfono, Email).
+        Resetea el color de fondo de los campos a blanco.
+        """
         self.txtCedula.delete(0, tk.END)
         self.txtNombre.delete(0, tk.END)
         self.txtApellido.delete(0, tk.END)
@@ -28,9 +41,19 @@ class CrearMesero():
         self.txtEmail.config(bg="#ffffff")
 
     def salir(self, event):
+        """
+        Cierra la ventana de registro de mesero cuando el usuario presiona el botón 'Salir' o F2.
+        """
         self.ventana.destroy()
 
     def guardarMesero(self, event):
+        """
+        Guarda los datos del mesero si todos los campos son válidos.
+        Realiza validaciones como verificar que los campos de texto no estén vacíos,
+        y que los campos de Cédula y Teléfono contengan solo números.
+        Si hay errores, muestra un mensaje de error.
+        Si los datos son correctos, guarda el mesero y muestra una confirmación.
+        """
         if not self.txtCedula.get() or not self.txtNombre.get() or not self.txtApellido.get() or not self.txtTelefono.get() or not self.txtEmail.get():
             messagebox.showerror("Error", "Por favor ingrese todos los valores en los campos obligatorios.")
             return 
@@ -52,6 +75,11 @@ class CrearMesero():
         messagebox.showinfo("Confirmación", "Nuevo Mesero registrado con éxito.")
     
     def soloNumeros(self, event):
+        """
+        Restringe los campos 'Cédula' y 'Teléfono' a solo aceptar números.
+        Cambia el color de fondo a rojo si el valor ingresado es incorrecto.
+        """
+
         numeros = event.keysym
         if numeros.isalpha(): 
             if event.widget == self.txtCedula:
@@ -65,6 +93,10 @@ class CrearMesero():
                 self.txtTelefono.config(bg="#ffffff", fg="#000000")
         
     def soloLetras(self, event):
+        """
+        Restringe los campos 'Nombre' y 'Apellido' a solo aceptar letras.
+        Cambia el color de fondo a rojo si el valor ingresado es incorrecto.
+        """
         letras = event.keysym
         if event.widget == self.txtNombre:
             if letras.isdigit() or letras == "BackSpace":
@@ -78,6 +110,10 @@ class CrearMesero():
                 self.txtApellido.config(bg="#ffffff", fg="#000000")
 
     def __init__(self, Usuario):
+        """
+        Inicializa la ventana de registro de mesero, configurando todos los componentes visuales,
+        y asignando las acciones correspondientes a los botones y atajos de teclado.
+        """
         self.ventana = tk.Toplevel()
         self.ventana.title("Gestion de Registador")
         self.ventana.configure(width=320, height=390)

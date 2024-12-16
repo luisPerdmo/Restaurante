@@ -4,8 +4,19 @@ from tkinter import messagebox
 from Tooltip import Tooltip
 
 class EliminarPlato():
+    """
+    Clase que permite gestionar la eliminación de un plato en el sistema.
+    La clase incluye la búsqueda y eliminación de un plato, así como funcionalidades para limpiar campos, 
+    mostrar ayuda y manejar la interfaz gráfica.
+    """
 
     def mostrarAyuda(self, event):
+        """
+        Muestra una ventana emergente con los atajos de teclado disponibles.
+
+        Parameters:
+        event (tkinter.Event): El evento que dispara el método.
+        """
         mensaje_Ayuda = (
             "Atajos.\n\n"
             "- Presione 'F4' para guardar los datos. \n"
@@ -16,6 +27,14 @@ class EliminarPlato():
         messagebox.showinfo("Ayuda", mensaje_Ayuda)
 
     def limpiarCampos(self, event):
+        """
+        Limpia todos los campos del formulario de entrada de datos.
+
+        Los campos de texto se vacían y se reinicia el estado de los widgets.
+
+        Parameters:
+        event (tkinter.Event): El evento que dispara el método.
+        """
         self.txtNombre.config(state="normal")
         self.txtPrecio.config(state="normal")
         self.txtCantidad.config(state="normal")
@@ -36,6 +55,14 @@ class EliminarPlato():
         self.txtDescripcion.config(state="disabled")
 
     def buscarPlato(self, event):
+        """
+        Busca un plato en el sistema utilizando el ID ingresado en el formulario.
+
+        Si el plato existe, llena los campos del formulario con la información del plato.
+
+        Parameters:
+        event (tkinter.Event): El evento que dispara el método.
+        """
         if not self.txtId.get():
             messagebox.showerror("Error", "Por favor ingrese el id del palto.")
             return
@@ -71,9 +98,24 @@ class EliminarPlato():
             messagebox.showerror("Error", f"Ocurrió un error al buscar el plato. Detalles: {e}")
 
     def obtenerPlato(self, plato):
+        """
+        Obtiene un plato desde la base de datos o sistema utilizando su ID.
+
+        Parameters:
+        plato (int): El ID del plato a obtener.
+
+        Returns:
+        tuple: Una tupla con la información del plato, o None si no se encuentra.
+        """
         return self.usuario.buscarPlato(plato)
     
     def eliminarPlato(self, event):
+        """
+        Elimina un plato del sistema utilizando el ID ingresado en el formulario.
+
+        Parameters:
+        event (tkinter.Event): El evento que dispara el método.
+        """
         if not self.txtId.get():
             messagebox.showerror("Error", "Por favor ingrese el plato.")
             return
@@ -93,6 +135,12 @@ class EliminarPlato():
             messagebox.showerror("Error", f"No se pudo eliminar el Plato. Detalles: {e}")
 
     def soloNumeros(self, event):
+        """
+        Verifica si la tecla presionada es un número, y cambia el color de fondo del campo de texto.
+
+        Parameters:
+        event (tkinter.Event): El evento de la tecla presionada.
+        """
         numeros = event.keysym
         if numeros.isalpha(): 
             if event.widget == self.txtId:
@@ -102,9 +150,23 @@ class EliminarPlato():
                 self.txtId.config(bg="#ffffff", fg="#000000")
 
     def salir(self, event):
+        """
+        Cierra la ventana actual.
+
+        Parameters:
+        event (tkinter.Event): El evento que dispara el método.
+        """
         self.ventana.destroy()
 
     def __init__(self, usuario):
+        """
+        Constructor de la clase EliminarPlato.
+
+        Inicializa la ventana, los elementos de la interfaz, y las funcionalidades.
+
+        Parameters:
+        usuario (object): Un objeto que contiene los métodos necesarios para interactuar con la base de datos.
+        """
         self.ventana = tk.Toplevel()
         self.ventana.title("Registro Platos")
         self.ventana.configure(width=320, height=480)

@@ -4,8 +4,17 @@ from tkinter import messagebox
 from Tooltip import Tooltip
 
 class AgregarPlatoComanda():
+    """
+    Esta clase se encarga de la interfaz gráfica y la lógica para agregar platos a una comanda existente.
+    """
 
     def agregarPlato(self, event):
+        """
+        Agrega un plato a la comanda en base al ID proporcionado.
+
+        Esta función valida que el ID del plato sea numérico y que el plato exista en el sistema. 
+        Si las validaciones son correctas, agrega el plato a la comanda y actualiza la interfaz.
+        """
         platos_str = self.txtPlatos.get().strip()
         if not platos_str:
             messagebox.showwarning("Advertencia", "No hay platos para agregar.")
@@ -37,6 +46,11 @@ class AgregarPlatoComanda():
 
 
     def buscarComanda(self, event):
+        """
+        Busca una comanda en el sistema por su ID y actualiza la interfaz con la información de la comanda.
+
+        Valida que el ID de la comanda sea numérico y si la comanda es encontrada, muestra los datos de la misma.
+        """
         if not self.txtId.get():
             messagebox.showerror("Error", "Por favor ingrese el ID de la comanda.")
             return
@@ -75,9 +89,18 @@ class AgregarPlatoComanda():
             messagebox.showerror("Error", f"Ocurrió un error al buscar la comanda. Detalles: {e}")
 
     def obtenerComanda(self, id_comanda):
+        """
+        Obtiene la comanda desde el sistema dado un ID.
+
+        :param id_comanda: ID de la comanda a buscar
+        :return: La comanda correspondiente
+        """
         return self.Usuario.buscarComanda(id_comanda)
 
     def mostrarAyuda(self, event):
+        """
+        Muestra una ventana emergente con los atajos disponibles y su descripción.
+        """
         mensaje_ayuda = (
                "Ayuda", 
                "Atajos.\n\n"
@@ -89,9 +112,17 @@ class AgregarPlatoComanda():
         messagebox.showinfo("Ayuda", mensaje_ayuda)
 
     def salir(self, event):
+        """
+        Cierra la ventana actual.
+        """
         self.ventana.destroy()
 
     def __init__(self, Usuario):
+        """
+        Inicializa la ventana gráfica y los elementos necesarios para agregar platos a una comanda.
+
+        :param Usuario: El objeto Usuario que contiene la lógica para manejar las comandas y platos
+        """
         self.ventana = tk.Toplevel()
         self.ventana.title("Agregar Plato Comanda")
         self.ventana.configure(width=320, height=410)
