@@ -1,3 +1,12 @@
+_author_ = "Luis Perdomo"
+_copyright_ = "Copyright 2022, CAPS"
+_credits_ = ["LDM", "Luis Perdomo", "Otros"]
+_license_ = "GPL"
+_version_ = "0.70.10000"
+_maintainer_ = "Equipo LDM"
+_email_ = "luis.perdomo@correounivalle.edu.co"
+_status_ = "Pruebas"
+
 import tkinter as tk
 from tkinter import messagebox
 from datetime import datetime
